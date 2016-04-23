@@ -14,6 +14,7 @@ import java.util.concurrent.Executor;
 
 public class ConnectionPool {
     private final Logger LOGGER = LogManager.getRootLogger();
+    private static ConnectionPool instance = new ConnectionPool();
     private BlockingQueue<Connection> connectionQueue;
     private BlockingQueue<Connection> givenAwayConnections;
 
@@ -23,7 +24,8 @@ public class ConnectionPool {
     private String password;
     private int poolSize;
 
-    public ConnectionPool(){
+    private ConnectionPool(){
+
         DBResourceManager resourceManager = DBResourceManager.getInstance();
         this.driverName = resourceManager.getValue(DBParameter.DB_DRIVER);
         this.url = resourceManager.getValue(DBParameter.DB_URL);
@@ -34,6 +36,10 @@ public class ConnectionPool {
         } catch (NumberFormatException e){
             this.poolSize = 5;
         }
+    }
+
+    public static ConnectionPool getInstance(){
+        return instance;
     }
 
     public void initPoolDate() throws ConnectionPoolException {

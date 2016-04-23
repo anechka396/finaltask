@@ -4,10 +4,17 @@
 <html>
   <head>
     <title>Main Page</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <style>
       body {
         padding-top: 20px;
+        background: lightgray;
+      }
+
+      .navbar {
+        margin-bottom: 0;
+        background-color: lightblue;
+        border: none;
       }
 
       .btn-link{
@@ -19,7 +26,20 @@
         text-decoration: none;
       }
 
+      .bgvideo{
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -100;
+      }
+
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <fmt:setLocale value="${sessionScope.local}"/>
     <fmt:setBundle basename="prop" var="lang"/>
     <fmt:message bundle="${lang}" key="prop.login" var="login"/>
@@ -28,14 +48,18 @@
   </head>
   <body>
 
-  <div class="container">
+  <video autoplay loop muted class="bgvideo" id="bgvideo">
+    <source src="bg-max.mp4" type="video/mp4">
+  </video>
+
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-md-12">
-        <nav class="navbar navbar-default" style="background-color: lightblue">
+      <div class="col-xs-12">
+        <nav class="navbar navbar-default">
           <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-              <a class="navbar-brand" href="#">LikeIt</a>
+              <a class="navbar-brand" href="#">Like It</a>
             </div>
 
             <div class="collapse navbar-collapse">
@@ -49,8 +73,18 @@
                 <c:choose>
                   <c:when test="${sessionScope.login == null}">
                     <ul class="nav navbar-nav navbar-right">
-                      <li><a href="registration.jsp">${reg}</a></li>
-                      <li><a href="login.jsp">${login}</a</li>
+                      <li>
+                        <a href="registration.jsp">
+                          <span class="glyphicon glyphicon-user"></span>
+                          ${reg}
+                        </a>
+                      </li>
+                      <li>
+                        <a href="login.jsp">
+                          <span class="glyphicon glyphicon-log-in"></span>
+                          ${login}
+                        </a>
+                      </li>
                     </ul>
                   </c:when>
                   <c:otherwise>
@@ -67,7 +101,23 @@
           </div><!-- /.container-fluid -->
         </nav>
         </div>
-      <div class="col-md-12">
+      </div>
+
+
+    <div class="row">
+      <div class="col-xs-12">
+      <div class="col-xs-2 col-sm-4" style="min-height: 100%; background: rgba(255,255,255, 0.5)">
+      </div>
+      <div class="col-xs-10 col-sm-8" style="background: rgba(255,255,255, 0.5); padding: 10px; min-height: 100%">
+
+        <form action="Controller" method="post" class="form">
+          <input type="hidden" name="command" value="add-question">
+          <div class="form-group">
+            <textarea rows="5" class="form-control" placeholder="Type your question"></textarea>
+          </div>
+          <input type="submit" value="Add Question" class="btn btn-primary">
+        </form>
+
         <form action="Controller" method="post" class="lang_button">
           <input type="hidden" name="command" value="locale">
           <input type="hidden" name="locale" value="en">
@@ -79,6 +129,7 @@
           <input type="hidden" name="locale" value="ru">
           <input type="submit" class="text-button"  value="RU">
         </form>
+      </div>
       </div>
       </div>
     </div>

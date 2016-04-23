@@ -12,28 +12,16 @@ import org.apache.logging.log4j.Logger;
 import java.sql.*;
 import java.util.List;
 
-/**
- * Created by Пользователь on 17.04.2016.
- */
 public class UserDAOImpl implements UserDAO {
 
     private static final Logger LOGGER = LogManager.getRootLogger();
     private static final String SQL_SELECT_ALL_USERS = "SELECT * FROM users";
     private static final String SQL_SELECT_USER_BY_LOGIN = "SELECT * FROM users WHERE login=?";
-    private static final ConnectionPool pool = new ConnectionPool();
-
-    static {
-        try {
-            pool.initPoolDate();
-        } catch (ConnectionPoolException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void create(User user) {
         try {
-            Connection connection = pool.takeConnection();
+            Connection connection = ConnectionPool.getInstance().takeConnection();
             Statement statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO users (login, password, username, email, role) VALUES ('"+user.getLogin()+"', '" +
             user.getPassword() +"', '"+ user.getName()+"', '" + user.getEmail() +"', 'user')");
@@ -49,7 +37,7 @@ public class UserDAOImpl implements UserDAO {
         User user = null;
 
         try {
-            Connection connection = pool.takeConnection();
+            Connection connection = ConnectionPool.getInstance().takeConnection();
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM users WHERE login='" + login +
                     "'");

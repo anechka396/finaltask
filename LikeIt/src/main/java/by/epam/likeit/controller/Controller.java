@@ -35,7 +35,6 @@ public class Controller extends HttpServlet {
 
         try {
             commandName = req.getParameter(COMMAND_NAME);
-       //     LOGGER.trace(commandName);
             CommandHelper helper = new CommandHelper();
             command = helper.getCommand(commandName);
             page = command.execute(req);
@@ -43,11 +42,9 @@ public class Controller extends HttpServlet {
             e.printStackTrace();
         }
 
-     //   LOGGER.trace(page);
-
         RequestDispatcher dispatcher = req.getRequestDispatcher(page);
         if (dispatcher != null){
-            dispatcher.forward(req, resp);//obj.meth()
+            dispatcher.forward(req, resp);
         }else{
             // to do
         }

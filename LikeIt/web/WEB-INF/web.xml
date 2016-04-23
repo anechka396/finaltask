@@ -11,4 +11,7 @@
         <servlet-name>Controller</servlet-name>
         <url-pattern>/Controller</url-pattern>
     </servlet-mapping>
+    <listener>
+        <listener-class>by.epam.likeit.listener.InitializeListener</listener-class>
+    </listener>
 </web-app>
