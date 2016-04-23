@@ -5,39 +5,7 @@
   <head>
     <title>Main Page</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <style>
-      body {
-        padding-top: 20px;
-        background: lightgray;
-      }
-
-      .navbar {
-        margin-bottom: 0;
-        background-color: lightblue;
-        border: none;
-      }
-
-      .btn-link{
-        background: transparent;
-        border: none;
-      }
-
-      .btn-link:hover{
-        text-decoration: none;
-      }
-
-      .bgvideo{
-        position: fixed;
-        right: 0;
-        bottom: 0;
-        min-width: 100%;
-        min-height: 100%;
-        width: auto;
-        height: auto;
-        z-index: -100;
-      }
-
-    </style>
+    <link rel="stylesheet" href="styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <fmt:setLocale value="${sessionScope.local}"/>
