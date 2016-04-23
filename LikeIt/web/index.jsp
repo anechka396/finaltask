@@ -1,6 +1,7 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" errorPage="error.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <html>
   <head>
     <title>Main Page</title>
@@ -13,6 +14,12 @@
     <fmt:message bundle="${lang}" key="prop.login" var="login"/>
     <fmt:message bundle="${lang}" key="prop.logout" var="logout"/>
     <fmt:message bundle="${lang}" key="prop.registration" var="reg"/>
+    <fmt:message bundle="${lang}" key="prop.lang.ru" var="ru"/>
+    <fmt:message bundle="${lang}" key="prop.lang.en" var="en"/>
+    <fmt:message bundle="${lang}" key="prop.search" var="search"/>
+    <fmt:message bundle="${lang}" key="prop.question.add" var="addQuestion"/>
+    <fmt:message bundle="${lang}" key="prop.question.type" var="typeQuestion"/>
+    <fmt:message bundle="${lang}" key="prop.hello" var="hello"/>
   </head>
   <body>
 
@@ -33,9 +40,9 @@
             <div class="collapse navbar-collapse">
               <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Search">
+                  <input type="text" class="form-control">
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-default">${search}</button>
               </form>
 
                 <c:choose>
@@ -59,14 +66,15 @@
                     <form action="Controller" method="post" class="navbar-form navbar-right">
                       <input type="hidden" name="command" value="logout">
                       <button type="submit" class="btn btn-link">
+                        <span class="glyphicon glyphicon-log-out"></span>
                         ${logout}
                       </button>
                     </form>
-                    <p class="navbar-text navbar-right">Hello, <a><c:out value="${sessionScope.login.login}"/></a>!</p>
+                    <p class="navbar-text navbar-right">${hello}, <a href="/UserPage"><c:out value="${sessionScope.login.login}"/></a>!</p>
                   </c:otherwise>
                 </c:choose>
-            </div><!-- /.navbar-collapse -->
-          </div><!-- /.container-fluid -->
+            </div>
+          </div>
         </nav>
         </div>
       </div>
@@ -81,21 +89,21 @@
         <form action="Controller" method="post" class="form">
           <input type="hidden" name="command" value="add-question">
           <div class="form-group">
-            <textarea rows="5" class="form-control" placeholder="Type your question"></textarea>
+            <textarea rows="5" class="form-control" placeholder="${typeQuestion}"></textarea>
           </div>
-          <input type="submit" value="Add Question" class="btn btn-primary">
+          <input type="submit" value="${addQuestion}" class="btn btn-primary">
         </form>
 
         <form action="Controller" method="post" class="lang_button">
           <input type="hidden" name="command" value="locale">
           <input type="hidden" name="locale" value="en">
-          <input type="submit" class="text-button" value="EN"/>
+          <input type="submit" class="btn-link" value="${en}"/>
         </form>
 
         <form action="Controller" method="post" class="lang_button">
           <input type="hidden" name="command" value="locale">
           <input type="hidden" name="locale" value="ru">
-          <input type="submit" class="text-button"  value="RU">
+          <input type="submit" class="btn-link"  value="${ru}">
         </form>
       </div>
       </div>
