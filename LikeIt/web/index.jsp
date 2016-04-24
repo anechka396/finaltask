@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <fmt:setLocale value="${sessionScope.local}"/>
+    <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle basename="prop" var="lang"/>
     <fmt:message bundle="${lang}" key="prop.login" var="login"/>
     <fmt:message bundle="${lang}" key="prop.logout" var="logout"/>

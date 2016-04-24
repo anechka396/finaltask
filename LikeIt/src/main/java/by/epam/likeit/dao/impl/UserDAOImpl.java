@@ -15,42 +15,48 @@ import java.util.List;
 public class UserDAOImpl implements UserDAO {
 
     private static final Logger LOGGER = LogManager.getRootLogger();
-    private static final String SQL_SELECT_ALL_USERS = "SELECT * FROM users";
-    private static final String SQL_SELECT_USER_BY_LOGIN = "SELECT * FROM users WHERE login=?";
+    private static final String SQL_SELECT_ALL_USERS = "SELECT login, password, username, email, role FROM users";
+    private static final String SQL_SELECT_USER_BY_LOGIN = "SELECT login, password, username, email, role FROM users WHERE login=?";
+    private static final String SQL_INSERT_USER = "INSERT INTO users (login, password, username, email, role) VALUES(?,?,?,?,?)";
+
+    private static final String LOGIN = "login";
+    private static final String PASSWORD = "password";
+    private static final String ROLE = "role";
+    private static final String USERNAME = "username";
+    private static final String EMAIL = "email";
 
     @Override
     public void create(User user) {
         try {
             Connection connection = ConnectionPool.getInstance().takeConnection();
-            Statement statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO users (login, password, username, email, role) VALUES ('"+user.getLogin()+"', '" +
-            user.getPassword() +"', '"+ user.getName()+"', '" + user.getEmail() +"', 'user')");
-        } catch (ConnectionPoolException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+            PreparedStatement statement = connection.prepareStatement(SQL_INSERT_USER);
+            statement.setString(1, user.getLogin());
+            statement.setString(2, user.getPassword());
+            statement.setString(3, user.getName());
+            statement.setString(4, user.getEmail());
+            statement.setString(5, "user");
+            statement.executeUpdate();
+        } catch (SQLException |ConnectionPoolException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public User retrieve(String login) {
+    public User retrieve(String login) throws DaoException {
         User user = null;
 
         try {
             Connection connection = ConnectionPool.getInstance().takeConnection();
-            Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM users WHERE login='" + login +
-                    "'");
+            PreparedStatement st = connection.prepareStatement(SQL_SELECT_USER_BY_LOGIN);
+            st.setString(1, login);
+            ResultSet rs = st.executeQuery();
 
             while (rs.next()){
-                user = new User(rs.getString("login"), rs.getString("password"),
-                        rs.getString("username"), Role.valueOf(rs.getString("role").toUpperCase()),
-                        rs.getString("email"));
+                user = new User(rs.getString(LOGIN), rs.getString(PASSWORD), rs.getString(USERNAME),
+                        Role.valueOf(rs.getString(ROLE).toUpperCase()), rs.getString(EMAIL));
             }
-        } catch (SQLException e) {
-          //  throw  new DaoException("", e);
-        } catch (ConnectionPoolException e) {
-            e.printStackTrace();
+        } catch (SQLException | ConnectionPoolException e) {
+            throw  new DaoException(e);
         }
         return user;
     }

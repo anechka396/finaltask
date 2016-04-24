@@ -7,9 +7,6 @@ import by.epam.likeit.entity.Role;
 import by.epam.likeit.entity.User;
 import by.epam.likeit.service.exception.ServiceException;
 
-/**
- * Created by Пользователь on 17.04.2016.
- */
 public final class UserService {
 
     public final static User checkLogin(String login, String password) throws ServiceException{
@@ -19,7 +16,11 @@ public final class UserService {
 
         UserDAO dao = new UserDAOImpl();
         User user = null;
-        user = dao.retrieve(login);
+        try {
+            user = dao.retrieve(login);
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
         return password.equals(user.getPassword()) ? user : null;
     }
 
