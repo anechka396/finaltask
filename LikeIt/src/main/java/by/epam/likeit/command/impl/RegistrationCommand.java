@@ -18,17 +18,24 @@ public class RegistrationCommand implements Command {
     private static final String PASSWORD = "password";
     private static final String NAME = "name";
     private static final String EMAIL = "email";
+    private static final String METHOD = "method";
+    private static final String REDIRECT = "redirect";
 
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
         String page = PageName.ERROR_PAGE;
+
         String login = request.getParameter(LOGIN);
         String password = request.getParameter(PASSWORD);
         String name = request.getParameter(NAME);
         String email = request.getParameter(EMAIL);
-            User user = service.service(login, password, name, email, "user");
-            request.getSession(true).setAttribute(USER, user);
-            page = PageName.USER_PAGE;
+
+        User user = service.service(login, password, name, email, USER);
+        request.getSession(true).setAttribute(USER, user);
+        page = PageName.USER_PAGE;
+
+        request.setAttribute(METHOD, REDIRECT);
+
         return page;
     }
 }

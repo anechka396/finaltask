@@ -92,13 +92,13 @@
           <input type="submit" value="${addQuestion}" class="btn btn-primary">
         </form>
 
-        <form action="Controller" method="get" class="lang_button">
+        <form action="Controller" method="post" class="lang_button">
           <input type="hidden" name="command" value="locale">
           <input type="hidden" name="locale" value="en">
           <input type="submit" class="btn-link" value="${en}"/>
         </form>
 
-        <form action="Controller" method="get" class="lang_button">
+        <form action="Controller" method="post" class="lang_button">
           <input type="hidden" name="command" value="locale">
           <input type="hidden" name="locale" value="ru">
           <input type="submit" class="btn-link"  value="${ru}">

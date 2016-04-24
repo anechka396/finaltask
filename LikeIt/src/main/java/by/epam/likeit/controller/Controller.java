@@ -20,6 +20,7 @@ public class Controller extends HttpServlet {
 
     private static final CommandHelper helper = new CommandHelper();
     private static final String COMMAND_NAME =  "command";
+    private static final String METHOD = "method";
     private static final Logger LOGGER = LogManager.getRootLogger();
 
     public Controller() {
@@ -36,22 +37,23 @@ public class Controller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String page = processRequest(req);
-        resp.sendRedirect(page);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         String page = processRequest(req);
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher(page);
-        if (dispatcher != null){
-            dispatcher.forward(req, resp);
-        }else{
-            // to do
-        }
+        if(page == null)
+            resp.sendRedirect(PageName.ERROR_PAGE);
 
+        String method = (String) req.getAttribute(METHOD);
+        if(method != null && method.equals("redirect")){
+            req.removeAttribute(METHOD);
+            resp.sendRedirect(page);
+        } else {
+            RequestDispatcher dispatcher = req.getRequestDispatcher(page);
+            dispatcher.forward(req, resp);
+        }
     }
 
 

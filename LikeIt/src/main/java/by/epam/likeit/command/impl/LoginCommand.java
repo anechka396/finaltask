@@ -10,9 +10,6 @@ import by.epam.likeit.service.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * Created by Пользователь on 17.04.2016.
- */
 public class LoginCommand implements Command {
     private static final LoginService service = new LoginService();
     private static final String USER = "user";

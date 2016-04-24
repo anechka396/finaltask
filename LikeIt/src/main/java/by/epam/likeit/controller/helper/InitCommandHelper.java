@@ -56,7 +56,6 @@ public class InitCommandHelper {
             String baseAttr = CommandTagName.BASE.toString().toLowerCase();
             if(qName.equals(tagConfig)){
                 baseName = attributes.getValue(baseAttr);
-                logger.trace(baseName);
             }
         }
 
