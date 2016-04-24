@@ -6,25 +6,23 @@
   <head>
     <title>Main Page</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
     <fmt:setLocale value="${sessionScope.locale}"/>
-    <fmt:setBundle basename="prop" var="lang"/>
-    <fmt:message bundle="${lang}" key="prop.login" var="login"/>
-    <fmt:message bundle="${lang}" key="prop.logout" var="logout"/>
-    <fmt:message bundle="${lang}" key="prop.registration" var="reg"/>
-    <fmt:message bundle="${lang}" key="prop.lang.ru" var="ru"/>
-    <fmt:message bundle="${lang}" key="prop.lang.en" var="en"/>
-    <fmt:message bundle="${lang}" key="prop.search" var="search"/>
-    <fmt:message bundle="${lang}" key="prop.question.add" var="addQuestion"/>
-    <fmt:message bundle="${lang}" key="prop.question.type" var="typeQuestion"/>
-    <fmt:message bundle="${lang}" key="prop.hello" var="hello"/>
+    <fmt:setBundle basename="localization.prop" var="loc"/>
+    <fmt:message bundle="${loc}" key="prop.login" var="login"/>
+    <fmt:message bundle="${loc}" key="prop.logout" var="logout"/>
+    <fmt:message bundle="${loc}" key="prop.registration" var="reg"/>
+    <fmt:message bundle="${loc}" key="prop.lang.ru" var="ru"/>
+    <fmt:message bundle="${loc}" key="prop.lang.en" var="en"/>
+    <fmt:message bundle="${loc}" key="prop.search" var="search"/>
+    <fmt:message bundle="${loc}" key="prop.question.add" var="addQuestion"/>
+    <fmt:message bundle="${loc}" key="prop.question.type" var="typeQuestion"/>
+    <fmt:message bundle="${loc}" key="prop.hello" var="hello"/>
   </head>
   <body>
 
   <video autoplay loop muted class="bgvideo" id="bgvideo">
-    <source src="bg-max.mp4" type="video/mp4">
+    <source src="source/bg-max.mp4" type="video/mp4">
   </video>
 
   <div class="container-fluid">
@@ -46,7 +44,7 @@
               </form>
 
                 <c:choose>
-                  <c:when test="${sessionScope.login == null}">
+                  <c:when test="${sessionScope.user == null}">
                     <ul class="nav navbar-nav navbar-right">
                       <li>
                         <a href="registration.jsp">
@@ -70,7 +68,7 @@
                         ${logout}
                       </button>
                     </form>
-                    <p class="navbar-text navbar-right">${hello}, <a href="/UserPage"><c:out value="${sessionScope.login.login}"/></a>!</p>
+                    <p class="navbar-text navbar-right">${hello}, <a href="/UserPage"><c:out value="${sessionScope.user.login}"/></a>!</p>
                   </c:otherwise>
                 </c:choose>
             </div>
@@ -94,13 +92,13 @@
           <input type="submit" value="${addQuestion}" class="btn btn-primary">
         </form>
 
-        <form action="Controller" method="post" class="lang_button">
+        <form action="Controller" method="get" class="lang_button">
           <input type="hidden" name="command" value="locale">
           <input type="hidden" name="locale" value="en">
           <input type="submit" class="btn-link" value="${en}"/>
         </form>
 
-        <form action="Controller" method="post" class="lang_button">
+        <form action="Controller" method="get" class="lang_button">
           <input type="hidden" name="command" value="locale">
           <input type="hidden" name="locale" value="ru">
           <input type="submit" class="btn-link"  value="${ru}">

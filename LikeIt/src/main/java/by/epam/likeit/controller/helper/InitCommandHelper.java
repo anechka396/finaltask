@@ -17,20 +17,18 @@ import java.util.Map;
 
 public class InitCommandHelper {
 
-    private static final String xmlFileName = "/command.xml";
     private static final Logger logger = LogManager.getRootLogger();
 
-    public void init(CommandHelper helper){
-        logger.trace(xmlFileName);
+    public void init(CommandHelper helper, String xmlFileName){
+
         Map<CommandName, Command> commands = new HashMap<>();
+
         try {
             XMLReader reader = XMLReaderFactory.createXMLReader();
             CommandSaxHandler handler = new CommandSaxHandler();
             reader.setContentHandler(handler);
-            logger.trace(xmlFileName);
-
-            reader.parse(new InputSource(getClass().getResourceAsStream(xmlFileName)));
-            logger.trace(xmlFileName);
+            InputSource inputSource = new InputSource(getClass().getResourceAsStream(xmlFileName));
+            reader.parse(inputSource);
             commands = handler.getCommands();
             helper.initCommands(commands);
         } catch (SAXException | IOException e) {
@@ -67,23 +65,16 @@ public class InitCommandHelper {
             CommandTagName tagName = CommandTagName.valueOf(qName.toUpperCase());
             switch (tagName){
                 case NAME: className = text.toString();
-                    logger.trace("Class NAME: " + className);
                     break;
                 case COMMAND: commandName = text.toString();
-                    logger.trace("Command: " + commandName);
                     break;
                 case CLASS:
                     try {
                         Class clazz = Class.forName(baseName + "." + className);
-                        Command command = (Command) clazz.newInstance();
-                        logger.trace(command.toString());
+                        command = (Command) clazz.newInstance();
                         commands.put(CommandName.valueOf(commandName.toUpperCase()), command);
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (InstantiationException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
+                    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+                        logger.error(e);
                     }
                     command = null;
                     break;

@@ -5,14 +5,14 @@
 <head>
     <title>Login Page</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <fmt:setLocale value="${sessionScope.locale}"/>
-    <fmt:setBundle basename="prop" var="lang"/>
-    <fmt:message bundle="${lang}" key="prop.send" var="send"/>
-    <fmt:message bundle="${lang}" key="prop.login.login" var="login"/>
-    <fmt:message bundle="${lang}" key="prop.login.password" var="password"/>
+    <fmt:setBundle basename="localization.prop" var="loc"/>
+    <fmt:message bundle="${loc}" key="prop.send" var="send"/>
+    <fmt:message bundle="${loc}" key="prop.login.login" var="login"/>
+    <fmt:message bundle="${loc}" key="prop.login.password" var="password"/>
 </head>
 <body>
 <div class="container">

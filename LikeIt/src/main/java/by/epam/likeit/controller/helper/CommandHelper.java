@@ -16,7 +16,6 @@ public final class CommandHelper {
         this.commands = commands;
     }
 
-
     public Command getCommand(String commandName){
         Command command = null;
         CommandName key = null;

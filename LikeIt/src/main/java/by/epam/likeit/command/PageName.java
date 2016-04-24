@@ -1,8 +1,5 @@
 package by.epam.likeit.command;
 
-/**
- * Created by Пользователь on 17.04.2016.
- */
 public final class PageName {
 
     private PageName(){}

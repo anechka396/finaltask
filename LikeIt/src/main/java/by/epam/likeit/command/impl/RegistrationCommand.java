@@ -10,12 +10,10 @@ import by.epam.likeit.service.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * Created by Пользователь on 19.04.2016.
- */
 public class RegistrationCommand implements Command {
 
-    private static RegistrationService service = new RegistrationService();
+    private static final RegistrationService service = new RegistrationService();
+    private static final String USER = "user";
     private static final String LOGIN = "login";
     private static final String PASSWORD = "password";
     private static final String NAME = "name";
@@ -29,7 +27,7 @@ public class RegistrationCommand implements Command {
         String name = request.getParameter(NAME);
         String email = request.getParameter(EMAIL);
             User user = service.service(login, password, name, email, "user");
-            request.getSession(true).setAttribute(LOGIN, user);
+            request.getSession(true).setAttribute(USER, user);
             page = PageName.USER_PAGE;
         return page;
     }

@@ -14,7 +14,8 @@ import javax.servlet.http.HttpServletRequest;
  * Created by Пользователь on 17.04.2016.
  */
 public class LoginCommand implements Command {
-    private static LoginService service = new LoginService();
+    private static final LoginService service = new LoginService();
+    private static final String USER = "user";
     private static final String LOGIN = "login";
     private static final String PASSWORD = "password";
 
@@ -31,7 +32,7 @@ public class LoginCommand implements Command {
         }
 
         if (user != null) {
-            request.getSession(true).setAttribute(LOGIN, user);
+            request.getSession(true).setAttribute(USER, user);
             page = PageName.USER_PAGE;
         } else {
             page = PageName.ERROR_PAGE;

@@ -6,15 +6,12 @@ import by.epam.likeit.command.PageName;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * Created by Пользователь on 17.04.2016.
- */
 public class LogoutCommand implements Command {
-    private static final String LOGIN = "login";
+    private static final String USER = "user";
 
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
-        request.getSession().removeAttribute(LOGIN);
+        request.getSession().removeAttribute(USER);
         String page = PageName.INDEX_PAGE;
         return page;
     }

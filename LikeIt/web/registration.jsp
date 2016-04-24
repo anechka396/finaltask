@@ -4,16 +4,16 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <fmt:setLocale value="${sessionScope.locale}"/>
-    <fmt:setBundle basename="prop" var="lang"/>
-    <fmt:message bundle="${lang}" key="prop.send" var="send"/>
-    <fmt:message bundle="${lang}" key="prop.login.login" var="login"/>
-    <fmt:message bundle="${lang}" key="prop.login.password" var="password"/>
-    <fmt:message bundle="${lang}" key="prop.login.name" var="name"/>
-    <fmt:message bundle="${lang}" key="prop.login.email" var="email"/>
-    <fmt:message bundle="${lang}" key="prop.title.reg" var="regTitle"/>
-    <fmt:message bundle="${lang}" key="prop.title.newaccount" var="newAccountTitle"/>
+    <fmt:setBundle basename="localization.prop" var="loc"/>
+    <fmt:message bundle="${loc}" key="prop.send" var="send"/>
+    <fmt:message bundle="${loc}" key="prop.login.login" var="login"/>
+    <fmt:message bundle="${loc}" key="prop.login.password" var="password"/>
+    <fmt:message bundle="${loc}" key="prop.login.name" var="name"/>
+    <fmt:message bundle="${loc}" key="prop.login.email" var="email"/>
+    <fmt:message bundle="${loc}" key="prop.title.reg" var="regTitle"/>
+    <fmt:message bundle="${loc}" key="prop.title.newaccount" var="newAccountTitle"/>
 </head>
 <body>
 <div class="container">

@@ -6,9 +6,6 @@ import by.epam.likeit.command.PageName;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * Created by Пользователь on 17.04.2016.
- */
 public class ChangeLocaleCommand implements Command {
     private static final String LOCALE = "locale";
     @Override
