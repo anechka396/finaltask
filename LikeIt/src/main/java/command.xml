@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration base="by.epam.likeit.command.impl">
+    <class>
+        <name>LoginCommand</name>
+        <command>login</command>
+    </class>
+    <class>
+        <name>LogoutCommand</name>
+        <command>logout</command>
+    </class>
+    <class>
+        <name>RegistrationCommand</name>
+        <command>registration</command>
+    </class>
+    <class>
+        <name>ChangeLocaleCommand</name>
+        <command>locale</command>
+    </class>
+</configuration>

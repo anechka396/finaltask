@@ -5,7 +5,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
-    <fmt:setLocale value="${sessionScope.local}"/>
+    <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle basename="prop" var="lang"/>
     <fmt:message bundle="${lang}" key="prop.send" var="send"/>
     <fmt:message bundle="${lang}" key="prop.login.login" var="login"/>

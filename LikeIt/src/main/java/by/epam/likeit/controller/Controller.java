@@ -3,6 +3,7 @@ package by.epam.likeit.controller;
 import by.epam.likeit.command.Command;
 import by.epam.likeit.command.exception.CommandException;
 import by.epam.likeit.controller.helper.CommandHelper;
+import by.epam.likeit.controller.helper.InitCommandHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,11 +16,20 @@ import java.io.IOException;
 
 public class Controller extends HttpServlet {
 
+    private static final CommandHelper helper = new CommandHelper();
     private static final String COMMAND_NAME =  "command";
     private static final Logger LOGGER = LogManager.getRootLogger();
 
     public Controller() {
         super();
+    }
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        InitCommandHelper initCommandHelper = new InitCommandHelper();
+        initCommandHelper.init(helper);
+        LOGGER.trace("init");
     }
 
     @Override
@@ -35,7 +45,6 @@ public class Controller extends HttpServlet {
 
         try {
             commandName = req.getParameter(COMMAND_NAME);
-            CommandHelper helper = new CommandHelper();
             command = helper.getCommand(commandName);
             page = command.execute(req);
         } catch (CommandException e) {

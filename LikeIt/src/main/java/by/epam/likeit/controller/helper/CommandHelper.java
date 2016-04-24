@@ -12,11 +12,8 @@ import java.util.Map;
 public final class CommandHelper {
     private Map<CommandName, Command> commands = new HashMap<>();
 
-    public CommandHelper(){
-        commands.put(CommandName.LOGIN, new LoginCommand());
-        commands.put(CommandName.LOGOUT, new LogoutCommand());
-        commands.put(CommandName.LOCALE, new ChangeLocaleCommand());
-        commands.put(CommandName.REGISTRATION, new RegistrationCommand());
+    public void initCommands(Map<CommandName, Command> commands){
+        this.commands = commands;
     }
 
 
