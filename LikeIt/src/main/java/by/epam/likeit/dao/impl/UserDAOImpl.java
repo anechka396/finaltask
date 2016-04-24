@@ -26,7 +26,7 @@ public class UserDAOImpl implements UserDAO {
     private static final String EMAIL = "email";
 
     @Override
-    public void create(User user) {
+    public void create(User user) throws DaoException {
         try {
             Connection connection = ConnectionPool.getInstance().takeConnection();
             PreparedStatement statement = connection.prepareStatement(SQL_INSERT_USER);
@@ -37,7 +37,7 @@ public class UserDAOImpl implements UserDAO {
             statement.setString(5, "user");
             statement.executeUpdate();
         } catch (SQLException |ConnectionPoolException e) {
-            e.printStackTrace();
+            throw new DaoException(e);
         }
     }
 
@@ -62,7 +62,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public List<User> retriveAll() {
+    public List<User> retrieveAll() {
         return null;
     }
 
@@ -74,5 +74,10 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void delete(String id) {
 
+    }
+
+    @Override
+    public User retrieveUserByEmail(String email) {
+        return null;
     }
 }

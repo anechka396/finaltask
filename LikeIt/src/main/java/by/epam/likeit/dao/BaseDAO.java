@@ -8,9 +8,9 @@ import java.util.List;
  * Created by Пользователь on 19.04.2016.
  */
 public interface BaseDAO<E, K> {
-    public void create(E entity);
+    public void create(E entity) throws DaoException;
     public E retrieve(K id) throws DaoException;
-    public List<E> retriveAll();
+    public List<E> retrieveAll();
     public void update(E entity);
     public void delete(K id);
 }

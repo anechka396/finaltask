@@ -9,4 +9,5 @@ import java.util.List;
  * Created by Пользователь on 17.04.2016.
  */
 public interface UserDAO extends BaseDAO<User, String> {
+    public User retrieveUserByEmail(String email);
 }

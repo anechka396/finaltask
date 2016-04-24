@@ -5,7 +5,6 @@ import by.epam.likeit.command.exception.CommandException;
 import by.epam.likeit.command.PageName;
 import by.epam.likeit.entity.User;
 import by.epam.likeit.service.LoginService;
-import by.epam.likeit.service.UserService;
 import by.epam.likeit.service.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;

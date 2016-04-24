@@ -5,7 +5,6 @@ import by.epam.likeit.command.PageName;
 import by.epam.likeit.command.exception.CommandException;
 import by.epam.likeit.entity.User;
 import by.epam.likeit.service.RegistrationService;
-import by.epam.likeit.service.UserService;
 import by.epam.likeit.service.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,9 +29,14 @@ public class RegistrationCommand implements Command {
         String name = request.getParameter(NAME);
         String email = request.getParameter(EMAIL);
 
-        User user = service.service(login, password, name, email, USER);
-        request.getSession(true).setAttribute(USER, user);
-        page = PageName.USER_PAGE;
+        User user = null;
+        try {
+            user = service.service(login, password, name, email, USER);
+            request.getSession(true).setAttribute(USER, user);
+            page = PageName.USER_PAGE;
+        } catch (ServiceException e) {
+            throw new CommandException(e);
+        }
 
         request.setAttribute(METHOD, REDIRECT);
 

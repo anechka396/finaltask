@@ -13,6 +13,11 @@ public class LoginService {
     private static UserDAO userDAO = new UserDAOImpl();
 
     public User service(String login, String password) throws ServiceException {
+
+        if(!ValidateService.validateLogin(login) || ! ValidateService.validatePassword(password)){
+            throw new ServiceException("Invalid login or password!");
+        }
+
         User user = null;
         try {
             user = userDAO.retrieve(login);
