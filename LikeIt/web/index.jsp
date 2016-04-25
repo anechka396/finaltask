@@ -80,9 +80,8 @@
 
     <div class="row">
       <div class="col-xs-12">
-      <div class="col-xs-2 col-sm-4" style="min-height: 100%; background: rgba(255,255,255, 0.5)">
-      </div>
-      <div class="col-xs-10 col-sm-8" style="background: rgba(255,255,255, 0.5); padding: 10px; min-height: 100%">
+      <div class="col-xs-2 col-sm-4"></div>
+      <div class="col-xs-10 col-sm-8" style="background: rgba(255,255,255, 0.5); padding: 10px;">
 
         <form action="Controller" method="post" class="form">
           <input type="hidden" name="command" value="add-question">
@@ -91,6 +90,18 @@
           </div>
           <input type="submit" value="${addQuestion}" class="btn btn-primary">
         </form>
+
+        <c:if test="${requestScope.users == null}">
+          <c:redirect url="Controller">
+            <c:param name="command" value="last"/>
+          </c:redirect>
+        </c:if>
+
+        <c:forEach items="${requestScope.users}" var="user">
+          <h2>
+            <c:out value="${user.login}"/>
+          </h2>
+        </c:forEach>
 
         <form action="Controller" method="post" class="lang_button">
           <input type="hidden" name="command" value="locale">

@@ -36,7 +36,10 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        String page = processRequest(req);
+      //  resp.sendRedirect(page);
+        RequestDispatcher dispatcher = req.getRequestDispatcher(PageName.INDEX_PAGE);
+        dispatcher.forward(req, resp);
     }
 
     @Override
@@ -66,6 +69,7 @@ public class Controller extends HttpServlet {
 
         try {
             commandName = req.getParameter(COMMAND_NAME);
+            LOGGER.trace(commandName);
             command = helper.getCommand(commandName);
             page = command.execute(req);
         } catch (CommandException e) {

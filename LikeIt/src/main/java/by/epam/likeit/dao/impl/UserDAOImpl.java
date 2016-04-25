@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
@@ -62,8 +63,24 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public List<User> retrieveAll() {
-        return null;
+    public List<User> retrieveAll() throws DaoException {
+        List<User>  users = new ArrayList<>();
+        User user = null;
+        Connection connection = null;
+        try {
+            connection = ConnectionPool.getInstance().takeConnection();
+            PreparedStatement st = connection.prepareStatement(SQL_SELECT_ALL_USERS);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()){
+                user = new User(rs.getString(LOGIN), rs.getString(PASSWORD), rs.getString(USERNAME),
+                        Role.valueOf(rs.getString(ROLE).toUpperCase()), rs.getString(EMAIL));
+                users.add(user);
+            }
+        } catch (ConnectionPoolException | SQLException e) {
+            throw new DaoException(e);
+        }
+
+        return users;
     }
 
     @Override

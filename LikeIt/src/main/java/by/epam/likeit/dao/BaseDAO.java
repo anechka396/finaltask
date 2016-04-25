@@ -10,7 +10,7 @@ import java.util.List;
 public interface BaseDAO<E, K> {
     public void create(E entity) throws DaoException;
     public E retrieve(K id) throws DaoException;
-    public List<E> retrieveAll();
+    public List<E> retrieveAll() throws DaoException;
     public void update(E entity);
     public void delete(K id);
 }

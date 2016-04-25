@@ -16,4 +16,8 @@
         <name>ChangeLocaleCommand</name>
         <command>locale</command>
     </class>
+    <class>
+        <name>ShowLastQuestionsCommand</name>
+        <command>last</command>
+    </class>
 </configuration>
