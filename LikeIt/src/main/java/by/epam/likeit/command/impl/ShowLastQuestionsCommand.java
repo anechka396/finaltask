@@ -7,6 +7,8 @@ import by.epam.likeit.dao.UserDAO;
 import by.epam.likeit.dao.exception.DaoException;
 import by.epam.likeit.dao.impl.UserDAOImpl;
 import by.epam.likeit.entity.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.List;
  * Created by Пользователь on 25.04.2016.
  */
 public class ShowLastQuestionsCommand implements Command {
+    private static final Logger log = LogManager.getRootLogger();
     private static final UserDAO dao = new UserDAOImpl();
 
     @Override
@@ -22,7 +25,9 @@ public class ShowLastQuestionsCommand implements Command {
         List<User> users = null;
         try {
             users = dao.retrieveAll();
+          //  log.trace("Отработало DAO");
             request.setAttribute("users", users);
+
         } catch (DaoException e) {
             throw new CommandException(e);
         }

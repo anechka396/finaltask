@@ -78,10 +78,10 @@
       </div>
 
 
-    <div class="row">
-      <div class="col-xs-12">
+    <div class="row" style="padding: 0px 15px">
+      <div class="col-xs-12"  style="background: rgba(255,255,255, 0.5);">
       <div class="col-xs-2 col-sm-4"></div>
-      <div class="col-xs-10 col-sm-8" style="background: rgba(255,255,255, 0.5); padding: 10px;">
+      <div class="col-xs-10 col-sm-8">
 
         <form action="Controller" method="post" class="form">
           <input type="hidden" name="command" value="add-question">
@@ -92,8 +92,7 @@
         </form>
 
         <c:if test="${requestScope.users == null}">
-          <c:redirect url="Controller">
-            <c:param name="command" value="last"/>
+          <c:redirect url="Controller?command=last">
           </c:redirect>
         </c:if>
 

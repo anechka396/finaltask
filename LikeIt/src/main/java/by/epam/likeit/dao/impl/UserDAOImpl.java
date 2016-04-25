@@ -37,6 +37,7 @@ public class UserDAOImpl implements UserDAO {
             statement.setString(4, user.getEmail());
             statement.setString(5, "user");
             statement.executeUpdate();
+            connection.close();
         } catch (SQLException |ConnectionPoolException e) {
             throw new DaoException(e);
         }
@@ -56,6 +57,7 @@ public class UserDAOImpl implements UserDAO {
                 user = new User(rs.getString(LOGIN), rs.getString(PASSWORD), rs.getString(USERNAME),
                         Role.valueOf(rs.getString(ROLE).toUpperCase()), rs.getString(EMAIL));
             }
+            connection.close();
         } catch (SQLException | ConnectionPoolException e) {
             throw  new DaoException(e);
         }
@@ -76,6 +78,7 @@ public class UserDAOImpl implements UserDAO {
                         Role.valueOf(rs.getString(ROLE).toUpperCase()), rs.getString(EMAIL));
                 users.add(user);
             }
+            connection.close();
         } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException(e);
         }
