@@ -21,7 +21,7 @@ public class RegistrationService {
             user = new User(login, password, name, Role.valueOf(role.toUpperCase()), email);
             userDAO.create(user);
         } catch (DaoException e) {
-            e.printStackTrace();
+            throw new ServiceException(e);
         }
         return user;
     }

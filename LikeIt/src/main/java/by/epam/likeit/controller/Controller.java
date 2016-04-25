@@ -43,8 +43,10 @@ public class Controller extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String page = processRequest(req);
 
-        if(page == null)
+        if(page == null) {
             resp.sendRedirect(PageName.ERROR_PAGE);
+            return;
+        }
 
         String method = (String) req.getAttribute(METHOD);
         if(method != null && method.equals("redirect")){
