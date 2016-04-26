@@ -16,14 +16,14 @@ import java.util.List;
 public class UserDAOImpl implements UserDAO {
 
     private static final Logger LOGGER = LogManager.getRootLogger();
-    private static final String SQL_SELECT_ALL_USERS = "SELECT login, password, username, email, role FROM users";
-    private static final String SQL_SELECT_USER_BY_LOGIN = "SELECT login, password, username, email, role FROM users WHERE login=?";
-    private static final String SQL_INSERT_USER = "INSERT INTO users (login, password, username, email, role) VALUES(?,?,?,?,?)";
+    private static final String SQL_SELECT_ALL_USERS = "SELECT login, password,name, email, role FROM users";
+    private static final String SQL_SELECT_USER_BY_LOGIN = "SELECT login, password, name, email, role FROM users WHERE login=?";
+    private static final String SQL_INSERT_USER = "INSERT INTO users (login, password, name, email, role) VALUES(?,?,?,?,?)";
 
     private static final String LOGIN = "login";
     private static final String PASSWORD = "password";
     private static final String ROLE = "role";
-    private static final String USERNAME = "username";
+    private static final String USERNAME = "name";
     private static final String EMAIL = "email";
 
     @Override
