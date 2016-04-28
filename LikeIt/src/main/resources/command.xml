@@ -20,4 +20,8 @@
         <name>ShowLastQuestionsCommand</name>
         <command>last</command>
     </class>
+    <class>
+        <name>AddQuestionCommand</name>
+        <command>add-question</command>
+    </class>
 </configuration>

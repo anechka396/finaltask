@@ -71,7 +71,7 @@ public class InitCommandHelper {
                     try {
                         Class clazz = Class.forName(baseName + "." + className);
                         command = (Command) clazz.newInstance();
-                        commands.put(CommandName.valueOf(commandName.toUpperCase()), command);
+                        commands.put(CommandName.valueOf(commandName.toUpperCase().replace("-", "_")), command);
                     } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
                         logger.error(e);
                     }

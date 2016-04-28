@@ -3,11 +3,11 @@ package by.epam.likeit.entity;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    String login;
-    String password;
-    String name;
-    Role role;
-    String email;
+    private String login;
+    private String password;
+    private String name;
+    private Role role;
+    private String email;
 
     public User() {
         String empty = "";
