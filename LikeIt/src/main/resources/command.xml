@@ -17,7 +17,7 @@
         <command>locale</command>
     </class>
     <class>
-        <name>ShowLastQuestionsCommand</name>
+        <name>GetLastQuestionsCommand</name>
         <command>last</command>
     </class>
     <class>
@@ -25,7 +25,7 @@
         <command>add-question</command>
     </class>
     <class>
-        <name>ShowAllTopicsCommand</name>
+        <name>GetAllTopicsCommand</name>
         <command>all-topics</command>
     </class>
 </configuration>

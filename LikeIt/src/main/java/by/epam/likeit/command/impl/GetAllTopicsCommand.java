@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by Пользователь on 29.04.2016.
  */
-public class ShowAllTopicsCommand implements Command {
+public class GetAllTopicsCommand implements Command {
 
     private static final Logger logger = LogManager.getRootLogger();
     private static final TopicDAO dao = new TopicDAOImpl();

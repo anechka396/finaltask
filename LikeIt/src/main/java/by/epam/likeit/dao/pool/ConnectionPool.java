@@ -43,8 +43,6 @@ public class ConnectionPool {
     }
 
     public void initPoolDate() throws ConnectionPoolException {
-        Locale.setDefault(Locale.ENGLISH);
-
         try {
             Class.forName(driverName);
             connectionQueue = new ArrayBlockingQueue<Connection>(poolSize);

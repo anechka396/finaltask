@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by Пользователь on 25.04.2016.
  */
-public class ShowLastQuestionsCommand implements Command {
+public class GetLastQuestionsCommand implements Command {
     private static final Logger log = LogManager.getRootLogger();
     private static final QuestionDAO dao = new QuestionDAOImpl();
 

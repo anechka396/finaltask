@@ -17,7 +17,7 @@ public class AddQuestionCommand implements Command {
         PageName pageName = null;
         User user = (User) request.getSession().getAttribute("user");
         String text = request.getParameter("text");
-        String topic = "Cars";
+        String topic = request.getParameter("topic");
         try {
             service.service(user, topic, text);
         } catch (ServiceException e) {

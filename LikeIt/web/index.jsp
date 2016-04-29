@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="app-ajax.js"></script>
+    <script src="js/app-ajax.js"></script>
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle basename="localization.prop" var="loc"/>
     <fmt:message bundle="${loc}" key="prop.login" var="login"/>
@@ -86,15 +86,17 @@
         </nav>
         </div>
       <div class="col-xs-12 collapse" id="topics">
-        <div id="ajaxGetUserServletResponse" class="well" style="margin: 0px; background: rgba(255,255,255, 0.5); border: none; border-radius: 0px">
-          ПРИВЕТ
+        <div class="well " style="margin: 0px; background: rgba(255,255,255, 0.5); border: none; border-radius: 0px">
+          <div class="btn-group btn-group-justified" id="ajaxGetUserServletResponse">
+
+          </div>
         </div>
       </div>
       </div>
 
 
     <div class="row" style="padding: 0px 15px">
-      <div class="col-xs-12"  style="background: rgba(255,255,255, 0.5);">
+      <div class="col-xs-12"  style="background: rgba(255,255,255, 0.5); padding: 10px">
       <div class="col-xs-offset-1 col-sm-offset-2 col-xs-10 col-sm-8">
 
         <c:if test="${sessionScope.user != null}">
