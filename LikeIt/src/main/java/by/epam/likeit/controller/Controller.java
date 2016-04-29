@@ -7,6 +7,7 @@ import by.epam.likeit.controller.helper.CommandHelper;
 import by.epam.likeit.controller.helper.InitCommandHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONObject;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.List;
 
 public class Controller extends HttpServlet {
 
@@ -40,8 +42,17 @@ public class Controller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String page = processRequest(req);
-        RequestDispatcher dispatcher = req.getRequestDispatcher(page);
-        dispatcher.forward(req, resp);
+        String method = (String) req.getAttribute(METHOD);
+        if(method != null && method.equals("ajax")){
+            req.removeAttribute(METHOD);
+            resp.setContentType("application/json");
+            JSONObject resultJSON = (JSONObject) req.getAttribute("topics");
+            LOGGER.trace(resultJSON.toString());
+            resp.getWriter().write(resultJSON.toString());
+        }else {
+            RequestDispatcher dispatcher = req.getRequestDispatcher(page);
+            dispatcher.forward(req, resp);
+        }
     }
 
     @Override

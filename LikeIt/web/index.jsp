@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="app-ajax.js"></script>
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle basename="localization.prop" var="loc"/>
     <fmt:message bundle="${loc}" key="prop.login" var="login"/>
@@ -43,7 +44,7 @@
 
             <div class="collapse navbar-collapse">
               <ul class="nav navbar-nav">
-                <li><a data-toggle="collapse" data-target="#topics">Topics</a></li>
+                <li><a data-toggle="collapse" data-target="#topics" id="show-topics">Topics</a></li>
               </ul>
               <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
@@ -85,7 +86,7 @@
         </nav>
         </div>
       <div class="col-xs-12 collapse" id="topics">
-        <div class="well" style="margin: 0px; background: rgba(255,255,255, 0.5); border: none; border-radius: 0px">
+        <div id="ajaxGetUserServletResponse" class="well" style="margin: 0px; background: rgba(255,255,255, 0.5); border: none; border-radius: 0px">
           ПРИВЕТ
         </div>
       </div>

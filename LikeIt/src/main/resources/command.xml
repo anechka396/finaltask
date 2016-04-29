@@ -24,4 +24,8 @@
         <name>AddQuestionCommand</name>
         <command>add-question</command>
     </class>
+    <class>
+        <name>ShowAllTopicsCommand</name>
+        <command>all-topics</command>
+    </class>
 </configuration>
