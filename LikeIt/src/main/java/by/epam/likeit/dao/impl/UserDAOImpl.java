@@ -16,6 +16,7 @@ import java.util.List;
 public class UserDAOImpl implements UserDAO {
 
     private static final Logger LOGGER = LogManager.getRootLogger();
+
     private static final String SQL_SELECT_ALL_USERS = "SELECT login, password,name, email, role FROM users";
     private static final String SQL_SELECT_USER_BY_LOGIN = "SELECT login, password, name, email, role FROM users WHERE login=?";
     private static final String SQL_INSERT_USER = "INSERT INTO users (login, password, name, email, role) VALUES(?,?,?,?,?)";
@@ -29,39 +30,59 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void create(User user) throws DaoException {
         Connection connection = null;
+        PreparedStatement ps = null;
+        ConnectionPool pool = null;
+
         try {
-            connection = ConnectionPool.getInstance().takeConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_INSERT_USER);
-            statement.setString(1, user.getLogin());
-            statement.setString(2, user.getPassword());
-            statement.setString(3, user.getName());
-            statement.setString(4, user.getEmail());
-            statement.setString(5, "user");
-            statement.executeUpdate();
-            connection.close();
+            pool = ConnectionPool.getInstance();
+            connection = pool.takeConnection();
+            ps = connection.prepareStatement(SQL_INSERT_USER);
+            ps.setString(1, user.getLogin());
+            ps.setString(2, user.getPassword());
+            ps.setString(3, user.getName());
+            ps.setString(4, user.getEmail());
+            ps.setString(5, "user");
+            ps.executeUpdate();
         } catch (SQLException |ConnectionPoolException e) {
             throw new DaoException(e);
+        } finally {
+            if(connection != null){
+                pool.closeConnection(connection, ps);
+            }
         }
     }
 
     @Override
     public User retrieve(String login) throws DaoException {
         User user = null;
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ConnectionPool pool = null;
 
         try {
-            Connection connection = ConnectionPool.getInstance().takeConnection();
-            PreparedStatement st = connection.prepareStatement(SQL_SELECT_USER_BY_LOGIN);
-            st.setString(1, login);
-            ResultSet rs = st.executeQuery();
+            pool = ConnectionPool.getInstance();
+            connection = pool.takeConnection();
+            ps = connection.prepareStatement(SQL_SELECT_USER_BY_LOGIN);
+            ps.setString(1, login);
+            rs = ps.executeQuery();
 
             while (rs.next()){
-                user = new User(rs.getString(LOGIN), rs.getString(PASSWORD), rs.getString(USERNAME),
-                        Role.valueOf(rs.getString(ROLE).toUpperCase()), rs.getString(EMAIL));
+                String password = rs.getString(PASSWORD);
+                String username = rs.getString(USERNAME);
+                String email = rs.getString(EMAIL);
+                Role role = Role.valueOf(rs.getString(ROLE).toUpperCase());
+
+                user = new User(login, password, username, role, email);
             }
-            connection.close();
         } catch (SQLException | ConnectionPoolException e) {
             throw  new DaoException(e);
+        } finally {
+            if(connection != null){
+                pool.closeConnection(connection, ps, rs);
+            }
         }
+
         return user;
     }
 
@@ -70,18 +91,30 @@ public class UserDAOImpl implements UserDAO {
         List<User>  users = new ArrayList<>();
         User user = null;
         Connection connection = null;
+        Statement st = null;
+        ResultSet rs = null;
+        ConnectionPool pool = null;
+
         try {
-            connection = ConnectionPool.getInstance().takeConnection();
-            PreparedStatement st = connection.prepareStatement(SQL_SELECT_ALL_USERS);
-            ResultSet rs = st.executeQuery();
+            pool = ConnectionPool.getInstance();
+            connection = pool.takeConnection();
+            st = connection.createStatement();
+            rs = st.executeQuery(SQL_SELECT_ALL_USERS);
             while (rs.next()){
-                user = new User(rs.getString(LOGIN), rs.getString(PASSWORD), rs.getString(USERNAME),
-                        Role.valueOf(rs.getString(ROLE).toUpperCase()), rs.getString(EMAIL));
+                String login = rs.getString(LOGIN);
+                String password = rs.getString(PASSWORD);
+                String username = rs.getString(USERNAME);
+                String email = rs.getString(EMAIL);
+                Role role = Role.valueOf(rs.getString(ROLE).toUpperCase());
+                user = new User(login, password, username, role, email);
                 users.add(user);
             }
-            connection.close();
         } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException(e);
+        } finally {
+            if(connection != null){
+                pool.closeConnection(connection, st, rs);
+            }
         }
 
         return users;

@@ -1,25 +1,23 @@
-package by.epam.likeit.service;
+package by.epam.likeit.service.impl;
 
 import by.epam.likeit.dao.UserDAO;
+import by.epam.likeit.dao.UserDAOFactory;
 import by.epam.likeit.dao.exception.DaoException;
 import by.epam.likeit.dao.impl.UserDAOImpl;
 import by.epam.likeit.entity.User;
+import by.epam.likeit.service.AbsractService;
 import by.epam.likeit.service.exception.ServiceException;
 
 /**
  * Created by Пользователь on 24.04.2016.
  */
-public class LoginService {
-    private static UserDAO userDAO = new UserDAOImpl();
+public class LoginService extends AbsractService<User> {
 
+    @Override
     public User service(String login, String password) throws ServiceException {
-
-        if(!ValidateService.validateLogin(login) || ! ValidateService.validatePassword(password)){
-            throw new ServiceException("Invalid login or password!");
-        }
-
         User user = null;
         try {
+            UserDAO userDAO = UserDAOFactory.getInstance();
             user = userDAO.retrieve(login);
         } catch (DaoException e) {
             throw new ServiceException(e);

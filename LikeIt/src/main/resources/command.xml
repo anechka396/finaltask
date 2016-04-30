@@ -1,5 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<configuration base="by.epam.likeit.command.impl">
+<?xml version="1.0" encoding="utf-8"?>
+<tc:config base="by.epam.likeit.command.impl"
+           xmlns:tc="http://www.epam.tc.by/commands"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.epam.tc.by/commands commandSchema.xsd">
     <class>
         <name>LoginCommand</name>
         <command>login</command>
@@ -28,4 +31,4 @@
         <name>GetAllTopicsCommand</name>
         <command>all-topics</command>
     </class>
-</configuration>
+</tc:config>

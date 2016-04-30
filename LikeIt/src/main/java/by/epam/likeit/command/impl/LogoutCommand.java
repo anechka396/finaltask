@@ -11,8 +11,9 @@ public class LogoutCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
-        request.getSession().removeAttribute(USER);
         String page = PageName.INDEX_PAGE;
+        request.getSession().removeAttribute(USER);
+        request.getSession().invalidate();
         return page;
     }
 }

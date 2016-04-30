@@ -6,9 +6,6 @@ import by.epam.likeit.command.impl.*;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Пользователь on 17.04.2016.
- */
 public final class CommandHelper {
     private Map<CommandName, Command> commands = new HashMap<>();
 

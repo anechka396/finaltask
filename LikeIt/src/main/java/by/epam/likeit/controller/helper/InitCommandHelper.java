@@ -52,16 +52,16 @@ public class InitCommandHelper {
         @Override
         public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
             text = new StringBuilder();
-            String tagConfig = CommandTagName.CONFIGURATION.toString().toLowerCase();
+            String tagConfig = CommandTagName.TC_CONFIG.toString().toLowerCase();
             String baseAttr = CommandTagName.BASE.toString().toLowerCase();
-            if(qName.equals(tagConfig)){
+            if(qName.replace(":", "_").equals(tagConfig)){
                 baseName = attributes.getValue(baseAttr);
             }
         }
 
         @Override
         public void endElement(String uri, String localName, String qName) throws SAXException {
-            CommandTagName tagName = CommandTagName.valueOf(qName.toUpperCase());
+            CommandTagName tagName = CommandTagName.valueOf(qName.toUpperCase().replace(":", "_"));
             switch (tagName){
                 case NAME: className = text.toString();
                     break;

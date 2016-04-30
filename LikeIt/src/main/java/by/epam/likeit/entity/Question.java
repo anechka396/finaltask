@@ -51,4 +51,27 @@ public class Question {
     public void setTopic(String topic) {
         this.topic = topic;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Question question = (Question) o;
+
+        if (id != question.id) return false;
+        if (text != null ? !text.equals(question.text) : question.text != null) return false;
+        if (author != null ? !author.equals(question.author) : question.author != null) return false;
+        return topic != null ? topic.equals(question.topic) : question.topic == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (text != null ? text.hashCode() : 0);
+        result = 31 * result + (author != null ? author.hashCode() : 0);
+        result = 31 * result + (topic != null ? topic.hashCode() : 0);
+        return result;
+    }
 }

@@ -5,6 +5,7 @@ import by.epam.likeit.command.PageName;
 import by.epam.likeit.command.exception.CommandException;
 import by.epam.likeit.dao.BaseDAO;
 import by.epam.likeit.dao.QuestionDAO;
+import by.epam.likeit.dao.QuestionDAOFactory;
 import by.epam.likeit.dao.UserDAO;
 import by.epam.likeit.dao.exception.DaoException;
 import by.epam.likeit.dao.impl.QuestionDAOImpl;
@@ -21,16 +22,17 @@ import java.util.List;
  * Created by Пользователь on 25.04.2016.
  */
 public class GetLastQuestionsCommand implements Command {
-    private static final Logger log = LogManager.getRootLogger();
-    private static final QuestionDAO dao = new QuestionDAOImpl();
+    private static final Logger LOGGER = LogManager.getRootLogger();
+
+    private static final String QUESTIONS = "questions";
 
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
         List<Question> questions = null;
         try {
-            questions = dao.retrieveAll();
-          //  log.trace("Отработало DAO");
-            request.setAttribute("questions", questions);
+            QuestionDAO questionDAO = QuestionDAOFactory.getInstance();
+            questions = questionDAO.retrieveAll();
+            request.setAttribute(QUESTIONS, questions);
 
         } catch (DaoException e) {
             throw new CommandException(e);

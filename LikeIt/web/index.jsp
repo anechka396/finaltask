@@ -111,13 +111,13 @@
 
         <c:forEach items="${requestScope.questions}" var="question">
           <div class="well">
-            <p><a href="#"><c:out value="${question.text}"/></a></p>
+            <p><a href="#" style="font-size: 25px; color: darkblue"><c:out value="${question.text}"/></a></p>
             <p>
-              <a href="#"><c:out value="${question.author}"/></a>
+              <a href="#" style="color: black"><c:out value="${question.author}"/></a>
               in
-              <a><c:out value="${question.topic}"/></a>
+              <a style="color: black"><c:out value="${question.topic}"/></a>
               <c:if test="${sessionScope.user != null}">
-                <a><span class="glyphicon glyphicon-comment"></span>Ответить</a>
+                <a style="color: black"><span class="glyphicon glyphicon-comment"></span>Ответить</a>
               </c:if>
             </p>
           </div>

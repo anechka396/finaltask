@@ -1,8 +1,5 @@
-package by.epam.likeit.service;
+package by.epam.likeit.service.impl;
 
-/**
- * Created by Пользователь on 24.04.2016.
- */
 public class ValidateService {
     public static boolean validateLogin(String login){
         if(login.isEmpty() || login.length() <= 3 || login.length() >= 30){
@@ -11,7 +8,6 @@ public class ValidateService {
 
         return true;
     }
-
 
     public static boolean validatePassword(String password){
         if(password.isEmpty() || password.length() <= 3 || password.length() >= 30){
