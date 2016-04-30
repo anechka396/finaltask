@@ -16,5 +16,18 @@ $(document).ready(function() {
             }
         });
     });
+
+    $(".close").click(function(){
+       // alert($(this).attr("data-id"));
+        $.ajax({
+            url : '/Controller',
+            data : {
+                command: 'delete-question',
+                id: $(this).attr("data-id")
+            }
+        });
+
+        $(this).parent().remove();
+    });
 });
 

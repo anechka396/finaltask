@@ -8,6 +8,7 @@ import by.epam.likeit.service.impl.RegistrationService;
 import by.epam.likeit.service.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class RegistrationCommand implements Command {
 
@@ -21,7 +22,7 @@ public class RegistrationCommand implements Command {
     private static final String REDIRECT = "redirect";
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String page = PageName.ERROR_PAGE;
 
         String login = request.getParameter(LOGIN);

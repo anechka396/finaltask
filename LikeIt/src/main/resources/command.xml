@@ -31,4 +31,8 @@
         <name>GetAllTopicsCommand</name>
         <command>all-topics</command>
     </class>
+    <class>
+        <name>DeleteQuestionCommand</name>
+        <command>delete-question</command>
+    </class>
 </tc:config>

@@ -10,6 +10,7 @@
   <head>
     <title>Main Page</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Poiret+One&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -39,7 +40,7 @@
           <div class="container-fluid">
 
             <div class="navbar-header">
-              <a class="navbar-brand" href="#">Like It</a>
+              <a class="navbar-brand" href="#" style="font-size: 40px; font-family: 'Poiret One', cursive;">Like It</a>
             </div>
 
             <div class="collapse navbar-collapse">
@@ -110,11 +111,16 @@
 
 
         <c:forEach items="${requestScope.questions}" var="question">
-          <div class="well">
-            <p><a href="#" style="font-size: 25px; color: darkblue"><c:out value="${question.text}"/></a></p>
+          <div class="well well-sm">
+            <c:if test="${sessionScope.user.role == 'ADMIN'}">
+              <button class="close" data-id="${question.id}"><span aria-hidden="true">&times;</span></button>
+            </c:if>
+            <p>
+              <a href="#" style="font-size: 25px; color: darkblue"><c:out value="${question.text}"/></a>
+            </p>
             <p>
               <a href="#" style="color: black"><c:out value="${question.author}"/></a>
-              in
+              <span>in</span>
               <a style="color: black"><c:out value="${question.topic}"/></a>
               <c:if test="${sessionScope.user != null}">
                 <a style="color: black"><span class="glyphicon glyphicon-comment"></span>Ответить</a>

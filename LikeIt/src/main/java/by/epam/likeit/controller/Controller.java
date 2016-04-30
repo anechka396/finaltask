@@ -16,10 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.List;
 
 public class Controller extends HttpServlet {
 
@@ -41,14 +37,14 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String page = processRequest(req);
+        String page = processRequest(req, resp);
         String method = (String) req.getAttribute(METHOD);
         if(method != null && method.equals("ajax")){
             req.removeAttribute(METHOD);
-            resp.setContentType("application/json");
-            JSONObject resultJSON = (JSONObject) req.getAttribute("topics");
-            LOGGER.trace(resultJSON.toString());
-            resp.getWriter().write(resultJSON.toString());
+          //  resp.setContentType("application/json");
+          //  JSONObject resultJSON = (JSONObject) req.getAttribute("topics");
+          //  LOGGER.trace(resultJSON.toString());
+          //  resp.getWriter().write(resultJSON.toString());
         }else {
             RequestDispatcher dispatcher = req.getRequestDispatcher(page);
             dispatcher.forward(req, resp);
@@ -57,7 +53,7 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String page = processRequest(req);
+        String page = processRequest(req, resp);
 
         if(page == null) {
             resp.sendRedirect(PageName.ERROR_PAGE);
@@ -75,7 +71,7 @@ public class Controller extends HttpServlet {
     }
 
 
-    private String processRequest(HttpServletRequest req){
+    private String processRequest(HttpServletRequest req, HttpServletResponse resp){
         String commandName = null;
         Command command = null;
         String page = null;
@@ -84,7 +80,7 @@ public class Controller extends HttpServlet {
             commandName = req.getParameter(COMMAND_NAME);
            // LOGGER.trace(commandName);
             command = helper.getCommand(commandName);
-            page = command.execute(req);
+            page = command.execute(req, resp);
         } catch (CommandException e) {
             LOGGER.error(e);
         }

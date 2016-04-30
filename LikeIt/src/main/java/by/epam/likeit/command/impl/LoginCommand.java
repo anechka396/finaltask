@@ -8,6 +8,7 @@ import by.epam.likeit.service.impl.LoginService;
 import by.epam.likeit.service.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class LoginCommand implements Command {
     private static final LoginService service = new LoginService();
@@ -16,7 +17,7 @@ public class LoginCommand implements Command {
     private static final String PASSWORD = "password";
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String page;
         User user = null;
         String login = request.getParameter(LOGIN);

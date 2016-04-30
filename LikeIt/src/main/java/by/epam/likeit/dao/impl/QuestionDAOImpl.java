@@ -18,6 +18,7 @@ public class QuestionDAOImpl implements QuestionDAO {
 
     private static final String SQL_INSERT_QUESTION = "INSERT INTO questions(topic, text, author) values(?, ?, ?)";
     private static final String SQL_SELECT_ALL_QUSTIONS = "SELECT id, topic, text, author from questions order by date desc";
+    private static final String SQL_DELETE_QUESTION = "DELETE FROM questions WHERE id=?";
 
     private static final String ID = "id";
     private static final String TOPIC = "topic";
@@ -92,6 +93,22 @@ public class QuestionDAOImpl implements QuestionDAO {
 
     @Override
     public void delete(Integer id) {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ConnectionPool pool = null;
 
+        try{
+            pool = ConnectionPool.getInstance();
+            connection = pool.takeConnection();
+            ps = connection.prepareStatement(SQL_DELETE_QUESTION);
+            ps.setInt(1, id);
+            ps.execute();
+        } catch (ConnectionPoolException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if(connection != null){
+                pool.closeConnection(connection, ps);
+            }
+        }
     }
 }
