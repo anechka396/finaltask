@@ -101,7 +101,7 @@
       <div class="col-xs-offset-1 col-sm-offset-2 col-xs-10 col-sm-8">
 
         <c:if test="${sessionScope.user != null}">
-          <form action="question.jsp" method="post" class="form" style="margin: 10px 5px">
+          <form action="/AddQuestionPage" method="post" class="form" style="margin: 10px 5px">
             <div class="form-group">
               <textarea rows="5" class="form-control" placeholder="${typeQuestion}" name="text"></textarea>
             </div>
@@ -112,18 +112,19 @@
 
         <c:forEach items="${requestScope.questions}" var="question">
           <div class="well well-sm">
-            <c:if test="${sessionScope.user.role == 'ADMIN'}">
+            <c:if test="${sessionScope.user.role == 'ADMIN' || sessionScope.user.login == question.author}">
               <button class="close" data-id="${question.id}"><span aria-hidden="true">&times;</span></button>
             </c:if>
             <p>
               <a href="#" style="font-size: 25px; color: darkblue"><c:out value="${question.text}"/></a>
             </p>
             <p>
-              <a href="#" style="color: black"><c:out value="${question.author}"/></a>
-              <span>in</span>
-              <a style="color: black"><c:out value="${question.topic}"/></a>
+              <a href="#" class="text-muted"><c:out value="${question.author}"/></a>
+              <span class="text-muted">in</span>
+              <a class="text-muted"><c:out value="${question.topic}"/></a>
               <c:if test="${sessionScope.user != null}">
-                <a style="color: black"><span class="glyphicon glyphicon-comment"></span>Ответить</a>
+                <span class="text-muted"> &bull; </span>
+                <a class="text-muted"><span class="glyphicon glyphicon-comment" style="font-size: 12px"></span> Ответить</a>
               </c:if>
             </p>
           </div>

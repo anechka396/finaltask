@@ -22,13 +22,38 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>UserPage</servlet-name>
-        <jsp-file>/WEB-INF/jsp/user_page.jsp</jsp-file>
+        <jsp-file>/WEB-INF/jsp/user-page.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserPage</servlet-name>
         <url-pattern>/UserPage</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>AddQuestionPage</servlet-name>
+        <jsp-file>/WEB-INF/jsp/add-question-form.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddQuestionPage</servlet-name>
+        <url-pattern>/AddQuestionPage</url-pattern>
+    </servlet-mapping>
     <listener>
         <listener-class>by.epam.likeit.listener.InitializeListener</listener-class>
     </listener>
+    <filter>
+        <display-name>CharsetFilter</display-name>
+        <filter-name>CharsetFilter</filter-name>
+        <filter-class>by.epam.likeit.filter.CharsetFilter</filter-class>
+        <init-param>
+            <param-name>characterEncoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharsetFilter</filter-name>
+        <url-pattern>/Controller</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CharsetFilter</filter-name>
+        <url-pattern>/AddQuestionPage</url-pattern>
+    </filter-mapping>
 </web-app>

@@ -13,9 +13,9 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="../../css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="js/topic-ajax.js"></script>
+    <script src="../../js/topic-ajax.js"></script>
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle basename="localization.prop" var="loc"/>
     <fmt:message bundle="${loc}" key="prop.question.add" var="addQuestion"/>

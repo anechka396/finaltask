@@ -7,10 +7,13 @@ $(document).ready(function() {
             },
             dataType : 'json',
             success : function(responseText) {
+                var url = '/Controller?command=last&topic=';
                 $('#ajaxGetUserServletResponse').empty();
                 $.each(responseText, function(index, item) {
                     $.each(item, function( index, value ) {
-                        $('#ajaxGetUserServletResponse').append("<a class='btn btn-default'>" + value + "</a>");
+                        var start="<a class='btn btn-default' href=" + url + value + ">";
+                        var end="</a>"
+                        $('#ajaxGetUserServletResponse').append(start + value + end);
                     });
                 });
             }
@@ -18,7 +21,6 @@ $(document).ready(function() {
     });
 
     $(".close").click(function(){
-       // alert($(this).attr("data-id"));
         $.ajax({
             url : '/Controller',
             data : {

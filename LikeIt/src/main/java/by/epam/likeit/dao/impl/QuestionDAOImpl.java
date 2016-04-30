@@ -18,6 +18,7 @@ public class QuestionDAOImpl implements QuestionDAO {
 
     private static final String SQL_INSERT_QUESTION = "INSERT INTO questions(topic, text, author) values(?, ?, ?)";
     private static final String SQL_SELECT_ALL_QUSTIONS = "SELECT id, topic, text, author from questions order by date desc";
+    private static final String SQL_SELECT_ALL_QUESTIONS_BY_TOPIC = "SELECT id, topic, text, author from questions where topic=? order by date desc";
     private static final String SQL_DELETE_QUESTION = "DELETE FROM questions WHERE id=?";
 
     private static final String ID = "id";
@@ -110,5 +111,38 @@ public class QuestionDAOImpl implements QuestionDAO {
                 pool.closeConnection(connection, ps);
             }
         }
+    }
+
+    @Override
+    public List<Question> retrieveAll(String topic) throws DaoException {
+        List<Question> questions = new ArrayList<>();
+        Question question = null;
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ConnectionPool pool = null;
+
+        try {
+            pool = ConnectionPool.getInstance();
+            connection = pool.takeConnection();
+            ps = connection.prepareStatement(SQL_SELECT_ALL_QUESTIONS_BY_TOPIC);
+            ps.setString(1, topic);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                question = new Question();
+                question.setId(rs.getInt(ID));
+                question.setText(rs.getString(TEXT));
+                question.setAuthor(rs.getString(AUTHOR));
+                question.setTopic(rs.getString(TOPIC));
+                questions.add(question);
+            }
+        } catch (ConnectionPoolException | SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            if(connection != null){
+                pool.closeConnection(connection, ps, rs);
+            }
+        }
+        return questions;
     }
 }
