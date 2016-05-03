@@ -36,6 +36,14 @@
         <servlet-name>AddQuestionPage</servlet-name>
         <url-pattern>/AddQuestionPage</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>Error</servlet-name>
+        <jsp-file>/error.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Error</servlet-name>
+        <url-pattern>/Error</url-pattern>
+    </servlet-mapping>
     <listener>
         <listener-class>by.epam.likeit.listener.InitializeListener</listener-class>
     </listener>
