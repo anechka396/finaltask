@@ -35,4 +35,12 @@
         <name>DeleteQuestionCommand</name>
         <command>delete-question</command>
     </class>
+    <class>
+        <name>GetQuestionAndAnswersCommand</name>
+        <command>get-question</command>
+    </class>
+    <class>
+        <name>AddAnswerToQuestionCommand</name>
+        <command>add-answer</command>
+    </class>
 </tc:config>

@@ -26,6 +26,7 @@
     <fmt:message bundle="${loc}" key="prop.question.add" var="addQuestion"/>
     <fmt:message bundle="${loc}" key="prop.question.type" var="typeQuestion"/>
     <fmt:message bundle="${loc}" key="prop.hello" var="hello"/>
+    <fmt:message bundle="${loc}" key="prop.ask" var="ask"/>
   </head>
   <body>
 
@@ -115,16 +116,18 @@
             <c:if test="${sessionScope.user.role == 'ADMIN' || sessionScope.user.login == question.author}">
               <button class="close" data-id="${question.id}"><span aria-hidden="true">&times;</span></button>
             </c:if>
-            <p>
-              <a href="#" style="font-size: 25px; color: darkblue"><c:out value="${question.text}"/></a>
-            </p>
+            <form action="/Controller" method="post">
+              <input type="hidden" name="command" value="get-question">
+              <input type="hidden" name="id" value="${question.id}">
+              <input type="submit" value="${question.text}" class="btn-link">
+            </form>
             <p>
               <a href="#" class="text-muted"><c:out value="${question.author}"/></a>
               <span class="text-muted">in</span>
               <a class="text-muted"><c:out value="${question.topic}"/></a>
               <c:if test="${sessionScope.user != null}">
                 <span class="text-muted"> &bull; </span>
-                <a class="text-muted"><span class="glyphicon glyphicon-comment" style="font-size: 12px"></span> Ответить</a>
+                <a class="text-muted"><span class="glyphicon glyphicon-comment" style="font-size: 12px"></span>${ask}</a>
               </c:if>
             </p>
           </div>

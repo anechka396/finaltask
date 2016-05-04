@@ -18,7 +18,10 @@
     <title>Title</title>
 </head>
 <body>
-    <h2>Hello, <c:out value="${sessionScope.user.login}"/> !</h2>
-    <a href="../../index.jsp">To main page</a>
+<h2>Hello, <c:out value="${sessionScope.user.login}"/> !</h2>
+<a href="../../index.jsp">To main page</a>
+<c:out value="${sessionScope.user.login}"/>
+<c:out value="${sessionScope.user.password}"/>
+<c:out value="${sessionScope.user.name}"/>
 </body>
 </html>

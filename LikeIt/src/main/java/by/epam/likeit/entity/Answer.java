@@ -1,0 +1,78 @@
+package by.epam.likeit.entity;
+
+/**
+ * Created by Пользователь on 04.05.2016.
+ */
+public class Answer {
+    private int id;
+    private int qId;
+    private String text;
+    private String author;
+
+    public Answer() {
+        this.id = 0;
+        this.qId = 0;
+        this.text = "";
+        this.author = "";
+    }
+
+    public Answer(int id, int question_id, String text, String author) {
+        this.id = id;
+        this.qId = question_id;
+        this.text = text;
+        this.author = author;
+    }
+
+    public int getQId() {
+        return qId;
+    }
+
+    public void setQId(int question_id) {
+        this.qId = question_id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Answer answer = (Answer) o;
+
+        if (id != answer.id) return false;
+        if (text != null ? !text.equals(answer.text) : answer.text != null) return false;
+        return author != null ? author.equals(answer.author) : answer.author == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (text != null ? text.hashCode() : 0);
+        result = 31 * result + (author != null ? author.hashCode() : 0);
+        return result;
+    }
+}

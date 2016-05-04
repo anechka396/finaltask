@@ -61,7 +61,9 @@ public class Controller extends HttpServlet {
         }
 
         String method = (String) req.getAttribute(METHOD);
-        if(method != null && method.equals("redirect")){
+        if(method != null && method.equals("ajax")){
+            req.removeAttribute(METHOD);
+        }else if(method != null && method.equals("redirect")){
             req.removeAttribute(METHOD);
             resp.sendRedirect(page);
         } else {
