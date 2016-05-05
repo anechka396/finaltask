@@ -8,10 +8,24 @@ $(document).ready(function() {
                 text: text,
                 id: $(this).attr("data-id")
             },
-            success: function () {
-                $('#answers').append(text);
+            dataType : 'json',
+            success: function (response) {
+                $('#answers').empty();
+                $('#IPhotoTmpl').tmpl(response).appendTo('#answers');
                 $('#answer-text').val('');
             }
         });
+    });
+
+    $(".close").click(function(){
+        $.ajax({
+            url : '/Controller',
+            data : {
+                command: 'delete-answer',
+                id: $(this).attr("data-id")
+            }
+        });
+
+        $(this).parent().remove();
     });
 });

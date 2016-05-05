@@ -43,4 +43,8 @@
         <name>AddAnswerToQuestionCommand</name>
         <command>add-answer</command>
     </class>
+    <class>
+        <name>DeleteAnswerCommand</name>
+        <command>delete-answer</command>
+    </class>
 </tc:config>

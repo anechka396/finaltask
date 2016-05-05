@@ -18,6 +18,7 @@ public class AnswerDAOImpl implements AnswerDAO {
 
     private static final String SQL_SELECT_ANSWERS_BY_Q_ID = "SELECT id, text, author from answers WHERE question_id=? ORDER BY date ";
     private static final String SQL_INSERT_ANSWER = "INSERT INTO answers(text, question_id, author) VALUES(?, ?, ?)";
+    private static final String SQL_DELETE_ANSWER = "DELETE FROM answers WHERE id=?";
 
     private static final String ID = "id";
     private static final String TEXT = "text";
@@ -63,7 +64,23 @@ public class AnswerDAOImpl implements AnswerDAO {
 
     @Override
     public void delete(Integer id) throws DaoException {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ConnectionPool pool = null;
+        try {
+            pool = ConnectionPool.getInstance();
+            connection = pool.takeConnection();
+            ps = connection.prepareStatement(SQL_DELETE_ANSWER);
+            ps.setInt(1, id);
+            ps.execute();
 
+        } catch (ConnectionPoolException | SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            if(connection != null){
+                pool.closeConnection(connection, ps);
+            }
+        }
     }
 
     @Override
