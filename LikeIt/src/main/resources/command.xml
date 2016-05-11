@@ -47,4 +47,8 @@
         <name>DeleteAnswerCommand</name>
         <command>delete-answer</command>
     </class>
+    <class>
+        <name>SetRatingCommand</name>
+        <command>set-rating</command>
+    </class>
 </tc:config>

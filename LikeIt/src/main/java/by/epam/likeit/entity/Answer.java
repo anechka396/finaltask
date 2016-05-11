@@ -6,6 +6,7 @@ package by.epam.likeit.entity;
 public class Answer {
     private int id;
     private int qId;
+    private int mark;
     private String text;
     private String author;
 
@@ -14,13 +15,15 @@ public class Answer {
         this.qId = 0;
         this.text = "";
         this.author = "";
+        this.mark = 0;
     }
 
-    public Answer(int id, int question_id, String text, String author) {
+    public Answer(int id, int question_id, String text, String author, int mark) {
         this.id = id;
         this.qId = question_id;
         this.text = text;
         this.author = author;
+        this.mark = mark;
     }
 
     public int getQId() {
@@ -53,6 +56,14 @@ public class Answer {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public int getMark() {
+        return mark;
+    }
+
+    public void setMark(int mark) {
+        this.mark = mark;
     }
 
     @Override

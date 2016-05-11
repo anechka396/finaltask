@@ -1,39 +1,42 @@
 package by.epam.likeit.command.impl;
 
 import by.epam.likeit.command.Command;
-import by.epam.likeit.command.PageName;
 import by.epam.likeit.command.exception.CommandException;
 import by.epam.likeit.entity.User;
 import by.epam.likeit.service.exception.ServiceException;
-import by.epam.likeit.service.impl.AddAnswerService;
+import by.epam.likeit.service.impl.SetRatingService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.Service;
 
-public class AddAnswerToQuestionCommand implements Command {
+/**
+ * Created by Пользователь on 08.05.2016.
+ */
+public class SetRatingCommand implements Command {
     private static final Logger LOGGER = LogManager.getRootLogger();
 
-    private static final String ID = "id";
-    private static final String TEXT = "text";
     private static final String METHOD = "method";
-    private static final String REDIRECT = "redirect";
+    private static final String AJAX = "ajax";
+    private static final String ID = "id";
     private static final String USER = "user";
+    private static final String MARK = "mark";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         int id = Integer.parseInt(request.getParameter(ID));
-        String text = request.getParameter(TEXT);
-        User user = (User) request.getSession().getAttribute(USER);
-        request.setAttribute(METHOD, REDIRECT);
-
-        AddAnswerService service = new AddAnswerService();
+        User author = (User) request.getSession().getAttribute(USER);
+        int mark = Integer.parseInt(request.getParameter(MARK));
+        LOGGER.trace(id+ " "  + author + " " + mark);
+        SetRatingService serv = new SetRatingService();
         try {
-           service.service(id, text, user.getLogin());
+            serv.service(id, author, mark);
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
-        return PageName.QUESION_PAGE;
+        request.setAttribute(METHOD, AJAX);
+        return null;
     }
 }

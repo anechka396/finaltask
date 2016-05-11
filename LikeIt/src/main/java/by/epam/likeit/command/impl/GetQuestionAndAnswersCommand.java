@@ -10,6 +10,7 @@ import by.epam.likeit.dao.QuestionDAOFactory;
 import by.epam.likeit.dao.exception.DaoException;
 import by.epam.likeit.entity.Answer;
 import by.epam.likeit.entity.Question;
+import by.epam.likeit.entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,16 +24,22 @@ public class GetQuestionAndAnswersCommand implements Command {
     private static final String ID = "id";
     private static final String QUESTION = "question";
     private static final String ANSWERS = "answers";
+    private static final String USER = "user";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         int id = Integer.parseInt(request.getParameter(ID));
-        LOGGER.trace(id);
         QuestionDAO questionDAO = QuestionDAOFactory.getInstance();
         AnswerDAO answerDAO = AnswerDAOFactory.getInstance();
         try {
             Question question =  questionDAO.retrieve(id);
-            List<Answer> answers = answerDAO.retrieveAllByQuestionId(id);
+            User user = (User) request.getSession().getAttribute(USER);
+            List<Answer> answers = null;
+            if(user != null){
+                answers = answerDAO.retrieveAllWithMarksByQuestionId(id, user.getLogin());
+            } else {
+                answers = answerDAO.retrieveAllByQuestionId(id);
+            }
             request.setAttribute(QUESTION, question);
             request.setAttribute(ANSWERS, answers);
         } catch (DaoException e) {

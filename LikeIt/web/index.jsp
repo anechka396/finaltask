@@ -116,8 +116,7 @@
             <c:if test="${sessionScope.user.role == 'ADMIN' || sessionScope.user.login == question.author}">
               <button class="close" data-id="${question.id}"><span aria-hidden="true">&times;</span></button>
             </c:if>
-            <form action="/Controller" method="post">
-              <input type="hidden" name="command" value="get-question">
+            <form action="question.jsp" method="post">
               <input type="hidden" name="id" value="${question.id}">
               <input type="submit" value="${question.text}" class="btn-link">
             </form>
@@ -127,7 +126,7 @@
               <a class="text-muted"><c:out value="${question.topic}"/></a>
               <c:if test="${sessionScope.user != null}">
                 <span class="text-muted"> &bull; </span>
-                <a class="text-muted"><span class="glyphicon glyphicon-comment" style="font-size: 12px"></span>${ask}</a>
+                <a class="text-muted" href="question.jsp?id=${question.id}#answer-text"><span class="glyphicon glyphicon-comment" style="font-size: 12px"></span>${ask}</a>
               </c:if>
             </p>
           </div>

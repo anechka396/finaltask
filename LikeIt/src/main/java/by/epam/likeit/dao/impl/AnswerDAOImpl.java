@@ -17,12 +17,15 @@ import java.util.List;
 public class AnswerDAOImpl implements AnswerDAO {
 
     private static final String SQL_SELECT_ANSWERS_BY_Q_ID = "SELECT id, text, author from answers WHERE question_id=? ORDER BY date ";
+    private static final String SQL_SELECT_ANSWERS_WITH_MARKS_BY_Q_ID = "SELECT id, text, author, mark from answers a LEFT JOIN marks m ON a.id=m.answer_id WHERE question_id=? AND user=? ORDER BY date ";
     private static final String SQL_INSERT_ANSWER = "INSERT INTO answers(text, question_id, author) VALUES(?, ?, ?)";
     private static final String SQL_DELETE_ANSWER = "DELETE FROM answers WHERE id=?";
+    private static final String SQL_REPLACE_ANSWER = "REPLACE INTO marks(answer_id, user, mark) VALUES(?,?,?)";
 
     private static final String ID = "id";
     private static final String TEXT = "text";
     private static final String AUTHOR = "author";
+    private static final String MARK = "mark";
 
     @Override
     public void create(Answer entity) throws DaoException {
@@ -113,5 +116,62 @@ public class AnswerDAOImpl implements AnswerDAO {
             }
         }
         return answers;
+    }
+
+    @Override
+    public List<Answer> retrieveAllWithMarksByQuestionId(int id, String user) throws DaoException {
+        List<Answer> answers = new ArrayList<>();
+        Answer answer = null;
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ConnectionPool pool = null;
+
+        try {
+            pool = ConnectionPool.getInstance();
+            connection = pool.takeConnection();
+            ps = connection.prepareStatement(SQL_SELECT_ANSWERS_WITH_MARKS_BY_Q_ID);
+            ps.setInt(1, id);
+            ps.setString(2, user);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                answer = new Answer();
+                answer.setId(rs.getInt(ID));
+                answer.setText(rs.getString(TEXT));
+                answer.setAuthor(rs.getString(AUTHOR));
+                answer.setMark(rs.getInt(MARK));
+                answers.add(answer);
+            }
+        } catch (ConnectionPoolException | SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            if(connection != null){
+                pool.closeConnection(connection, ps, rs);
+            }
+        }
+        return answers;
+    }
+
+    @Override
+    public void setRatingToAnswer(int id, String user,int mark) throws DaoException {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ConnectionPool pool = null;
+
+        try {
+            pool = ConnectionPool.getInstance();
+            connection = pool.takeConnection();
+            ps = connection.prepareStatement(SQL_REPLACE_ANSWER);
+            ps.setInt(1, id);
+            ps.setString(2, user);
+            ps.setInt(3, mark);
+            ps.executeUpdate();
+        } catch (ConnectionPoolException | SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            if(connection != null){
+                pool.closeConnection(connection, ps);
+            }
+        }
     }
 }

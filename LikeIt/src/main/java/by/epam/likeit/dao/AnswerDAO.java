@@ -10,4 +10,8 @@ import java.util.List;
  */
 public interface AnswerDAO extends BaseDAO<Answer,Integer> {
     public List<Answer> retrieveAllByQuestionId(int id) throws DaoException;
+
+    public List<Answer> retrieveAllWithMarksByQuestionId(int id, String user) throws DaoException;
+
+    public void setRatingToAnswer(int id, String author, int mark) throws DaoException;
 }

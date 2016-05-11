@@ -4,7 +4,9 @@ import by.epam.likeit.service.exception.ServiceException;
 
 import java.util.List;
 
-public abstract class AbsractService<E>{
+public abstract class AbstractService<E>{
+
+    public void service(int param1, E param2, int param3) throws ServiceException{}
 
     public List<E> service(int param1, String param2, String param3) throws ServiceException{
         return null;

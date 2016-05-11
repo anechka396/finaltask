@@ -11,9 +11,6 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Created by Пользователь on 30.04.2016.
- */
 public class DeleteQuestionCommand implements Command{
     private static final Logger LOGGER = LogManager.getRootLogger();
 
@@ -31,7 +28,6 @@ public class DeleteQuestionCommand implements Command{
         } catch (DaoException e) {
             throw new CommandException(e);
         }
-        LOGGER.trace("In delete " + id);
         return null;
     }
 }

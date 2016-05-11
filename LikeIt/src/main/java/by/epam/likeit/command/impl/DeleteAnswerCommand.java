@@ -4,8 +4,6 @@ import by.epam.likeit.command.Command;
 import by.epam.likeit.command.exception.CommandException;
 import by.epam.likeit.dao.AnswerDAO;
 import by.epam.likeit.dao.AnswerDAOFactory;
-import by.epam.likeit.dao.QuestionDAO;
-import by.epam.likeit.dao.QuestionDAOFactory;
 import by.epam.likeit.dao.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,7 +31,6 @@ public class DeleteAnswerCommand implements Command {
         } catch (DaoException e) {
             throw new CommandException(e);
         }
-        LOGGER.trace("In delete " + id);
         return null;
     }
 }

@@ -26,7 +26,6 @@ public class AddQuestionCommand implements Command {
 
         User user = (User) request.getSession().getAttribute(USER);
         String text = request.getParameter(TEXT);
-        LOGGER.trace(text);
         String topic = request.getParameter(TOPIC);
 
         try {
