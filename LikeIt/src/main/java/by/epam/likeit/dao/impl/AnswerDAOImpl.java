@@ -17,7 +17,7 @@ import java.util.List;
 public class AnswerDAOImpl implements AnswerDAO {
 
     private static final String SQL_SELECT_ANSWERS_BY_Q_ID = "SELECT id, text, author from answers WHERE question_id=? ORDER BY date ";
-    private static final String SQL_SELECT_ANSWERS_WITH_MARKS_BY_Q_ID = "SELECT id, text, author, mark from answers a LEFT JOIN marks m ON a.id=m.answer_id WHERE question_id=? AND user=? ORDER BY date ";
+    private static final String SQL_SELECT_ANSWERS_WITH_MARKS_BY_Q_ID = "SELECT id, text, author, mark from answers a LEFT JOIN (SELECT * FROM marks WHERE user=?) m ON a.id=m.answer_id WHERE question_id=? ORDER BY date";
     private static final String SQL_INSERT_ANSWER = "INSERT INTO answers(text, question_id, author) VALUES(?, ?, ?)";
     private static final String SQL_DELETE_ANSWER = "DELETE FROM answers WHERE id=?";
     private static final String SQL_REPLACE_ANSWER = "REPLACE INTO marks(answer_id, user, mark) VALUES(?,?,?)";
@@ -131,8 +131,8 @@ public class AnswerDAOImpl implements AnswerDAO {
             pool = ConnectionPool.getInstance();
             connection = pool.takeConnection();
             ps = connection.prepareStatement(SQL_SELECT_ANSWERS_WITH_MARKS_BY_Q_ID);
-            ps.setInt(1, id);
-            ps.setString(2, user);
+            ps.setInt(2, id);
+            ps.setString(1, user);
             rs = ps.executeQuery();
             while (rs.next()){
                 answer = new Answer();
