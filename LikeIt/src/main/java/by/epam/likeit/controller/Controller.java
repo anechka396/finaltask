@@ -80,7 +80,7 @@ public class Controller extends HttpServlet {
 
         try {
             commandName = req.getParameter(COMMAND_NAME);
-           // LOGGER.trace(commandName);
+            LOGGER.trace(commandName);
             command = helper.getCommand(commandName);
             page = command.execute(req, resp);
         } catch (CommandException e) {

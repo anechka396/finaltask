@@ -1,4 +1,15 @@
 $(document).ready(function() {
+    $('#edit-question').css({'border': 'none'});
+
+    $('#edit-question').editable({
+        type: 'textarea',
+        placement: 'bottom',
+        title: 'Edit question',
+        params: {
+            command: 'edit-question'
+        }
+    });
+
     $(".close").click(function(){
         $.ajax({
             url : '/Controller',
@@ -21,4 +32,5 @@ $(document).ready(function() {
             }
         });
     });
+
 });

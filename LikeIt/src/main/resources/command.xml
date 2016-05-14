@@ -51,4 +51,8 @@
         <name>SetRatingCommand</name>
         <command>set-rating</command>
     </class>
+    <class>
+        <name>EditQuestionCommand</name>
+        <command>edit-question</command>
+    </class>
 </tc:config>

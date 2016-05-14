@@ -16,13 +16,22 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/star-rating.min.js"></script>
     <script src="js/question-ajax.js"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 </head>
 <body>
 <div class="container">
     <div class="col-xs-offset-1 col-xs-10">
         <h2>Вопрос:</h2>
         <div class="well well-sm">
-            <c:out value="${requestScope.question.text}"/>
+            <c:choose>
+                <c:when test="${sessionScope.user.login == requestScope.question.author}">
+                    <a class="btn" id="edit-question" data-name="questions" data-pk="${requestScope.question.id}" data-url="/Controller">${requestScope.question.text}</a>
+                </c:when>
+                <c:otherwise>
+                    <c:out value="${requestScope.question.text}"/>
+                </c:otherwise>
+            </c:choose>
         </div>
         <a class="btn btn-default" href="#answer-text">Ответить</a>
 

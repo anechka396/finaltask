@@ -21,6 +21,7 @@ public class QuestionDAOImpl implements QuestionDAO {
     private static final String SQL_SELECT_ALL_QUSTIONS = "SELECT id, topic, text, author from questions order by date desc";
     private static final String SQL_SELECT_ALL_QUESTIONS_BY_TOPIC = "SELECT id, topic, text, author from questions where topic=? order by date desc";
     private static final String SQL_DELETE_QUESTION = "DELETE FROM questions WHERE id=?";
+    private static final String SQL_UPDATE_QUESTION = "UPDATE questions SET text=? WHERE id=?";
 
     private static final String ID = "id";
     private static final String TOPIC = "topic";
@@ -116,6 +117,26 @@ public class QuestionDAOImpl implements QuestionDAO {
 
     @Override
     public void update(Question entity) {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ConnectionPool pool = null;
+
+        try{
+            pool = ConnectionPool.getInstance();
+            connection = pool.takeConnection();
+            ps = connection.prepareStatement(SQL_UPDATE_QUESTION);
+            ps.setString(1, entity.getText());
+            ps.setInt(2, entity.getId());
+            ps.executeUpdate();
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if(connection != null){
+                pool.closeConnection(connection, ps);
+            }
+        }
 
     }
 
