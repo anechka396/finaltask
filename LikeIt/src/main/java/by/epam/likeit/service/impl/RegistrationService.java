@@ -5,22 +5,23 @@ import by.epam.likeit.dao.UserDAOFactory;
 import by.epam.likeit.dao.exception.DaoException;
 import by.epam.likeit.entity.Role;
 import by.epam.likeit.entity.User;
-import by.epam.likeit.service.AbstractService;
+import by.epam.likeit.service.Service;
 import by.epam.likeit.service.exception.ServiceException;
 
-public class RegistrationService extends AbstractService<User> {
+public class RegistrationService extends Service {
 
     @Override
     public User service(String login, String password, String name, String email, String role) throws ServiceException {
         User user = null;
 
         try {
-            user = new User(login, password, name, Role.valueOf(role.toUpperCase()), email);
+            user = new User(login, password, name, "", Role.valueOf(role.toUpperCase()), email);
             UserDAO userDAO = UserDAOFactory.getInstance();
             userDAO.create(user);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
+
         return user;
     }
 }

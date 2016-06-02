@@ -28,6 +28,7 @@
         <servlet-name>UserPage</servlet-name>
         <url-pattern>/UserPage</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>AddQuestionPage</servlet-name>
         <jsp-file>/WEB-INF/jsp/add-question-form.jsp</jsp-file>
@@ -36,6 +37,7 @@
         <servlet-name>AddQuestionPage</servlet-name>
         <url-pattern>/AddQuestionPage</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>Error</servlet-name>
         <jsp-file>/error.jsp</jsp-file>
@@ -44,6 +46,25 @@
         <servlet-name>Error</servlet-name>
         <url-pattern>/Error</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EditUser</servlet-name>
+        <jsp-file>/WEB-INF/jsp/edit-user-page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditUser</servlet-name>
+        <url-pattern>/EditUser</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>QuestionPage</servlet-name>
+        <jsp-file>/question.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>QuestionPage</servlet-name>
+        <url-pattern>/QuestionPage</url-pattern>
+    </servlet-mapping>
+
     <listener>
         <listener-class>by.epam.likeit.listener.InitializeListener</listener-class>
     </listener>
@@ -63,5 +84,9 @@
     <filter-mapping>
         <filter-name>CharsetFilter</filter-name>
         <url-pattern>/AddQuestionPage</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CharsetFilter</filter-name>
+        <url-pattern>/QuestionPage</url-pattern>
     </filter-mapping>
 </web-app>

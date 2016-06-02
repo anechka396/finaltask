@@ -17,14 +17,15 @@ public class UserDAOImpl implements UserDAO {
 
     private static final Logger LOGGER = LogManager.getRootLogger();
 
-    private static final String SQL_SELECT_ALL_USERS = "SELECT login, password,name, email, role FROM users";
-    private static final String SQL_SELECT_USER_BY_LOGIN = "SELECT login, password, name, email, role FROM users WHERE login=?";
-    private static final String SQL_INSERT_USER = "INSERT INTO users (login, password, name, email, role) VALUES(?,?,?,?,?)";
+    private static final String SQL_SELECT_ALL_USERS = "SELECT login, password, name, last_name, email, role FROM users";
+    private static final String SQL_SELECT_USER_BY_LOGIN = "SELECT login, password, name, last_name, email, role FROM users WHERE login=?";
+    private static final String SQL_INSERT_USER = "INSERT INTO users (login, password, name, last_name, email, role) VALUES(?,?,?,?,?,?)";
 
     private static final String LOGIN = "login";
     private static final String PASSWORD = "password";
     private static final String ROLE = "role";
     private static final String USERNAME = "name";
+    private static final String LAST_NAME = "last_name";
     private static final String EMAIL = "email";
 
     @Override
@@ -40,8 +41,9 @@ public class UserDAOImpl implements UserDAO {
             ps.setString(1, user.getLogin());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getName());
-            ps.setString(4, user.getEmail());
-            ps.setString(5, "user");
+            ps.setString(4, user.getLastName());
+            ps.setString(5, user.getEmail());
+            ps.setString(6, "user");
             ps.executeUpdate();
         } catch (SQLException |ConnectionPoolException e) {
             throw new DaoException(e);
@@ -70,10 +72,11 @@ public class UserDAOImpl implements UserDAO {
             while (rs.next()){
                 String password = rs.getString(PASSWORD);
                 String username = rs.getString(USERNAME);
+                String lastName = rs.getString(LAST_NAME);
                 String email = rs.getString(EMAIL);
                 Role role = Role.valueOf(rs.getString(ROLE).toUpperCase());
 
-                user = new User(login, password, username, role, email);
+                user = new User(login, password, username, lastName, role, email);
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw  new DaoException(e);
@@ -104,9 +107,10 @@ public class UserDAOImpl implements UserDAO {
                 String login = rs.getString(LOGIN);
                 String password = rs.getString(PASSWORD);
                 String username = rs.getString(USERNAME);
+                String lastName = rs.getString(LAST_NAME);
                 String email = rs.getString(EMAIL);
                 Role role = Role.valueOf(rs.getString(ROLE).toUpperCase());
-                user = new User(login, password, username, role, email);
+                user = new User(login, password, username, lastName, role, email);
                 users.add(user);
             }
         } catch (ConnectionPoolException | SQLException e) {

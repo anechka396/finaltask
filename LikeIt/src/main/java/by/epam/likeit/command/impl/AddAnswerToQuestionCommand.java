@@ -4,8 +4,10 @@ import by.epam.likeit.command.Command;
 import by.epam.likeit.command.PageName;
 import by.epam.likeit.command.exception.CommandException;
 import by.epam.likeit.entity.User;
+import by.epam.likeit.service.Service;
+import by.epam.likeit.service.ServiceFactory;
+import by.epam.likeit.service.ServiceName;
 import by.epam.likeit.service.exception.ServiceException;
-import by.epam.likeit.service.impl.AddAnswerService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,8 +19,6 @@ public class AddAnswerToQuestionCommand implements Command {
 
     private static final String ID = "id";
     private static final String TEXT = "text";
-    private static final String METHOD = "method";
-    private static final String REDIRECT = "redirect";
     private static final String USER = "user";
 
     @Override
@@ -26,11 +26,11 @@ public class AddAnswerToQuestionCommand implements Command {
         int id = Integer.parseInt(request.getParameter(ID));
         String text = request.getParameter(TEXT);
         User user = (User) request.getSession().getAttribute(USER);
-        request.setAttribute(METHOD, REDIRECT);
 
-        AddAnswerService service = new AddAnswerService();
+        ServiceFactory factory = ServiceFactory.getInstance();
+        Service addAnswerService = factory.getService(ServiceName.ADD_ANSWER);
         try {
-           service.service(id, text, user.getLogin());
+           addAnswerService.service(id, text, user.getLogin());
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

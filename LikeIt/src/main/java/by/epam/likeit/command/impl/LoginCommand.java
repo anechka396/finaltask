@@ -4,14 +4,15 @@ import by.epam.likeit.command.Command;
 import by.epam.likeit.command.exception.CommandException;
 import by.epam.likeit.command.PageName;
 import by.epam.likeit.entity.User;
-import by.epam.likeit.service.impl.LoginService;
+import by.epam.likeit.service.Service;
+import by.epam.likeit.service.ServiceFactory;
+import by.epam.likeit.service.ServiceName;
 import by.epam.likeit.service.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class LoginCommand implements Command {
-    private static final LoginService service = new LoginService();
     private static final String USER = "user";
     private static final String LOGIN = "login";
     private static final String PASSWORD = "password";
@@ -22,8 +23,11 @@ public class LoginCommand implements Command {
         User user = null;
         String login = request.getParameter(LOGIN);
         String password = request.getParameter(PASSWORD);
+
+        ServiceFactory factory = ServiceFactory.getInstance();
+        Service loginService = factory.getService(ServiceName.LOGIN);
         try {
-            user = service.service(login, password);
+            user = loginService.service(login, password);
         } catch (ServiceException e) {
             throw new CommandException();
         }

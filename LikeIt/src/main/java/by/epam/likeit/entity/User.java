@@ -6,6 +6,7 @@ public class User implements Serializable {
     private String login;
     private String password;
     private String name;
+    private String lastName;
     private Role role;
     private String email;
 
@@ -14,15 +15,25 @@ public class User implements Serializable {
         this.login = empty;
         this.password = empty;
         this.name = empty;
+        this.lastName = empty;
         this.email = empty;
     }
 
-    public User(String login, String password, String name, Role role, String email) {
+    public User(String login, String password, String name, String lastName, Role role, String email) {
         this.login = login;
         this.password = password;
         this.name = name;
+        this.lastName = lastName;
         this.role = role;
         this.email = email;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getLogin() {

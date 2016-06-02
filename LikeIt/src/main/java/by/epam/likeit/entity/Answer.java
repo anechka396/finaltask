@@ -11,10 +11,11 @@ public class Answer {
     private String author;
 
     public Answer() {
+        String empty = "";
         this.id = 0;
         this.qId = 0;
-        this.text = "";
-        this.author = "";
+        this.text = empty;
+        this.author = empty;
         this.mark = 0;
     }
 

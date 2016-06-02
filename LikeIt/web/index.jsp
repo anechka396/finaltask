@@ -15,6 +15,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="js/app-ajax.js"></script>
+
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle basename="localization.prop" var="loc"/>
     <fmt:message bundle="${loc}" key="prop.login" var="login"/>
@@ -27,6 +28,9 @@
     <fmt:message bundle="${loc}" key="prop.question.type" var="typeQuestion"/>
     <fmt:message bundle="${loc}" key="prop.hello" var="hello"/>
     <fmt:message bundle="${loc}" key="prop.ask" var="ask"/>
+    <fmt:message bundle="${loc}" key="prop.in" var="in"/>
+    <fmt:message bundle="${loc}" key="prop.topics" var="topics"/>
+
   </head>
   <body>
 
@@ -46,7 +50,7 @@
 
             <div class="collapse navbar-collapse">
               <ul class="nav navbar-nav">
-                <li><a data-toggle="collapse" data-target="#topics" id="show-topics">Topics</a></li>
+                <li><a data-toggle="collapse" data-target="#topics" id="show-topics">${topics}</a></li>
               </ul>
               <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
@@ -122,11 +126,11 @@
             </form>
             <p>
               <a href="#" class="text-muted"><c:out value="${question.author}"/></a>
-              <span class="text-muted">in</span>
+              <span class="text-muted">${in}</span>
               <a class="text-muted"><c:out value="${question.topic}"/></a>
               <c:if test="${sessionScope.user != null}">
                 <span class="text-muted"> &bull; </span>
-                <a class="text-muted" href="question.jsp?id=${question.id}#answer-text"><span class="glyphicon glyphicon-comment" style="font-size: 12px"></span>${ask}</a>
+                <a class="text-muted" href="/QuestionPage?id=${question.id}#answer-text"><span class="glyphicon glyphicon-comment" style="font-size: 12px"></span>${ask}</a>
               </c:if>
             </p>
           </div>

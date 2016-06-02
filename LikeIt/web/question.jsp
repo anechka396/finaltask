@@ -1,9 +1,12 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <c:if test="${requestScope.question == null}">
-    <c:redirect url="Controller?command=get-question&id=${param.id}"/>
+    <c:redirect url="/Controller">
+        <c:param name="command" value="get-question"/>
+        <c:param name="id" value="${param.id}"/>
+    </c:redirect>
 </c:if>
 
 <html>
@@ -51,7 +54,7 @@
             </c:forEach>
         </div>
         <c:if test="${sessionScope.user != null}">
-            <form action="/Controller" class="form">
+            <form action="/Controller" method="post" class="form">
                 <input type="hidden" name="command" value="add-answer">
                 <input type="hidden" name="id" value="${requestScope.question.id}">
                 <div class="form-group">
