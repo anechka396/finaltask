@@ -10,13 +10,24 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/star-rating.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/star-rating.min.js"></script>
 </head>
 <body>
     <div class="container-fluid">
+        <c:import url="navbar.jsp"/>
         <div class="row">
             <div class="col-sm-2">
-                <img src="../../pictures/no-avatar.png" height="100" width="100">
+                <div class="btn-group-vertical" role="group" aria-label="...">
+                    <img src="../../pictures/no-avatar.png" width="100%">
+                    <button class="btn btn-primary">
+                        Изменить изобружение
+                    </button>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                        Изменить пароль
+                    </button>
+                </div>
             </div>
             <div class="col-sm-10">
                 <div class="row">
@@ -51,10 +62,63 @@
                         ${sessionScope.user.email}
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <span>Рейтинг:</span>
+                    </div>
+                    <div class="col-sm-10">
+                        <input id="rating" type="number" class="rating-loading" value="3.4">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="../../index.jsp">To main page</a>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Изменить пароль</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="change-password-form">
+                        <div class="row form-group">
+                            <label for="old-password" class="col-sm-4 control-label">Старый пароль:</label>
+                            <div class="col-sm-8">
+                                <input type="password" name="old-password" id="old-password" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label for="new-password" class="col-sm-4 control-label">Новый пароль:</label>
+                            <div class="col-sm-8">
+                                <input type="password" name="new-password" id="new-password" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label for="new-password-2" class="col-sm-4 control-label">Повторите новый пароль:</label>
+                            <div class="col-sm-8">
+                                <input type="password" name="new-password-2" id="new-password-2" class="form-control" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" form="change-password-form" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-<a href="../../index.jsp">To main page</a>
-<a href="/EditUser">Edit</a>
+<script>
+    $(document).on('ready', function(){
+        $('#rating').rating({
+            step: 0.1,
+            size: 'xs',
+            displayOnly: true
+        });
+    });
+</script>
 </body>
 </html>

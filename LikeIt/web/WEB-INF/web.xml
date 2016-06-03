@@ -48,15 +48,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>EditUser</servlet-name>
-        <jsp-file>/WEB-INF/jsp/edit-user-page.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EditUser</servlet-name>
-        <url-pattern>/EditUser</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>QuestionPage</servlet-name>
         <jsp-file>/question.jsp</jsp-file>
     </servlet>
