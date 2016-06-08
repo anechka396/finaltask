@@ -55,4 +55,8 @@
         <name>EditQuestionCommand</name>
         <command>edit-question</command>
     </class>
+    <class>
+        <name>GetUserRatingCommand</name>
+        <command>get-user-rating</command>
+    </class>
 </tc:config>

@@ -20,6 +20,8 @@ public class UserDAOImpl implements UserDAO {
     private static final String SQL_SELECT_ALL_USERS = "SELECT login, password, name, last_name, email, role FROM users";
     private static final String SQL_SELECT_USER_BY_LOGIN = "SELECT login, password, name, last_name, email, role FROM users WHERE login=?";
     private static final String SQL_INSERT_USER = "INSERT INTO users (login, password, name, last_name, email, role) VALUES(?,?,?,?,?,?)";
+    private static final String SQL_SELECT_SUM_OF_MARKS = "SELECT rating FROM users WHERE login=?";
+    private static final String SQL_SELECT_COUNT_OF_MARKS = "SELECT count FROM users WHERE login=?";
 
     private static final String LOGIN = "login";
     private static final String PASSWORD = "password";
@@ -137,5 +139,60 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User retrieveUserByEmail(String email) {
         return null;
+    }
+
+    @Override
+    public int getSumOfMarksByLogin(String login) throws DaoException {
+        int sum = 0;
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ConnectionPool pool = null;
+
+        try {
+            pool = ConnectionPool.getInstance();
+            connection = pool.takeConnection();
+            ps = connection.prepareStatement(SQL_SELECT_SUM_OF_MARKS);
+            ps.setString(1, login);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                sum = rs.getInt("rating");
+            }
+        } catch (ConnectionPoolException | SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            if(connection != null){
+                pool.closeConnection(connection, ps, rs);
+            }
+        }
+
+        return sum;
+    }
+
+    @Override
+    public int getCountOfMarksByLogin(String login) throws DaoException {
+        int count = 0;
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ConnectionPool pool = null;
+
+        try {
+            pool = ConnectionPool.getInstance();
+            connection = pool.takeConnection();
+            ps = connection.prepareStatement(SQL_SELECT_COUNT_OF_MARKS);
+            ps.setString(1, login);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                count = rs.getInt("count");
+            }
+        } catch (ConnectionPoolException | SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            if(connection != null){
+                pool.closeConnection(connection, ps, rs);
+            }
+        }
+        return count;
     }
 }

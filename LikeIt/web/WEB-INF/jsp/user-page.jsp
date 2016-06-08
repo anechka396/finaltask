@@ -16,7 +16,7 @@
 </head>
 <body>
     <div class="container-fluid">
-        <c:import url="navbar.jsp"/>
+        <c:import url="/navbar.jsp"/>
         <div class="row">
             <div class="col-sm-2">
                 <div class="btn-group-vertical" role="group" aria-label="...">
@@ -51,7 +51,7 @@
                         login:
                     </div>
                     <div class="col-sm-10">
-                        ${sessionScope.user.login}
+                        <span id="login">${sessionScope.user.login}</span>
                     </div>
                 </div>
                 <div class="row">
@@ -67,7 +67,7 @@
                         <span>Рейтинг:</span>
                     </div>
                     <div class="col-sm-10">
-                        <input id="rating" type="number" class="rating-loading" value="3.4">
+                        <input id="rating" type="number" class="rating-loading">
                     </div>
                 </div>
             </div>
@@ -118,6 +118,19 @@
             size: 'xs',
             displayOnly: true
         });
+
+        $.ajax({
+            url : '/Controller',
+            data : {
+                command: 'get-user-rating',
+                login: $('#login').text()
+            },
+            success : function(responseText) {
+                console.log("'" +responseText + "'");
+                $('#rating').rating('update', responseText)
+            }
+        });
+
     });
 </script>
 </body>
