@@ -12,18 +12,16 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/star-rating.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
     <script src="js/star-rating.min.js"></script>
     <script src="js/question-ajax.js"></script>
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
+    <c:import url="navbar.jsp"/>
     <div class="col-xs-offset-1 col-xs-10">
         <h2>Вопрос:</h2>
         <div class="well well-sm">

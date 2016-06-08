@@ -4,9 +4,8 @@ import by.epam.likeit.command.Command;
 import by.epam.likeit.command.exception.CommandException;
 import by.epam.likeit.command.PageName;
 import by.epam.likeit.entity.User;
-import by.epam.likeit.service.Service;
 import by.epam.likeit.service.ServiceFactory;
-import by.epam.likeit.service.ServiceName;
+import by.epam.likeit.service.UserService;
 import by.epam.likeit.service.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,9 +24,9 @@ public class LoginCommand implements Command {
         String password = request.getParameter(PASSWORD);
 
         ServiceFactory factory = ServiceFactory.getInstance();
-        Service loginService = factory.getService(ServiceName.LOGIN);
+        UserService userService = factory.getUserService();
         try {
-            user = loginService.service(login, password);
+            user = userService.loginUser(login, password);
         } catch (ServiceException e) {
             throw new CommandException();
         }

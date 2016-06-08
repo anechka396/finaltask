@@ -9,10 +9,10 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/star-rating.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/star-rating.min.js"></script>
+    <fmt:setLocale value="${sessionScope.locale}"/>
 </head>
 <body>
     <div class="container-fluid">

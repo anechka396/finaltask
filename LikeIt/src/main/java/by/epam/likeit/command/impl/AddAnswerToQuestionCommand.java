@@ -4,9 +4,8 @@ import by.epam.likeit.command.Command;
 import by.epam.likeit.command.PageName;
 import by.epam.likeit.command.exception.CommandException;
 import by.epam.likeit.entity.User;
-import by.epam.likeit.service.Service;
+import by.epam.likeit.service.AnswerService;
 import by.epam.likeit.service.ServiceFactory;
-import by.epam.likeit.service.ServiceName;
 import by.epam.likeit.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,9 +27,9 @@ public class AddAnswerToQuestionCommand implements Command {
         User user = (User) request.getSession().getAttribute(USER);
 
         ServiceFactory factory = ServiceFactory.getInstance();
-        Service addAnswerService = factory.getService(ServiceName.ADD_ANSWER);
+        AnswerService answerService = factory.getAnswerService();
         try {
-           addAnswerService.service(id, text, user.getLogin());
+           answerService.addAnswer(id, text, user.getLogin());
         } catch (ServiceException e) {
             throw new CommandException(e);
         }

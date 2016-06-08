@@ -14,9 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-/**
- * Created by Пользователь on 25.04.2016.
- */
 public class GetLastQuestionsCommand implements Command {
     private static final Logger LOGGER = LogManager.getRootLogger();
 
@@ -29,7 +26,7 @@ public class GetLastQuestionsCommand implements Command {
         String topic = null;
         try {
             QuestionDAO questionDAO = QuestionDAOFactory.getInstance();
-            topic = request.getParameter("topic");
+            topic = request.getParameter(TOPIC);
             if(topic != null){
                 questions = questionDAO.retrieveAll(topic);
             } else {

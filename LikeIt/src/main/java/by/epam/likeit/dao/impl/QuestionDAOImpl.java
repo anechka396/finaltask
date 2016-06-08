@@ -18,7 +18,7 @@ public class QuestionDAOImpl implements QuestionDAO {
 
     private static final String SQL_INSERT_QUESTION = "INSERT INTO questions(topic, text, author) values(?, ?, ?)";
     private static final String SQL_SELECT_QUESTION_BY_ID="SELECT id, topic, text, author from questions where id=?";
-    private static final String SQL_SELECT_ALL_QUSTIONS = "SELECT id, topic, text, author from questions order by date desc";
+    private static final String SQL_SELECT_ALL_QUESTIONS = "SELECT id, topic, text, author from questions order by date desc";
     private static final String SQL_SELECT_ALL_QUESTIONS_BY_TOPIC = "SELECT id, topic, text, author from questions where topic=? order by date desc";
     private static final String SQL_DELETE_QUESTION = "DELETE FROM questions WHERE id=?";
     private static final String SQL_UPDATE_QUESTION = "UPDATE questions SET text=? WHERE id=?";
@@ -96,7 +96,7 @@ public class QuestionDAOImpl implements QuestionDAO {
             pool = ConnectionPool.getInstance();
             connection = pool.takeConnection();
             st = connection.createStatement();
-            rs = st.executeQuery(SQL_SELECT_ALL_QUSTIONS);
+            rs = st.executeQuery(SQL_SELECT_ALL_QUESTIONS);
             while (rs.next()){
                 question = new Question();
                 question.setId(rs.getInt(ID));

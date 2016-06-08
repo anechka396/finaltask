@@ -3,9 +3,8 @@ package by.epam.likeit.command.impl;
 import by.epam.likeit.command.Command;
 import by.epam.likeit.command.exception.CommandException;
 import by.epam.likeit.entity.User;
-import by.epam.likeit.service.Service;
+import by.epam.likeit.service.AnswerService;
 import by.epam.likeit.service.ServiceFactory;
-import by.epam.likeit.service.ServiceName;
 import by.epam.likeit.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,10 +28,10 @@ public class SetRatingCommand implements Command {
         int mark = Integer.parseInt(request.getParameter(MARK));
 
         ServiceFactory factory = ServiceFactory.getInstance();
-        Service setRatingService = factory.getService(ServiceName.SET_RATING);
+        AnswerService answerService = factory.getAnswerService();
 
         try {
-            setRatingService.service(id, author, mark);
+            answerService.setRating(id, author, mark);
             request.setAttribute(METHOD, AJAX);
         } catch (ServiceException e) {
             throw new CommandException(e);

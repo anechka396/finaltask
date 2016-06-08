@@ -11,6 +11,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="js/app-ajax.js"></script>
 
+    <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle basename="localization.prop" var="loc"/>
     <fmt:message bundle="${loc}" key="prop.login" var="login"/>
     <fmt:message bundle="${loc}" key="prop.logout" var="logout"/>

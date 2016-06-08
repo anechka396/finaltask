@@ -4,32 +4,45 @@
 <html>
 <head>
     <title>Login Page</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/validator.min.js"></script>
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle basename="localization.prop" var="loc"/>
     <fmt:message bundle="${loc}" key="prop.send" var="send"/>
     <fmt:message bundle="${loc}" key="prop.login.login" var="login"/>
     <fmt:message bundle="${loc}" key="prop.login.password" var="password"/>
+    <fmt:message bundle="${loc}" key="prop.err.required" var="errRequired"/>
+    <fmt:message bundle="${loc}" key="prop.err.min5length" var="errLength"/>
+    <fmt:message bundle="${loc}" key="prop.err.pattern" var="errPattern"/>
 </head>
 <body>
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
-            <form action="Controller" method="post" class="form-horizontal">
+            <form id="loginForm" action="Controller" method="post" class="form-horizontal" data-toggle="validator">
                 <input type="hidden" name="command" value="login">
                 <div class="form-group">
                     <label for="login" class="col-sm-3 control-label">${login}*</label>
                     <div class="col-sm-9">
-                        <input type="text" name="login" id="login" value="" class="form-control" required maxlength="30">
+                        <input type="text" name="login" id="login" value="" class="form-control"
+                               data-minlength="5" data-minlength-error="${errLength}"
+                               data-pattern="^\w+$" data-pattern-error="${errPattern}"
+                               required data-error="${errRequired}"
+                        >
+                        <div class="help-block with-errors"></div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="password" class="col-sm-3 control-label">${password}*</label>
                     <div class="col-sm-9">
-                        <input type="password" name="password" id="password" value="" class="form-control" required maxlength="30">
+                        <input type="password" name="password" id="password" value="" class="form-control"
+                               data-minlength="5" data-minlength-error="${errLength}"
+                               required data-error="${errRequired}"
+                        >
+                        <div class="help-block with-errors"></div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -44,6 +57,20 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('#loginForm').validator({
+        custom: {
+            pattern: function ($el) {
+                var pattern = $el.data('pattern')
+                return !$el.val() || new RegExp(pattern,"g").test($el.val())
+            }
+        },
+        errors: {
+            pattern: "Illegal characters"
+        }
+    })
+</script>
 
 </body>
 </html>
