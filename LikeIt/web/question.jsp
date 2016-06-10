@@ -18,12 +18,18 @@
     <script src="js/question-ajax.js"></script>
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <fmt:setLocale value="${sessionScope.locale}"/>
+    <fmt:setBundle basename="localization.prop" var="loc"/>
+    <fmt:message bundle="${loc}" key="prop.question" var="question"/>
+    <fmt:message bundle="${loc}" key="prop.reply" var="reply"/>
+    <fmt:message bundle="${loc}" key="prop.answers" var="answers"/>
+    <fmt:message bundle="${loc}" key="prop.answer.add" var="addAnswer"/>
 </head>
 <body>
 <div class="container-fluid">
     <c:import url="navbar.jsp"/>
     <div class="col-xs-offset-1 col-xs-10">
-        <h2>Вопрос:</h2>
+        <h2>${question}:</h2>
         <div class="well well-sm">
             <c:choose>
                 <c:when test="${sessionScope.user.login == requestScope.question.author}">
@@ -34,9 +40,9 @@
                 </c:otherwise>
             </c:choose>
         </div>
-        <a class="btn btn-default" href="#answer-text">Ответить</a>
+        <a class="btn btn-default" href="#answer-text">${reply}</a>
 
-        <h2>Ответы:</h2>
+        <h2>${answers}:</h2>
         <div id="answers">
             <c:forEach items="${requestScope.answers}" var="answer">
                 <div class="well well-sm">
@@ -59,7 +65,7 @@
                     <textarea id="answer-text" class="form-control" name="text" required></textarea>
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn btn-default"/>
+                    <input type="submit" class="btn btn btn-default" value="${addAnswer}"/>
                 </div>
             </form>
         </c:if>

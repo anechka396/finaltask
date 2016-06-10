@@ -59,4 +59,12 @@
         <name>GetUserRatingCommand</name>
         <command>get-user-rating</command>
     </class>
+    <class>
+        <name>ChangePasswordCommand</name>
+        <command>change-password</command>
+    </class>
+    <class>
+        <name>ChangeImageCommand</name>
+        <command>change-image</command>
+    </class>
 </tc:config>

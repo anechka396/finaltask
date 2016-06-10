@@ -53,7 +53,7 @@
         <c:forEach items="${requestScope.questions}" var="question">
           <div class="well well-sm">
             <c:if test="${sessionScope.user.role == 'ADMIN' || sessionScope.user.login == question.author}">
-              <button class="close" data-id="${question.id}"><span aria-hidden="true">&times;</span></button>
+              <button class="close close-question" data-id="${question.id}"><span aria-hidden="true">&times;</span></button>
             </c:if>
             <form action="question.jsp" method="post">
               <input type="hidden" name="id" value="${question.id}">

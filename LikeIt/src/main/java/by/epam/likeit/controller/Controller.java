@@ -1,19 +1,24 @@
 package by.epam.likeit.controller;
 
 import by.epam.likeit.command.Command;
+import by.epam.likeit.command.PageName;
 import by.epam.likeit.command.exception.CommandException;
 import by.epam.likeit.controller.helper.CommandHelper;
 import by.epam.likeit.controller.helper.InitCommandHelper;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 
 public class Controller extends HttpServlet {
 
@@ -44,7 +49,18 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String page = processRequest(req, resp);
+        String page = PageName.USER_PAGE;
+        String pathInfo = req.getPathInfo();
+        if(pathInfo != null){
+            Command command = helper.getCommand("change-image");
+            try {
+                command.execute(req, resp);
+            } catch (CommandException e) {
+                e.printStackTrace();
+            }
+        } else {
+            page = processRequest(req, resp);
+        }
         sendRequest(req, resp, page);
     }
 
@@ -55,9 +71,9 @@ public class Controller extends HttpServlet {
 
         try {
             commandName = req.getParameter(COMMAND_NAME);
+            LOGGER.trace(commandName);
             command = helper.getCommand(commandName);
             page = command.execute(req, resp);
-                LOGGER.trace(commandName);
         } catch (CommandException e) {
             LOGGER.error(e);
         }

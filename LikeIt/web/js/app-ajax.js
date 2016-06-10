@@ -20,7 +20,7 @@ $(document).ready(function() {
         });
     });
 
-    $(".close").click(function(){
+    $(".close-question").click(function(){
         $.ajax({
             url : '/Controller',
             data : {

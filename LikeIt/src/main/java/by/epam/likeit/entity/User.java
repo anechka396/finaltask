@@ -9,6 +9,7 @@ public class User implements Serializable {
     private String lastName;
     private Role role;
     private String email;
+    private String imageURL;
 
     public User() {
         String empty = "";
@@ -17,15 +18,25 @@ public class User implements Serializable {
         this.name = empty;
         this.lastName = empty;
         this.email = empty;
+        this.imageURL = empty;
     }
 
-    public User(String login, String password, String name, String lastName, Role role, String email) {
+    public User(String login, String password, String name, String lastName, Role role, String email, String imageURL) {
         this.login = login;
         this.password = password;
         this.name = name;
         this.lastName = lastName;
         this.role = role;
         this.email = email;
+        this.imageURL = imageURL;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public String getLastName() {
