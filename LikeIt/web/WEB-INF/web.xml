@@ -30,6 +30,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>EditUserPage</servlet-name>
+        <jsp-file>/WEB-INF/jsp/edit-user-page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditUserPage</servlet-name>
+        <url-pattern>/EditUserPage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>AddQuestionPage</servlet-name>
         <jsp-file>/WEB-INF/jsp/add-question-form.jsp</jsp-file>
     </servlet>

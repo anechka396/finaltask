@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" errorPage="error.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <html>
@@ -28,6 +29,8 @@
     <fmt:message bundle="${loc}" key="prop.err.pattern" var="errPattern"/>
     <fmt:message bundle="${loc}" key="prop.err.match" var="errMatch"/>
     <fmt:message bundle="${loc}" key="prop.err.email" var="errEmail"/>
+    <fmt:message bundle="${loc}" key="prop.error.loginOrPassword" var="errorLoginOrPassword"/>
+    <fmt:message bundle="${loc}" key="prop.error.invalidParams" var="invalidParams"/>
 </head>
 <body>
 <div class="container">
@@ -38,6 +41,12 @@
 
             <form id="registrationForm" action="Controller" method="post" class="form-horizontal text-left" data-toggle="validator">
                 <input type="hidden" name="command" value="registration">
+                <c:if test="${requestScope.error != null}">
+                    <div class="alert alert-danger alert-dismissible" role="alert" data-message="${requestScope.error}">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        ${requestScope.error}
+                    </div>
+                </c:if>
                 <div class="form-group">
                     <label for="login" class="col-sm-3 control-label">${login}*</label>
                     <div class="col-sm-9">

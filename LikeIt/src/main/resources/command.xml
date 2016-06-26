@@ -67,4 +67,8 @@
         <name>ChangeImageCommand</name>
         <command>change-image</command>
     </class>
+    <class>
+        <name>EditUserProfileCommand</name>
+        <command>edit-profile</command>
+    </class>
 </tc:config>

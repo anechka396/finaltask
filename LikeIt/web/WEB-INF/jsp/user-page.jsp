@@ -9,7 +9,6 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/star-rating.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="/js/star-rating.min.js"></script>
@@ -34,6 +33,7 @@
     <fmt:message bundle="${loc}" key="prop.err.min5length" var="errLength5"/>
     <fmt:message bundle="${loc}" key="prop.err.match" var="errMatch"/>
     <fmt:message bundle="${loc}" key="prop.select.file" var="selectFile"/>
+    <fmt:message bundle="${loc}" key="prop.edit.user" var="editProfile"/>
 </head>
 <body>
     <div class="container-fluid">
@@ -41,11 +41,21 @@
         <div class="row">
             <div class="col-sm-2">
                 <div class="btn-group-vertical" role="group" aria-label="...">
-                    <img src="${sessionScope.user.imageURL}" width="100%">
+                    <c:choose>
+                        <c:when test="${empty sessionScope.user.imageURL}">
+                            <img src="/pictures/no-avatar.png" width="100%">
+                        </c:when>
+                        <c:otherwise>
+                            <img src="${sessionScope.user.imageURL}" width="100%">
+                        </c:otherwise>
+                    </c:choose>
                     <button class="btn btn-primary" id="btn-change-image" data-toggle="modal" data-target="#imageModal">
                         ${changeImage}
                     </button>
-                    <button class="btn btn-primary" id="btn-change-password" data-toggle="modal" data-target="#myModal">
+                    <a href="/EditUserPage" class="btn btn-primary" id="btn-edit-profile">
+                        ${editProfile}
+                    </a>
+                    <button class="btn btn-primary" id="btn-change-password">
                         ${changePassword}
                     </button>
                 </div>
@@ -135,10 +145,15 @@
                                 <div class="help-block with-errors"></div>
                             </div>
                         </div>
+                        <div class="row form-group">
+                            <div class="col-sm-8">
+                                <input type="submit" class="btn btn-primary">
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" id="change-password" form="change-password-form" class="btn btn-primary">${save}</button>
+                    <!--button type="submit" id="change-password" form="change-password-form" class="btn btn-primary">${save}</button-->
                     <button type="button" class="btn btn-danger" data-dismiss="modal">${close}</button>
                 </div>
             </div>
@@ -168,6 +183,8 @@
         </div>
     </div>
 
+
+
 <script>
     $(document).on('ready', function(){
 
@@ -191,13 +208,17 @@
             }
         });
 
-        $('#myModal').on('show.bs.modal', function(e){
+        $('#myModal').on('hidden.bs.modal', function(e){
             $('#change-password-form')[0].reset();
         });
 
-        $('#change-password-form').on('invalid.bs.validator', function(e){
-            $('#change-password').attr('disabled','disabled');
-        });
+        $('#change-password-form').validator({
+            disable: 'true'
+        })
+
+      //  $('#change-password-form').on('invalid.bs.validator', function(e){
+      //      $('#change-password').attr('disabled','disabled');
+      //  });
 
         /*$('#imageModal').on('show.bs.modal', function(e){
             $('#change-image-form')[0].reset();

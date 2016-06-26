@@ -26,6 +26,7 @@ public class UserDAOImpl implements UserDAO {
     private static final String SQL_SELECT_USER_PASSWORD = "SELECT password FROM users WHERE login=?";
     private static final String SQL_UPDATE_PASSWORD = "UPDATE users SET password=? WHERE login=?";
     private static final String SQL_UPDATE_IMAGE = "UPDATE users SET url=? WHERE login=?";
+    private static final String SQL_UPDATE_USER = "UPDATE users SET name=?, last_name=?, email=? WHERE login=?";
 
     private static final String LOGIN = "login";
     private static final String PASSWORD = "password";
@@ -36,7 +37,11 @@ public class UserDAOImpl implements UserDAO {
     private static final String RATING = "rating";
     private static final String COUNT = "count";
     private static final String URL = "url";
+    private static final String USER = "user";
     private static final String EMPTY = "";
+    private static final String DUPLICATE = "duplicate";
+
+    public static final int MYSQL_DUPLICATE_PK = 1062;
 
     @Override
     public void create(User user) throws DaoException {
@@ -53,11 +58,18 @@ public class UserDAOImpl implements UserDAO {
             ps.setString(3, user.getName());
             ps.setString(4, user.getLastName());
             ps.setString(5, user.getEmail());
-            ps.setString(6, "user");
+            ps.setString(6, USER);
             ps.executeUpdate();
-        } catch (SQLException |ConnectionPoolException e) {
+        } catch (SQLException e) {
+            if(e.getErrorCode() == MYSQL_DUPLICATE_PK){
+                throw new DaoException(DUPLICATE);
+            } else{
+                throw new DaoException(e);
+            }
+        } catch (ConnectionPoolException e){
             throw new DaoException(e);
-        } finally {
+        }
+        finally {
             if(connection != null){
                 pool.closeConnection(connection, ps);
             }
@@ -303,6 +315,37 @@ public class UserDAOImpl implements UserDAO {
         } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException(e);
         } finally {
+            if(connection != null){
+                pool.closeConnection(connection, ps);
+            }
+        }
+    }
+
+    @Override
+    public void update(String login, String name, String surname, String email) throws DaoException {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ConnectionPool pool = null;
+
+        try {
+            pool = ConnectionPool.getInstance();
+            connection = pool.takeConnection();
+            ps = connection.prepareStatement(SQL_UPDATE_USER);
+            ps.setString(1, name);
+            ps.setString(2, surname);
+            ps.setString(3, email);
+            ps.setString(4, login);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            if(e.getErrorCode() == MYSQL_DUPLICATE_PK){
+                throw new DaoException(DUPLICATE);
+            } else{
+                throw new DaoException(e);
+            }
+        } catch (ConnectionPoolException e){
+            throw new DaoException(e);
+        }
+        finally {
             if(connection != null){
                 pool.closeConnection(connection, ps);
             }

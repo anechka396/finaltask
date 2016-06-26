@@ -17,13 +17,31 @@
     <fmt:message bundle="${loc}" key="prop.err.required" var="errRequired"/>
     <fmt:message bundle="${loc}" key="prop.err.min5length" var="errLength"/>
     <fmt:message bundle="${loc}" key="prop.err.pattern" var="errPattern"/>
+    <fmt:message bundle="${loc}" key="prop.error.loginOrPassword" var="errorLoginOrPassword"/>
+    <fmt:message bundle="${loc}" key="prop.error.invalidParams" var="invalidParams"/>
 </head>
 <body>
+
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
             <form id="loginForm" action="Controller" method="post" class="form-horizontal" data-toggle="validator">
                 <input type="hidden" name="command" value="login">
+                <c:if test="${requestScope.error != null}">
+                    <div class="alert alert-danger alert-dismissible" role="alert" data-message="${requestScope.error}">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <c:set var="errLoginOrPas" value="errorLoginOrPassword"/>
+                        <c:set var="errParams" value="errorParams"/>
+                        <c:choose>
+                            <c:when test="${requestScope.error == errLoginOrPas}">
+                                ${errorLoginOrPassword}
+                            </c:when>
+                            <c:when test="${requestScope.error == errParams}">
+                                ${invalidParams}
+                            </c:when>
+                        </c:choose>
+                    </div>
+                </c:if>
                 <div class="form-group">
                     <label for="login" class="col-sm-3 control-label">${login}*</label>
                     <div class="col-sm-9">

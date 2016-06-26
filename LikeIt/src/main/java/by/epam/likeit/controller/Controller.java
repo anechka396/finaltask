@@ -29,6 +29,7 @@ public class Controller extends HttpServlet {
     private static final String METHOD = "method";
     private static final String AJAX = "ajax";
     private static final String REDIRECT = "redirect";
+    private static final String CHANGE_IMAGE = "change-image";
 
     public Controller() {
         super();
@@ -52,12 +53,7 @@ public class Controller extends HttpServlet {
         String page = PageName.USER_PAGE;
         String pathInfo = req.getPathInfo();
         if(pathInfo != null){
-            Command command = helper.getCommand("change-image");
-            try {
-                command.execute(req, resp);
-            } catch (CommandException e) {
-                e.printStackTrace();
-            }
+            page = executeCommand(CHANGE_IMAGE, req, resp);
         } else {
             page = processRequest(req, resp);
         }
@@ -66,13 +62,19 @@ public class Controller extends HttpServlet {
 
     private String processRequest(HttpServletRequest req, HttpServletResponse resp){
         String commandName = null;
-        Command command = null;
         String page = null;
 
+        commandName = req.getParameter(COMMAND_NAME);
+        LOGGER.trace(commandName);
+        page = executeCommand(commandName, req, resp);
+
+        return page;
+    }
+
+    private String executeCommand(String commandName, HttpServletRequest req, HttpServletResponse resp){
+        Command command = helper.getCommand(commandName);
+        String page = null;
         try {
-            commandName = req.getParameter(COMMAND_NAME);
-            LOGGER.trace(commandName);
-            command = helper.getCommand(commandName);
             page = command.execute(req, resp);
         } catch (CommandException e) {
             LOGGER.error(e);

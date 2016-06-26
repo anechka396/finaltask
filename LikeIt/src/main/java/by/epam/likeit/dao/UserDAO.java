@@ -12,4 +12,5 @@ public interface UserDAO extends BaseDAO<User, String> {
     int getCountOfMarksByLogin(String login) throws DaoException;
     void updatePassword(String login, String newPassword) throws DaoException;
     void updateImage(String login, String url) throws DaoException;
+    void update(String login, String name, String surname, String email) throws DaoException;
 }
