@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#topics').on('show.bs.collapse', function() {
+    $('.dropdown').on('show.bs.dropdown', function() {
         $.ajax({
             url : '/Controller',
             data : {
@@ -8,14 +8,13 @@ $(document).ready(function() {
             dataType : 'json',
             success : function(responseText) {
                 var url = '/Controller?command=last&topic=';
-                $('#ajaxGetUserServletResponse').empty();
+                var str = "";
                 $.each(responseText, function(index, item) {
                     $.each(item, function( index, value ) {
-                        var start="<a class='btn btn-default' href=" + url + value + ">";
-                        var end="</a>"
-                        $('#ajaxGetUserServletResponse').append(start + value + end);
+                        str += "<li><a href="+url+value+">"+value+"</a></li> ";
                     });
                 });
+                $('#topics').empty().prepend(str);
             }
         });
     });

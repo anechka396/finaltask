@@ -23,6 +23,7 @@ public class GetUserRatingCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         double rating = 0;
         String login = request.getParameter(LOGIN);
+        LOGGER.trace("Login " + login);
         UserDAO userDAO = UserDAOFactory.getInstance();
         try {
             int sum = userDAO.getSumOfMarksByLogin(login);
@@ -31,6 +32,7 @@ public class GetUserRatingCommand implements Command {
                 rating = (double)sum / count;
             response.setContentType("text/html");
             response.getWriter().write("" + rating);
+            LOGGER.trace("rating " + rating);
         } catch (DaoException e) {
             throw new CommandException(e);
         } catch (IOException e) {

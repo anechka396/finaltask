@@ -36,6 +36,7 @@
 
   <div class="container-fluid">
     <c:import url="navbar.jsp"/>
+
     <div class="row" style="padding: 0px 15px">
       <div class="col-xs-12"  style="background: rgba(255,255,255, 0.5); padding: 10px">
       <div class="col-xs-offset-1 col-sm-offset-2 col-xs-10 col-sm-8">

@@ -39,7 +39,7 @@
     <div class="container-fluid">
         <c:import url="/navbar.jsp"/>
         <div class="row">
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <div class="btn-group-vertical" role="group" aria-label="...">
                     <c:choose>
                         <c:when test="${empty sessionScope.user.imageURL}">
@@ -60,47 +60,29 @@
                     </button>
                 </div>
             </div>
-            <div class="col-sm-8">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <span>${name}:</span>
+            <div class="col-sm-9">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="name">${name}:</label>
+                        <input type="text" class="form-control" id="name" value="${sessionScope.user.name}" disabled>
                     </div>
-                    <div class="col-sm-8 well well-sm">
-                        <span>${sessionScope.user.name}</span>
+                    <div class="form-group">
+                        <label for="lastName">${surname}:</label>
+                        <input type="text" class="form-control" id="lastName" value="${sessionScope.user.lastName}" disabled>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <span>${surname}:</span>
+                    <div class="form-group">
+                        <label for="login">${login}:</label>
+                        <input type="text" class="form-control" id="login" value="${sessionScope.user.login}" disabled>
                     </div>
-                    <div class="col-sm-8 well well-sm">
-                        <span>${sessionScope.user.lastName}</span>
+                    <div class="form-group">
+                        <label for="email">${email}:</label>
+                        <input type="text" class="form-control" id="email" value="${sessionScope.user.email}" disabled>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <span>${login}:</span>
-                    </div>
-                    <div class="col-sm-8 well well-sm">
-                        <span id="login">${sessionScope.user.login}</span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <span>${email}:</span>
-                    </div>
-                    <div class="col-sm-8 well well-sm">
-                        <span>${sessionScope.user.email}</span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <span>${rating}:</span>
-                    </div>
-                    <div class="col-sm-8">
+                    <div class="form-group">
+                        <label for="rating">${rating}:</label>
                         <input id="rating" type="number" class="rating-loading">
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -200,7 +182,7 @@
             url : '/Controller',
             data : {
                 command: 'get-user-rating',
-                login: $('#login').text()
+                login: $('#login').val()
             },
             success : function(responseText) {
                 console.log("'" +responseText + "'");

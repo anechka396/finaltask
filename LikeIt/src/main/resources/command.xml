@@ -71,4 +71,16 @@
         <name>EditUserProfileCommand</name>
         <command>edit-profile</command>
     </class>
+    <class>
+        <name>AddTopicCommand</name>
+        <command>add-topic</command>
+    </class>
+    <class>
+        <name>EditTopicCommand</name>
+        <command>edit-topic</command>
+    </class>
+    <class>
+        <name>DeleteTopicCommand</name>
+        <command>delete-topic</command>
+    </class>
 </tc:config>
