@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>Title</title>
-    <fmt:setLocale value="${sessionScope.locale}"/>
+    <fmt:setLocale value="${cookie.locale.value}"/>
     <fmt:setBundle basename="localization.prop" var="localization"/>
     <fmt:message bundle="${localization}" key="prop.lang.ru" var="ru"/>
     <fmt:message bundle="${localization}" key="prop.lang.en" var="en"/>

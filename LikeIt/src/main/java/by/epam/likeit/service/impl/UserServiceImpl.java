@@ -177,8 +177,13 @@ public class UserServiceImpl implements UserService {
 
         User user = null;
         try {
+            user = new User();
+            user.setLogin(login);
+            user.setName(name);
+            user.setLastName(surname);
+            user.setEmail(email);
             UserDAO userDAO = UserDAOFactory.getInstance();
-            userDAO.update(login, name, surname, email);
+            userDAO.update(user);
             user = userDAO.retrieve(login);
         } catch (DaoException e) {
             String message = e.getMessage();

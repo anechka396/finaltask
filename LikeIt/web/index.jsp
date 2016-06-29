@@ -11,7 +11,7 @@
     <title>Main Page</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-    <fmt:setLocale value="${sessionScope.locale}"/>
+    <fmt:setLocale value="${cookie.locale.value}"/>
     <fmt:setBundle basename="localization.prop" var="localization"/>
     <fmt:message bundle="${localization}" key="prop.login" var="login"/>
     <fmt:message bundle="${localization}" key="prop.logout" var="logout"/>
@@ -33,7 +33,6 @@
     <div class="row main-row">
       <div class="col-xs-12">
       <div class="col-xs-offset-1 col-sm-offset-2 col-xs-10 col-sm-8">
-
         <c:if test="${sessionScope.user != null}">
           <form action="/AddQuestionPage" method="post" class="form" style="margin: 10px 5px">
             <div class="form-group">

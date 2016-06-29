@@ -6,6 +6,7 @@ import by.epam.likeit.command.exception.CommandException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,7 +23,8 @@ public class ChangeLocaleCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String referer = request.getHeader(REFERER);
         String page = getPageName(referer);
-        request.getSession(true).setAttribute(LOCALE, request.getParameter(LOCALE));
+        response.addCookie(new Cookie(LOCALE, request.getParameter(LOCALE)));
+       // request.getSession(true).setAttribute(LOCALE, request.getParameter(LOCALE));
         request.setAttribute(METHOD, REDIRECT);
         return page.equals(CONTROLLER) ? PageName.INDEX_PAGE : page;
     }

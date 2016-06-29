@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="/css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="/js/topic-ajax.js"></script>
-    <fmt:setLocale value="${sessionScope.locale}"/>
+
+    <fmt:setLocale value="${cookie.locale.value}"/>
     <fmt:setBundle basename="localization.prop" var="localization"/>
     <fmt:message bundle="${localization}" key="prop.question.add" var="addQuestion"/>
     <fmt:message bundle="${localization}" key="prop.question.type" var="typeQuestion"/>

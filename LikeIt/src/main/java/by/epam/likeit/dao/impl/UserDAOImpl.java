@@ -149,13 +149,39 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void update(User entity) {
+    public void update(User entity) throws DaoException {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ConnectionPool pool = null;
 
+        try {
+            pool = ConnectionPool.getInstance();
+            connection = pool.takeConnection();
+            ps = connection.prepareStatement(SQL_UPDATE_USER);
+            ps.setString(1, entity.getName());
+            ps.setString(2, entity.getLastName());
+            ps.setString(3, entity.getEmail());
+            ps.setString(4, entity.getLogin());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            if(e.getErrorCode() == MYSQL_DUPLICATE_PK){
+                throw new DaoException(DUPLICATE);
+            } else{
+                throw new DaoException(e);
+            }
+        } catch (ConnectionPoolException e){
+            throw new DaoException(e);
+        }
+        finally {
+            if(connection != null){
+                pool.closeConnection(connection, ps);
+            }
+        }
     }
 
     @Override
     public void delete(String id) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -315,37 +341,6 @@ public class UserDAOImpl implements UserDAO {
         } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException(e);
         } finally {
-            if(connection != null){
-                pool.closeConnection(connection, ps);
-            }
-        }
-    }
-
-    @Override
-    public void update(String login, String name, String surname, String email) throws DaoException {
-        Connection connection = null;
-        PreparedStatement ps = null;
-        ConnectionPool pool = null;
-
-        try {
-            pool = ConnectionPool.getInstance();
-            connection = pool.takeConnection();
-            ps = connection.prepareStatement(SQL_UPDATE_USER);
-            ps.setString(1, name);
-            ps.setString(2, surname);
-            ps.setString(3, email);
-            ps.setString(4, login);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            if(e.getErrorCode() == MYSQL_DUPLICATE_PK){
-                throw new DaoException(DUPLICATE);
-            } else{
-                throw new DaoException(e);
-            }
-        } catch (ConnectionPoolException e){
-            throw new DaoException(e);
-        }
-        finally {
             if(connection != null){
                 pool.closeConnection(connection, ps);
             }

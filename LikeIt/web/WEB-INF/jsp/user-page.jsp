@@ -15,7 +15,7 @@
     <script src="/js/validator.min.js"></script>
     <script src="/js/bootsrap-file-input.js"></script>
 
-    <fmt:setLocale value="${sessionScope.locale}"/>
+    <fmt:setLocale value="${cookie.locale.value}"/>
     <fmt:setBundle basename="localization.prop" var="localization"/>
     <fmt:message bundle="${localization}" key="prop.login.name" var="name"/>
     <fmt:message bundle="${localization}" key="prop.login.surname" var="surname"/>

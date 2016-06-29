@@ -13,7 +13,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <fmt:setLocale value="${sessionScope.locale}"/>
+    <fmt:setLocale value="${cookie.locale.value}"/>
     <fmt:setBundle basename="localization.prop" var="localization"/>
     <fmt:message bundle="${localization}" key="prop.login" var="login"/>
     <fmt:message bundle="${localization}" key="prop.logout" var="logout"/>

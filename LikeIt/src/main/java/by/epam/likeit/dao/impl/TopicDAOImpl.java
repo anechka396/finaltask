@@ -41,7 +41,7 @@ public class TopicDAOImpl implements TopicDAO {
 
     @Override
     public Topic retrieve(Integer id) throws DaoException {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override

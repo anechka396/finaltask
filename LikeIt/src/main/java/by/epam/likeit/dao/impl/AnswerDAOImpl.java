@@ -11,9 +11,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Пользователь on 04.05.2016.
- */
 public class AnswerDAOImpl implements AnswerDAO {
 
     private static final String SQL_SELECT_ANSWERS_BY_Q_ID = "SELECT id, text, author from answers WHERE question_id=? ORDER BY date ";
@@ -52,17 +49,17 @@ public class AnswerDAOImpl implements AnswerDAO {
 
     @Override
     public Answer retrieve(Integer id) throws DaoException {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<Answer> retrieveAll() throws DaoException {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void update(Answer entity) throws DaoException {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override

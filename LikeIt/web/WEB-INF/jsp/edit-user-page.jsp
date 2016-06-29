@@ -15,7 +15,7 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/validator.min.js"></script>
 
-    <fmt:setLocale value="${sessionScope.locale}"/>
+    <fmt:setLocale value="${cookie.locale.value}"/>
     <fmt:setBundle basename="localization.prop" var="localization"/>
     <fmt:message bundle="${localization}" key="prop.old.password" var="oldPassword"/>
     <fmt:message bundle="${localization}" key="prop.new.password" var="newPassword"/>
