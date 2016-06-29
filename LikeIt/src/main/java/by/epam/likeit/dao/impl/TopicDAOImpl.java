@@ -4,6 +4,7 @@ import by.epam.likeit.dao.TopicDAO;
 import by.epam.likeit.dao.exception.DaoException;
 import by.epam.likeit.dao.pool.ConnectionPool;
 import by.epam.likeit.dao.pool.exception.ConnectionPoolException;
+import by.epam.likeit.entity.Topic;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,26 +12,26 @@ import java.util.List;
 
 public class TopicDAOImpl implements TopicDAO {
 
-    private static final String SQL_SELECT_ALL_TOPICS = "SELECT topic FROM topics";
+    private static final String SQL_SELECT_ALL_TOPICS = "SELECT topic_id, topic FROM topics";
     private static final String SQL_SELECT_ID_BY_NAME = "SELECT topic_id FROM topics WHERE topic=?";
 
     private static final String TOPIC = "topic";
     private static final String ID = "topic_id";
 
     @Override
-    public void create(String entity) throws DaoException {
+    public void create(Topic entity) throws DaoException {
 
     }
 
     @Override
-    public String retrieve(String id) throws DaoException {
+    public Topic retrieve(String id) throws DaoException {
         return null;
     }
 
     @Override
-    public List<String> retrieveAll() throws DaoException {
-        List<String> topics = new ArrayList<>();
-        String topic = null;
+    public List<Topic> retrieveAll() throws DaoException {
+        List<Topic> topics = new ArrayList<>();
+        Topic topic = null;
         Connection connection = null;
         Statement st = null;
         ResultSet rs = null;
@@ -42,7 +43,9 @@ public class TopicDAOImpl implements TopicDAO {
             st = connection.createStatement();
             rs = st.executeQuery(SQL_SELECT_ALL_TOPICS);
             while (rs.next()){
-                topic = rs.getString(TOPIC);
+                topic = new Topic();
+                topic.setTopic(rs.getString(TOPIC));
+                topic.setId(rs.getInt(ID));
                 topics.add(topic);
             }
         } catch (ConnectionPoolException | SQLException e) {
@@ -57,7 +60,7 @@ public class TopicDAOImpl implements TopicDAO {
     }
 
     @Override
-    public void update(String entity) {
+    public void update(Topic entity) {
 
     }
 

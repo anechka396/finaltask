@@ -33,6 +33,6 @@ public class AddAnswerToQuestionCommand implements Command {
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
-        return PageName.QUESION_PAGE;
+        return PageName.QUESTION_PAGE;
     }
 }

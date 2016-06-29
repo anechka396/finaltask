@@ -32,6 +32,10 @@
         <command>all-topics</command>
     </class>
     <class>
+        <name>GetTopicsCommand</name>
+        <command>get-topics</command>
+    </class>
+    <class>
         <name>DeleteQuestionCommand</name>
         <command>delete-question</command>
     </class>

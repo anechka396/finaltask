@@ -45,6 +45,6 @@ public class GetQuestionAndAnswersCommand implements Command {
         } catch (DaoException e) {
             throw new CommandException(e);
         }
-        return PageName.QUESION_PAGE;
+        return PageName.QUESTION_PAGE;
     }
 }

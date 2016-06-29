@@ -6,10 +6,15 @@
     <c:redirect url="/Error"/>
 </c:if>
 
-<html>;
+<c:if test="${requestScope.topics == null}">
+    <c:redirect url="Controller?command=get-topics"/>
+</c:if>
+
+<html>
 <head>
     <title>Topics management</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 </head>
@@ -18,20 +23,12 @@
 <div class="container-fluid">
     <c:import url="/fragments/navbar.jsp"/>
     <div class="row main-row">
-        <div class="col-sm-10 col-sm-offset-1">
-            <div class="table-responsive">
-                <table class="table table-hover" id="topics2">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Topic</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </div>
+        <div class="col-sm-12">
+            <ul id="topics2">
+                <c:forEach items="${requestScope.topics}" var="topic">
+                    <li><c:out value="${topic.topic}"/></li>
+                </c:forEach>
+            </ul>
         </div>
     </div>
     <c:import url="/fragments/footer.jsp"/>
@@ -39,23 +36,7 @@
 
 <script>
     $(document).ready(function() {
-        $.ajax({
-            url : '/Controller',
-            data : {
-                command: 'all-topics'
-            },
-            dataType : 'json',
-            success : function(responseText) {
-                var str = "";
-                var i = 1;
-                $.each(responseText, function(index, item) {
-                    $.each(item, function( index, value ) {
-                        str += "<tr><td>"+i+++"</td><td>"+value+"</td></tr> ";
-                    });
-                });
-                $('#topics2 tbody').empty().prepend(str);
-            }
-        });
+        $.fn.editable.defaults.mode = 'inline';
     });
 </script>
 </body>
