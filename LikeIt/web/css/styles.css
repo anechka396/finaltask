@@ -1,6 +1,11 @@
 body{
     padding-top: 20px;
- //   background-color: lightblue;
+    background-color: lightblue;
+}
+
+footer{
+    background-color: #337DAC;
+    corner-radius: 4px;
 }
 
 .navbar {
@@ -12,6 +17,7 @@ body{
 .btn-link{
     background: transparent;
     border: none;
+    color: #272F3A;
 }
 
 .btn-link:hover{
@@ -27,4 +33,10 @@ body{
     width: auto;
     height: auto;
     z-index: -100;
+}
+
+.main-row{
+    background: rgba(255,255,255, 0.5);
+    margin: 0px 2px;
+    min-height: 100%;
 }

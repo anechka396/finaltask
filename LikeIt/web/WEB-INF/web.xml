@@ -58,7 +58,7 @@
 
     <servlet>
         <servlet-name>QuestionPage</servlet-name>
-        <jsp-file>/question.jsp</jsp-file>
+        <jsp-file>/WEB-INF/jsp/question.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>QuestionPage</servlet-name>

@@ -11,9 +11,6 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Created by Пользователь on 06.05.2016.
- */
 public class DeleteAnswerCommand implements Command {
     private static final Logger LOGGER = LogManager.getRootLogger();
 

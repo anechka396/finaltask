@@ -16,31 +16,31 @@
     <script src="/js/bootsrap-file-input.js"></script>
 
     <fmt:setLocale value="${sessionScope.locale}"/>
-    <fmt:setBundle basename="localization.prop" var="loc"/>
-    <fmt:message bundle="${loc}" key="prop.login.name" var="name"/>
-    <fmt:message bundle="${loc}" key="prop.login.surname" var="surname"/>
-    <fmt:message bundle="${loc}" key="prop.login.login" var="login"/>
-    <fmt:message bundle="${loc}" key="prop.login.email" var="email"/>
-    <fmt:message bundle="${loc}" key="prop.rating" var="rating"/>
-    <fmt:message bundle="${loc}" key="prop.change.image" var="changeImage"/>
-    <fmt:message bundle="${loc}" key="prop.change.password" var="changePassword"/>
-    <fmt:message bundle="${loc}" key="prop.old.password" var="oldPassword"/>
-    <fmt:message bundle="${loc}" key="prop.new.password" var="newPassword"/>
-    <fmt:message bundle="${loc}" key="prop.repeat.new.password" var="repeatNewPassword"/>
-    <fmt:message bundle="${loc}" key="prop.close" var="close"/>
-    <fmt:message bundle="${loc}" key="prop.save" var="save"/>
-    <fmt:message bundle="${loc}" key="prop.err.required" var="errRequired"/>
-    <fmt:message bundle="${loc}" key="prop.err.min5length" var="errLength5"/>
-    <fmt:message bundle="${loc}" key="prop.err.match" var="errMatch"/>
-    <fmt:message bundle="${loc}" key="prop.select.file" var="selectFile"/>
-    <fmt:message bundle="${loc}" key="prop.edit.user" var="editProfile"/>
+    <fmt:setBundle basename="localization.prop" var="localization"/>
+    <fmt:message bundle="${localization}" key="prop.login.name" var="name"/>
+    <fmt:message bundle="${localization}" key="prop.login.surname" var="surname"/>
+    <fmt:message bundle="${localization}" key="prop.login.login" var="login"/>
+    <fmt:message bundle="${localization}" key="prop.login.email" var="email"/>
+    <fmt:message bundle="${localization}" key="prop.rating" var="rating"/>
+    <fmt:message bundle="${localization}" key="prop.change.image" var="changeImage"/>
+    <fmt:message bundle="${localization}" key="prop.change.password" var="changePassword"/>
+    <fmt:message bundle="${localization}" key="prop.old.password" var="oldPassword"/>
+    <fmt:message bundle="${localization}" key="prop.new.password" var="newPassword"/>
+    <fmt:message bundle="${localization}" key="prop.repeat.new.password" var="repeatNewPassword"/>
+    <fmt:message bundle="${localization}" key="prop.close" var="close"/>
+    <fmt:message bundle="${localization}" key="prop.save" var="save"/>
+    <fmt:message bundle="${localization}" key="prop.err.required" var="errRequired"/>
+    <fmt:message bundle="${localization}" key="prop.err.min5length" var="errLength5"/>
+    <fmt:message bundle="${localization}" key="prop.err.match" var="errMatch"/>
+    <fmt:message bundle="${localization}" key="prop.select.file" var="selectFile"/>
+    <fmt:message bundle="${localization}" key="prop.edit.user" var="editProfile"/>
 </head>
 <body>
     <div class="container-fluid">
-        <c:import url="/navbar.jsp"/>
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="btn-group-vertical" role="group" aria-label="...">
+        <c:import url="/fragments/navbar.jsp"/>
+        <div class="row main-row">
+            <div class="col-md-3 col-md-offset-1 col-sm-4 col-sm-offset-0">
+                <div class="btn-group-vertical" role="group">
                     <c:choose>
                         <c:when test="${empty sessionScope.user.imageURL}">
                             <img src="/pictures/no-avatar.png" width="100%">
@@ -60,23 +60,23 @@
                     </button>
                 </div>
             </div>
-            <div class="col-sm-9">
+            <div class="col-md-7 col-sm-8">
                 <form role="form">
                     <div class="form-group">
                         <label for="name">${name}:</label>
-                        <input type="text" class="form-control" id="name" value="${sessionScope.user.name}" disabled>
+                        <input type="text" class="form-control" id="name" value="<c:out value="${sessionScope.user.name}"/>" disabled>
                     </div>
                     <div class="form-group">
                         <label for="lastName">${surname}:</label>
-                        <input type="text" class="form-control" id="lastName" value="${sessionScope.user.lastName}" disabled>
+                        <input type="text" class="form-control" id="lastName" value="<c:out value="${sessionScope.user.lastName}"/>" disabled>
                     </div>
                     <div class="form-group">
                         <label for="login">${login}:</label>
-                        <input type="text" class="form-control" id="login" value="${sessionScope.user.login}" disabled>
+                        <input type="text" class="form-control" id="login" value="<c:out value="${sessionScope.user.login}"/>" disabled>
                     </div>
                     <div class="form-group">
                         <label for="email">${email}:</label>
-                        <input type="text" class="form-control" id="email" value="${sessionScope.user.email}" disabled>
+                        <input type="text" class="form-control" id="email" value="<c:out value="${sessionScope.user.email}"/>" disabled>
                     </div>
                     <div class="form-group">
                         <label for="rating">${rating}:</label>
@@ -85,6 +85,7 @@
                 </form>
             </div>
         </div>
+        <c:import url="/fragments/footer.jsp"/>
     </div>
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -165,12 +166,10 @@
         </div>
     </div>
 
-
-
 <script>
     $(document).on('ready', function(){
 
-       // $('input[type=file]').bootstrapFileInput();
+        $('input[type=file]').bootstrapFileInput();
 
         $('#rating').rating({
             step: 0.1,

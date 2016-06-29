@@ -22,6 +22,8 @@ public class LoginCommand implements Command {
     private static final String PASSWORD = "password";
     private static final String ERROR = "error";
     private static final String EMPTY = "";
+    private static final String METHOD = "method";
+    private static final String REDIRECT = "redirect";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
@@ -36,6 +38,7 @@ public class LoginCommand implements Command {
         try {
             user = userService.loginUser(login, password);
             request.getSession(true).setAttribute(USER, user);
+            request.setAttribute(METHOD, REDIRECT);
         } catch (ServiceException e) {
             String message = e.getMessage();
             if(!message.equals(EMPTY)) {

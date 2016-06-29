@@ -18,21 +18,21 @@ public class GetUserRatingCommand implements Command {
     private static final String LOGIN = "login";
     private static final String METHOD = "method";
     private static final String AJAX = "ajax";
+    private static final String CONTENT_TYPE = "text/html";
+    private static final String EMPTY = "";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         double rating = 0;
         String login = request.getParameter(LOGIN);
-        LOGGER.trace("Login " + login);
         UserDAO userDAO = UserDAOFactory.getInstance();
         try {
             int sum = userDAO.getSumOfMarksByLogin(login);
             int count = userDAO.getCountOfMarksByLogin(login);
             if(count != 0)
                 rating = (double)sum / count;
-            response.setContentType("text/html");
-            response.getWriter().write("" + rating);
-            LOGGER.trace("rating " + rating);
+            response.setContentType(CONTENT_TYPE);
+            response.getWriter().write(EMPTY + rating);
         } catch (DaoException e) {
             throw new CommandException(e);
         } catch (IOException e) {

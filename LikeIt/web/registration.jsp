@@ -13,30 +13,31 @@
     <script src="js/validator.min.js"></script>
 
     <fmt:setLocale value="${sessionScope.locale}"/>
-    <fmt:setBundle basename="localization.prop" var="loc"/>
-    <fmt:message bundle="${loc}" key="prop.send" var="send"/>
-    <fmt:message bundle="${loc}" key="prop.login.login" var="login"/>
-    <fmt:message bundle="${loc}" key="prop.login.password" var="password"/>
-    <fmt:message bundle="${loc}" key="prop.login.password2" var="password2"/>
-    <fmt:message bundle="${loc}" key="prop.login.name" var="name"/>
-    <fmt:message bundle="${loc}" key="prop.login.surname" var="surname"/>
-    <fmt:message bundle="${loc}" key="prop.login.email" var="email"/>
-    <fmt:message bundle="${loc}" key="prop.title.reg" var="regTitle"/>
-    <fmt:message bundle="${loc}" key="prop.title.newaccount" var="newAccountTitle"/>
-    <fmt:message bundle="${loc}" key="prop.err.required" var="errRequired"/>
-    <fmt:message bundle="${loc}" key="prop.err.min2length" var="errLength2"/>
-    <fmt:message bundle="${loc}" key="prop.err.min5length" var="errLength5"/>
-    <fmt:message bundle="${loc}" key="prop.err.pattern" var="errPattern"/>
-    <fmt:message bundle="${loc}" key="prop.err.match" var="errMatch"/>
-    <fmt:message bundle="${loc}" key="prop.err.email" var="errEmail"/>
-    <fmt:message bundle="${loc}" key="prop.error.loginOrPassword" var="errorLoginOrPassword"/>
-    <fmt:message bundle="${loc}" key="prop.error.invalidParams" var="invalidParams"/>
+    <fmt:setBundle basename="localization.prop" var="localization"/>
+    <fmt:message bundle="${localization}" key="prop.send" var="send"/>
+    <fmt:message bundle="${localization}" key="prop.login.login" var="login"/>
+    <fmt:message bundle="${localization}" key="prop.login.password" var="password"/>
+    <fmt:message bundle="${localization}" key="prop.login.password2" var="password2"/>
+    <fmt:message bundle="${localization}" key="prop.login.name" var="name"/>
+    <fmt:message bundle="${localization}" key="prop.login.surname" var="surname"/>
+    <fmt:message bundle="${localization}" key="prop.login.email" var="email"/>
+    <fmt:message bundle="${localization}" key="prop.title.reg" var="regTitle"/>
+    <fmt:message bundle="${localization}" key="prop.title.newaccount" var="newAccountTitle"/>
+    <fmt:message bundle="${localization}" key="prop.err.required" var="errRequired"/>
+    <fmt:message bundle="${localization}" key="prop.err.min2length" var="errLength2"/>
+    <fmt:message bundle="${localization}" key="prop.err.min5length" var="errLength5"/>
+    <fmt:message bundle="${localization}" key="prop.err.pattern" var="errPattern"/>
+    <fmt:message bundle="${localization}" key="prop.err.match" var="errMatch"/>
+    <fmt:message bundle="${localization}" key="prop.err.email" var="errEmail"/>
+    <fmt:message bundle="${localization}" key="prop.error.loginOrPassword" var="errorLoginOrPassword"/>
+    <fmt:message bundle="${localization}" key="prop.error.invalidParams" var="invalidParams"/>
 </head>
 <body>
-<div class="container">
-    <div class="row">
+<div class="container-fluid">
+    <c:import url="fragments/navbar.jsp"/>
+    <div class="row main-row">
         <div class="col-sm-2"></div>
-        <div class="col-sm-8 text-center" style="background: rgba(255,255,255, 0.5); padding: 10px">
+        <div class="col-sm-8 text-center">
             <h1>${regTitle}. <small>${newAccountTitle}.</small></h1>
 
             <form id="registrationForm" action="Controller" method="post" class="form-horizontal text-left" data-toggle="validator">
@@ -115,6 +116,7 @@
                 </div>
             </form>
         </div>
+        <c:import url="/fragments/footer.jsp"/>
     </div>
 </div>
 

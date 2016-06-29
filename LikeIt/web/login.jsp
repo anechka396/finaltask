@@ -1,6 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" errorPage="error.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+
+<c:if test="${requestScope.error != null}">
+
+</c:if>
+
 <html>
 <head>
     <title>Login Page</title>
@@ -10,21 +16,22 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/validator.min.js"></script>
     <fmt:setLocale value="${sessionScope.locale}"/>
-    <fmt:setBundle basename="localization.prop" var="loc"/>
-    <fmt:message bundle="${loc}" key="prop.send" var="send"/>
-    <fmt:message bundle="${loc}" key="prop.login.login" var="login"/>
-    <fmt:message bundle="${loc}" key="prop.login.password" var="password"/>
-    <fmt:message bundle="${loc}" key="prop.err.required" var="errRequired"/>
-    <fmt:message bundle="${loc}" key="prop.err.min5length" var="errLength"/>
-    <fmt:message bundle="${loc}" key="prop.err.pattern" var="errPattern"/>
-    <fmt:message bundle="${loc}" key="prop.error.loginOrPassword" var="errorLoginOrPassword"/>
-    <fmt:message bundle="${loc}" key="prop.error.invalidParams" var="invalidParams"/>
+    <fmt:setBundle basename="localization.prop" var="localization"/>
+    <fmt:message bundle="${localization}" key="prop.send" var="send"/>
+    <fmt:message bundle="${localization}" key="prop.login.login" var="login"/>
+    <fmt:message bundle="${localization}" key="prop.login.password" var="password"/>
+    <fmt:message bundle="${localization}" key="prop.err.required" var="errRequired"/>
+    <fmt:message bundle="${localization}" key="prop.err.min5length" var="errLength"/>
+    <fmt:message bundle="${localization}" key="prop.err.pattern" var="errPattern"/>
+    <fmt:message bundle="${localization}" key="prop.error.loginOrPassword" var="errorLoginOrPassword"/>
+    <fmt:message bundle="${localization}" key="prop.error.invalidParams" var="invalidParams"/>
 </head>
 <body>
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-6">
+<div class="container-fluid">
+    <c:import url="fragments/navbar.jsp"/>
+    <div class="row main-row">
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <form id="loginForm" action="Controller" method="post" class="form-horizontal" data-toggle="validator">
                 <input type="hidden" name="command" value="login">
                 <c:if test="${requestScope.error != null}">
@@ -70,10 +77,8 @@
                 </div>
             </form>
         </div>
-        <div class="col-sm-6">
-
-        </div>
     </div>
+    <c:import url="/fragments/footer.jsp"/>
 </div>
 
 <script>

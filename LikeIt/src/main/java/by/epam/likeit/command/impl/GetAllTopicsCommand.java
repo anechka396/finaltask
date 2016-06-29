@@ -16,15 +16,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Пользователь on 29.04.2016.
- */
 public class GetAllTopicsCommand implements Command {
     private static final Logger LOGGER = LogManager.getRootLogger();
 
     private static final String METHOD = "method";
     private static final String AJAX = "ajax";
     private static final String TOPICS = "topics";
+    private static final String CONTENT_TYPE = "application/json";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
@@ -42,7 +40,7 @@ public class GetAllTopicsCommand implements Command {
             }
 
             resultJson.put(TOPICS, ar);
-            response.setContentType("application/json");
+            response.setContentType(CONTENT_TYPE);
             response.getWriter().write(resultJson.toString());
         } catch (DaoException | IOException e) {
             throw new CommandException(e);
