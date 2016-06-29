@@ -64,6 +64,24 @@
         <servlet-name>QuestionPage</servlet-name>
         <url-pattern>/QuestionPage</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>TopicManagement</servlet-name>
+        <jsp-file>/WEB-INF/jsp/topic-management.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TopicManagement</servlet-name>
+        <url-pattern>/TopicManagement</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>UserManagement</servlet-name>
+        <jsp-file>/WEB-INF/jsp/user-management.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserManagement</servlet-name>
+        <url-pattern>/UserManagement</url-pattern>
+    </servlet-mapping>
 
     <listener>
         <listener-class>by.epam.likeit.listener.InitializeListener</listener-class>

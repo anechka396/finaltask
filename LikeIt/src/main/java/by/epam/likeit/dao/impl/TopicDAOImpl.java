@@ -11,9 +11,11 @@ import java.util.List;
 
 public class TopicDAOImpl implements TopicDAO {
 
-    private static final String SQL_SELECT_ALL_TOPICS = "SELECT name FROM topics";
+    private static final String SQL_SELECT_ALL_TOPICS = "SELECT topic FROM topics";
+    private static final String SQL_SELECT_ID_BY_NAME = "SELECT topic_id FROM topics WHERE topic=?";
 
-    private static final String NAME = "name";
+    private static final String TOPIC = "topic";
+    private static final String ID = "topic_id";
 
     @Override
     public void create(String entity) throws DaoException {
@@ -40,7 +42,7 @@ public class TopicDAOImpl implements TopicDAO {
             st = connection.createStatement();
             rs = st.executeQuery(SQL_SELECT_ALL_TOPICS);
             while (rs.next()){
-                topic = rs.getString(NAME);
+                topic = rs.getString(TOPIC);
                 topics.add(topic);
             }
         } catch (ConnectionPoolException | SQLException e) {
@@ -62,5 +64,34 @@ public class TopicDAOImpl implements TopicDAO {
     @Override
     public void delete(String id) {
 
+    }
+
+    @Override
+    public int retrieveIdByName(String topic) {
+        int id = 0;
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ConnectionPool pool = null;
+        try{
+            pool = ConnectionPool.getInstance();
+            connection = pool.takeConnection();
+            ps = connection.prepareStatement(SQL_SELECT_ID_BY_NAME);
+            ps.setString(1, topic);
+            rs = ps.executeQuery();
+            while(rs.next()){
+               id = rs.getInt(ID);
+            }
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            if(connection != null){
+                pool.closeConnection(connection, ps, rs);
+            }
+        }
+
+        return id;
     }
 }

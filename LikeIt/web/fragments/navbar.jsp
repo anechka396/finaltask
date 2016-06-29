@@ -51,8 +51,8 @@
                     </ul>
                 </li>
                 <c:if test="${sessionScope.user.role eq 'ADMIN'}">
-                    <li><a href="#">${mgTopic}</a></li>
-                    <li><a href="#">${mgUser}</a></li>
+                    <li><a href="/TopicManagement">${mgTopic}</a></li>
+                    <li><a href="/UserManagement">${mgUser}</a></li>
                 </c:if>
             </ul>
             <ul class="nav navbar-nav navbar-right">

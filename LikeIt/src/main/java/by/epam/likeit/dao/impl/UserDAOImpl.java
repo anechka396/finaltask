@@ -21,8 +21,8 @@ public class UserDAOImpl implements UserDAO {
     private static final String SQL_SELECT_USER_BY_LOGIN = "SELECT login, password, name, last_name, email, role, url FROM users WHERE login=?";
     private static final String SQL_SELECT_USER_BY_EMAIL = "SELECT login, password, name, last_name, email, role, url FROM users WHERE email=?";
     private static final String SQL_INSERT_USER = "INSERT INTO users (login, password, name, last_name, email, role) VALUES(?,?,?,?,?,?)";
-    private static final String SQL_SELECT_SUM_OF_MARKS = "SELECT rating FROM users WHERE login=?";
-    private static final String SQL_SELECT_COUNT_OF_MARKS = "SELECT count FROM users WHERE login=?";
+    private static final String SQL_SELECT_SUM_OF_MARKS = "SELECT SUM(mark) as rating FROM users U JOIN answers A ON U.login=A.author JOIN marks M ON M.answer_id=A.id WHERE login=?";
+    private static final String SQL_SELECT_COUNT_OF_MARKS = "SELECT COUNT(mark) as cnt FROM users U JOIN answers A ON U.login=A.author JOIN marks M ON M.answer_id=A.id WHERE login=?";
     private static final String SQL_SELECT_USER_PASSWORD = "SELECT password FROM users WHERE login=?";
     private static final String SQL_UPDATE_PASSWORD = "UPDATE users SET password=? WHERE login=?";
     private static final String SQL_UPDATE_IMAGE = "UPDATE users SET url=? WHERE login=?";
@@ -35,7 +35,7 @@ public class UserDAOImpl implements UserDAO {
     private static final String LAST_NAME = "last_name";
     private static final String EMAIL = "email";
     private static final String RATING = "rating";
-    private static final String COUNT = "count";
+    private static final String COUNT = "cnt";
     private static final String URL = "url";
     private static final String USER = "user";
     private static final String EMPTY = "";

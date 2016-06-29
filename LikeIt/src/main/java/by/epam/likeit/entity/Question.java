@@ -1,23 +1,35 @@
 package by.epam.likeit.entity;
 
 public class Question {
+
     private int id;
     private String text;
     private String author;
     private String topic;
+    private int topicId;
 
     public Question() {
         String empty = "";
         this.text = empty;
         this.author = empty;
         this.topic = empty;
+        this.topicId = 0;
     }
 
-    public Question(int id, String text, String author, String topic) {
+    public Question(int id, String text, String author, String topic, int topicId) {
         this.id = id;
         this.text = text;
         this.author = author;
         this.topic = topic;
+        this.topicId = topicId;
+    }
+
+    public int getTopicId() {
+        return topicId;
+    }
+
+    public void setTopicId(int topicId) {
+        this.topicId = topicId;
     }
 
     public int getId() {

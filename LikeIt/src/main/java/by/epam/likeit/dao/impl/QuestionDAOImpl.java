@@ -16,10 +16,10 @@ import java.util.List;
 public class QuestionDAOImpl implements QuestionDAO {
     private static final Logger LOGGER = LogManager.getRootLogger();
 
-    private static final String SQL_INSERT_QUESTION = "INSERT INTO questions(topic, text, author) values(?, ?, ?)";
-    private static final String SQL_SELECT_QUESTION_BY_ID="SELECT id, topic, text, author from questions where id=?";
-    private static final String SQL_SELECT_ALL_QUESTIONS = "SELECT id, topic, text, author from questions order by date desc";
-    private static final String SQL_SELECT_ALL_QUESTIONS_BY_TOPIC = "SELECT id, topic, text, author from questions where topic=? order by date desc";
+    private static final String SQL_INSERT_QUESTION = "INSERT INTO questions(topic_id, text, author) values(?, ?, ?)";
+    private static final String SQL_SELECT_QUESTION_BY_ID="SELECT id, topic, text, author from questions LEFT JOIN topics using(topic_id) where id=?";
+    private static final String SQL_SELECT_ALL_QUESTIONS = "SELECT id, topic, text, author from questions LEFT JOIN topics using(topic_id) order by date desc";
+    private static final String SQL_SELECT_ALL_QUESTIONS_BY_TOPIC = "SELECT id, topic, text, author from questions LEFT JOIN topics using(topic_id) where topic=? order by date desc";
     private static final String SQL_DELETE_QUESTION = "DELETE FROM questions WHERE id=?";
     private static final String SQL_UPDATE_QUESTION = "UPDATE questions SET text=? WHERE id=?";
 
@@ -38,7 +38,7 @@ public class QuestionDAOImpl implements QuestionDAO {
             pool = ConnectionPool.getInstance();
             connection = pool.takeConnection();
             ps = connection.prepareStatement(SQL_INSERT_QUESTION);
-            ps.setString(1, entity.getTopic());
+            ps.setInt(1, entity.getTopicId());
             ps.setString(2, entity.getText());
             ps.setString(3, entity.getAuthor());
             ps.executeUpdate();
