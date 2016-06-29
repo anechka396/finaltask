@@ -6,6 +6,8 @@
   <c:redirect url="Controller?command=last"/>
 </c:if>
 
+
+<!DOCTYPE html>
 <html>
   <head>
     <title>Main Page</title>
@@ -43,32 +45,57 @@
         </c:if>
 
 
-        <c:forEach items="${requestScope.questions}" var="question">
-          <div class="well well-sm">
-            <c:if test="${sessionScope.user.role == 'ADMIN' || sessionScope.user.login == question.author}">
-              <button class="close close-question" data-id="${question.id}"><span aria-hidden="true">&times;</span></button>
-            </c:if>
-            <form action="/QuestionPage" method="post">
-              <input type="hidden" name="id" value="${question.id}">
-              <input type="submit" value="<c:out value="${question.text}"/>" class="btn-link" style="white-space: normal; width: 100%; font-size: 20px; text-align: left">
-            </form>
-            <p>
-              <a href="#" class="text-muted"><c:out value="${question.author}"/></a>
-              <span class="text-muted">${in}</span>
-              <a class="text-muted"><c:out value="${question.topic}"/></a>
-              <c:if test="${sessionScope.user != null}">
-                <span class="text-muted"> &bull; </span>
-                <a class="text-muted" href="/QuestionPage?id=${question.id}#answer-text"><span class="glyphicon glyphicon-comment" style="font-size: 12px"></span>${ask}</a>
+        <div id="posts" data-dt="hello">
+          <c:forEach items="${requestScope.questions}" var="question">
+            <div class="well well-sm" data-date="${question.date}">
+              <c:if test="${sessionScope.user.role == 'ADMIN' || sessionScope.user.login == question.author}">
+                <button class="close close-question" data-id="${question.id}"><span aria-hidden="true">&times;</span></button>
               </c:if>
-            </p>
-          </div>
-        </c:forEach>
+              <form action="/QuestionPage" method="post">
+                <input type="hidden" name="id" value="${question.id}">
+                <input type="submit" value="<c:out value="${question.text}"/>" class="btn-link" style="white-space: normal; width: 100%; font-size: 20px; text-align: left">
+              </form>
+              <p>
+                <a href="#" class="text-muted"><c:out value="${question.author}"/></a>
+                <span class="text-muted">${in}</span>
+                <a class="text-muted"><c:out value="${question.topic}"/></a>
+                <c:if test="${sessionScope.user != null}">
+                  <span class="text-muted"> &bull; </span>
+                  <a class="text-muted" href="/QuestionPage?id=${question.id}#answer-text"><span class="glyphicon glyphicon-comment" style="font-size: 12px"></span>${ask}</a>
+                </c:if>
+              </p>
+            </div>
+          </c:forEach>
+        </div>
+        <div id="loading">
+          <img alt="Loading...">
+        </div>
       </div>
      </div>
     </div>
-
     <c:import url="/fragments/footer.jsp"/>
     </div>
+
+  <script>
+    $(document).ready(function() {
+      $(window).scroll(function(){
+        if($(window).scrollTop() == $(document).height() - $(window).height()){
+          $('#loading').show();
+          var date = $('#posts div:last-child').attr('data-date');
+          console.log(date);
+
+        /*  $.ajax({
+            url: 'get-post.php',
+            dataType: 'html',
+            success: function(html) {
+              $('#posts').append(html);
+              $('#loading').hide();
+            }
+          });*/
+        }
+      })
+    });
+  </script>
 
   </body>
 </html>

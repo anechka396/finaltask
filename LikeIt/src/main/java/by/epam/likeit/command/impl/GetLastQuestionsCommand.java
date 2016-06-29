@@ -28,9 +28,9 @@ public class GetLastQuestionsCommand implements Command {
             QuestionDAO questionDAO = QuestionDAOFactory.getInstance();
             topic = request.getParameter(TOPIC);
             if(topic != null){
-                questions = questionDAO.retrieveAll(topic);
+                questions = questionDAO.retrieveLast(topic);
             } else {
-                questions = questionDAO.retrieveAll();
+                questions = questionDAO.retrieveLast();
             }
             request.setAttribute(QUESTIONS, questions);
 

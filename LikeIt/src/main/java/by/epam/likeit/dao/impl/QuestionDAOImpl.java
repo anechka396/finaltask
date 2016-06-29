@@ -20,6 +20,8 @@ public class QuestionDAOImpl implements QuestionDAO {
     private static final String SQL_SELECT_QUESTION_BY_ID="SELECT id, topic, text, author from questions LEFT JOIN topics using(topic_id) where id=?";
     private static final String SQL_SELECT_ALL_QUESTIONS = "SELECT id, topic, text, author from questions LEFT JOIN topics using(topic_id) order by date desc";
     private static final String SQL_SELECT_ALL_QUESTIONS_BY_TOPIC = "SELECT id, topic, text, author from questions LEFT JOIN topics using(topic_id) where topic=? order by date desc";
+    private static final String SQL_SELECT_LAST_QUESTIONS = "SELECT id, topic, text, author, date from questions LEFT JOIN topics using(topic_id) order by date desc LIMIT 10";
+    private static final String SQL_SELECT_LAST_QUESTIONS_BY_TOPIC = "SELECT id, topic, text, author, date from questions LEFT JOIN topics using(topic_id) where topic=? order by date desc LIMIT 10";
     private static final String SQL_DELETE_QUESTION = "DELETE FROM questions WHERE id=?";
     private static final String SQL_UPDATE_QUESTION = "UPDATE questions SET text=? WHERE id=?";
 
@@ -174,6 +176,72 @@ public class QuestionDAOImpl implements QuestionDAO {
             pool = ConnectionPool.getInstance();
             connection = pool.takeConnection();
             ps = connection.prepareStatement(SQL_SELECT_ALL_QUESTIONS_BY_TOPIC);
+            ps.setString(1, topic);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                question = new Question();
+                question.setId(rs.getInt(ID));
+                question.setText(rs.getString(TEXT));
+                question.setAuthor(rs.getString(AUTHOR));
+                question.setTopic(rs.getString(TOPIC));
+                questions.add(question);
+            }
+        } catch (ConnectionPoolException | SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            if(connection != null){
+                pool.closeConnection(connection, ps, rs);
+            }
+        }
+        return questions;
+    }
+
+    @Override
+    public List<Question> retrieveLast() throws DaoException {
+        List<Question> questions = new ArrayList<>();
+        Question question = null;
+        Connection connection = null;
+        Statement st = null;
+        ResultSet rs = null;
+        ConnectionPool pool = null;
+
+        try {
+            pool = ConnectionPool.getInstance();
+            connection = pool.takeConnection();
+            st = connection.createStatement();
+            rs = st.executeQuery(SQL_SELECT_LAST_QUESTIONS);
+            while (rs.next()){
+                question = new Question();
+                question.setId(rs.getInt(ID));
+                question.setText(rs.getString(TEXT));
+                question.setAuthor(rs.getString(AUTHOR));
+                question.setTopic(rs.getString(TOPIC));
+                question.setDate(rs.getTimestamp("date"));
+                questions.add(question);
+            }
+        } catch (ConnectionPoolException | SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            if(connection != null){
+                pool.closeConnection(connection, st, rs);
+            }
+        }
+        return questions;
+    }
+
+    @Override
+    public List<Question> retrieveLast(String topic) throws DaoException {
+        List<Question> questions = new ArrayList<>();
+        Question question = null;
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ConnectionPool pool = null;
+
+        try {
+            pool = ConnectionPool.getInstance();
+            connection = pool.takeConnection();
+            ps = connection.prepareStatement(SQL_SELECT_LAST_QUESTIONS_BY_TOPIC);
             ps.setString(1, topic);
             rs = ps.executeQuery();
             while (rs.next()){

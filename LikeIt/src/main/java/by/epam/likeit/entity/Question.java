@@ -1,5 +1,8 @@
 package by.epam.likeit.entity;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 public class Question {
 
     private int id;
@@ -7,21 +10,33 @@ public class Question {
     private String author;
     private String topic;
     private int topicId;
+    private Timestamp date;
 
     public Question() {
         String empty = "";
+        Date dt = new Date();
         this.text = empty;
         this.author = empty;
         this.topic = empty;
         this.topicId = 0;
+        this.date = new Timestamp(dt.getTime());
     }
 
-    public Question(int id, String text, String author, String topic, int topicId) {
+    public Question(int id, String text, String author, String topic, int topicId, Timestamp date) {
         this.id = id;
         this.text = text;
         this.author = author;
         this.topic = topic;
         this.topicId = topicId;
+        this.date = date;
+    }
+
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
     }
 
     public int getTopicId() {

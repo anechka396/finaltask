@@ -10,13 +10,17 @@ import by.epam.likeit.entity.User;
 import by.epam.likeit.service.QuestionService;
 import by.epam.likeit.service.exception.ServiceException;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 public class QuestionServiceImpl implements QuestionService {
     @Override
     public void addQuestion(User user, String topic, String text) throws ServiceException {
         try {
             TopicDAO topicDAO = TopicDAOFactory.getInstance();
             int topicId = topicDAO.retrieveIdByName(topic);
-            Question question = new Question(0, text, user.getLogin(), topic, topicId);
+            Date dt = new Date();
+            Question question = new Question(0, text, user.getLogin(), topic, topicId, new Timestamp(dt.getTime()));
             QuestionDAO questionDAO = QuestionDAOFactory.getInstance();
             questionDAO.create(question);
         } catch (DaoException e) {
