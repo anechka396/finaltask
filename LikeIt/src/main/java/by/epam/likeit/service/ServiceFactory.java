@@ -8,11 +8,13 @@ public class ServiceFactory {
     private UserService userService;
     private AnswerService answerService;
     private QuestionService questionService;
+    private TopicService topicService;
 
     private ServiceFactory(){
         userService = new UserServiceImpl();
         answerService = new AnswerServiceImpl();
         questionService = new QuestionServiceImpl();
+        topicService = new TopicServiceImpl();
     }
 
     public static ServiceFactory getInstance(){
@@ -29,5 +31,9 @@ public class ServiceFactory {
 
     public QuestionService getQuestionService(){
         return questionService;
+    }
+
+    public TopicService getTopicService(){
+        return topicService;
     }
 }

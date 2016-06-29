@@ -37,7 +37,7 @@ public class GetAllTopicsCommand implements Command {
             request.setAttribute(METHOD, AJAX);
 
             for (Topic topic : topics){
-                ar.put(topic.getTopic());
+                ar.put(topic.getValue());
             }
 
             resultJson.put(TOPICS, ar);

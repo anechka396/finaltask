@@ -2,17 +2,17 @@ package by.epam.likeit.entity;
 
 public class Topic {
     int id;
-    String topic;
+    String value;
 
     public Topic() {
         String empty = "";
         this.id = 0;
-        this.topic = empty;
+        this.value = empty;
     }
 
     public Topic(int id, String topic) {
         this.id = id;
-        this.topic = topic;
+        this.value = topic;
     }
 
     public int getId() {
@@ -23,12 +23,12 @@ public class Topic {
         this.id = id;
     }
 
-    public String getTopic() {
-        return topic;
+    public String getValue() {
+        return value;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setValue(String value) {
+        this.value = value;
     }
 
     @Override
@@ -39,14 +39,14 @@ public class Topic {
         Topic topic1 = (Topic) o;
 
         if (id != topic1.id) return false;
-        return topic != null ? topic.equals(topic1.topic) : topic1.topic == null;
+        return value != null ? value.equals(topic1.value) : topic1.value == null;
 
     }
 
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (topic != null ? topic.hashCode() : 0);
+        result = 31 * result + (value != null ? value.hashCode() : 0);
         return result;
     }
 }

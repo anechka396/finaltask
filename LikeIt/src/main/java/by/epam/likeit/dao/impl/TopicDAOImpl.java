@@ -12,19 +12,35 @@ import java.util.List;
 
 public class TopicDAOImpl implements TopicDAO {
 
+    private static final String SQL_CREATE_NEW_TOPIC = "INSERT INTO topics(topic) values(?)";
     private static final String SQL_SELECT_ALL_TOPICS = "SELECT topic_id, topic FROM topics";
     private static final String SQL_SELECT_ID_BY_NAME = "SELECT topic_id FROM topics WHERE topic=?";
+    private static final String SQL_UPDATE_TOPIC = "UPDATE topics SET topic=? WHERE topic_id=?";
+    private static final String SQL_DELETE_TOPIC = "DELETE FROM topics WHERE topic_id=?";
 
     private static final String TOPIC = "topic";
     private static final String ID = "topic_id";
 
     @Override
     public void create(Topic entity) throws DaoException {
-
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ConnectionPool pool = null;
+        try{
+            pool = ConnectionPool.getInstance();
+            connection = pool.takeConnection();
+            ps = connection.prepareStatement(SQL_CREATE_NEW_TOPIC);
+            ps.setString(1, entity.getValue());
+            ps.executeUpdate();
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public Topic retrieve(String id) throws DaoException {
+    public Topic retrieve(Integer id) throws DaoException {
         return null;
     }
 
@@ -44,7 +60,7 @@ public class TopicDAOImpl implements TopicDAO {
             rs = st.executeQuery(SQL_SELECT_ALL_TOPICS);
             while (rs.next()){
                 topic = new Topic();
-                topic.setTopic(rs.getString(TOPIC));
+                topic.setValue(rs.getString(TOPIC));
                 topic.setId(rs.getInt(ID));
                 topics.add(topic);
             }
@@ -60,13 +76,46 @@ public class TopicDAOImpl implements TopicDAO {
     }
 
     @Override
-    public void update(Topic entity) {
-
+    public void update(Topic entity) throws DaoException {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ConnectionPool pool = null;
+        try{
+            pool = ConnectionPool.getInstance();
+            connection = pool.takeConnection();
+            ps = connection.prepareStatement(SQL_UPDATE_TOPIC);
+            ps.setString(1, entity.getValue());
+            ps.setInt(2, entity.getId());
+            ps.executeUpdate();
+        } catch (ConnectionPoolException | SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            if(connection != null){
+                pool.closeConnection(connection, ps);
+            }
+        }
     }
 
     @Override
-    public void delete(String id) {
-
+    public void delete(Integer id) {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ConnectionPool pool = null;
+        try{
+            pool = ConnectionPool.getInstance();
+            connection = pool.takeConnection();
+            ps = connection.prepareStatement(SQL_DELETE_TOPIC);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (ConnectionPoolException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if(connection != null){
+                pool.closeConnection(connection, ps);
+            }
+        }
     }
 
     @Override
