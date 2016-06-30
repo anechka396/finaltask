@@ -41,3 +41,15 @@ footer{
     min-height: 100%;
     padding-top: 20px;
 }
+
+.text-block{
+    white-space: normal;
+    width: 100%;
+    font-size: 20px;
+    text-align: left;
+    padding: 0px 0px 10px 5px;
+}
+
+#posts{
+    margin-top: 10px;
+}

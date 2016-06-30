@@ -2,15 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<c:if test="${sessionScope.user == null}">
+<c:if test="${sessionScope.user eq null}">
     <c:redirect url="/Error"/>
 </c:if>
 
 <html>
 <head>
     <title>Add question</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="/js/topic-ajax.js"></script>
 

@@ -12,11 +12,9 @@
 <html>
 <head>
     <title>Question page</title>
-    <link rel="stylesheet" href="/css/star-rating.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/star-rating.min.js"></script>
-    <script src="/js/question-ajax.js"></script>
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 
@@ -40,7 +38,7 @@
                         <a class="btn" id="edit-question" data-name="questions" data-pk="${requestScope.question.id}" data-url="/Controller"><c:out value="${requestScope.question.text}"/></a>
                     </c:when>
                     <c:otherwise>
-                        <c:out value="${requestScope.question.text}"/>
+                       <p class="text-block"><c:out value="${requestScope.question.text}"/></p>
                     </c:otherwise>
                 </c:choose>
             </div>
@@ -51,9 +49,9 @@
                 <c:forEach items="${requestScope.answers}" var="answer">
                     <div class="well well-sm">
                         <c:if test="${sessionScope.user.role == 'ADMIN' || sessionScope.user.login == answer.author}">
-                            <button style="font-size: 14px;" class="close" data-id="${answer.id}"><span aria-hidden="true">&times;</span></button>
+                            <button class="close close-answer" data-id="${answer.id}"><span aria-hidden="true">&times;</span></button>
                         </c:if>
-                        <p><c:out value="${answer.text}"/></p>
+                        <p class="text-block"><c:out value="${answer.text}"/></p>
                         <p><c:out value="${answer.author}"/></p>
                         <c:if test="${sessionScope.user != null}">
                             <input data-id="${answer.id}" type="number" class="rating" value="${answer.mark}" step="1" data-size="xs">
@@ -77,5 +75,17 @@
     </div>
     <c:import url="/fragments/footer.jsp"/>
 </div>
+<script>
+    $('#edit-question').css({'border': 'none'});
+
+    $('#edit-question').editable({
+        type: 'textarea',
+        placement: 'bottom',
+        title: 'Edit question',
+        params: {
+            command: 'edit-question'
+        }
+    });
+</script>
 </body>
 </html>

@@ -2,18 +2,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<c:if test="${sessionScope.user == null}">
+<c:if test="${sessionScope.user eq null}">
     <c:redirect url="/Error"/>
 </c:if>
 
 <html>
 <head>
     <title>User page</title>
-    <link rel="stylesheet" href="/css/star-rating.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="/js/star-rating.min.js"></script>
     <script src="/js/validator.min.js"></script>
-    <script src="/js/bootsrap-file-input.js"></script>
 
     <fmt:setLocale value="${cookie.locale.value}"/>
     <fmt:setBundle basename="localization.prop" var="localization"/>
@@ -110,8 +108,6 @@
 
 <script>
     $(document).on('ready', function(){
-
-        $('input[type=file]').bootstrapFileInput();
 
         $('#rating').rating({
             step: 0.1,

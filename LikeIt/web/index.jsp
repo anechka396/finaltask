@@ -25,7 +25,6 @@
     <fmt:message bundle="${localization}" key="prop.ask" var="ask"/>
     <fmt:message bundle="${localization}" key="prop.in" var="in"/>
     <fmt:message bundle="${localization}" key="prop.topics" var="topics"/>
-
   </head>
   <body>
 
@@ -36,7 +35,7 @@
       <div class="col-xs-12">
       <div class="col-xs-offset-1 col-sm-offset-2 col-xs-10 col-sm-8">
         <c:if test="${sessionScope.user != null}">
-          <form action="/AddQuestionPage" method="post" class="form" style="margin: 10px 5px">
+          <form action="/AddQuestionPage" method="post" class="form">
             <div class="form-group">
               <textarea rows="5" class="form-control" placeholder="${typeQuestion}" name="text"></textarea>
             </div>
@@ -53,7 +52,7 @@
               </c:if>
               <form action="/QuestionPage" method="post">
                 <input type="hidden" name="id" value="${question.id}">
-                <input type="submit" value="<c:out value="${question.text}"/>" class="btn-link" style="white-space: normal; width: 100%; font-size: 20px; text-align: left">
+                <input type="submit" value="<c:out value="${question.text}"/>" class="btn-link text-block">
               </form>
               <p>
                 <a href="#" class="text-muted"><c:out value="${question.author}"/></a>
@@ -78,22 +77,26 @@
 
   <script>
     $(document).ready(function() {
-      var flag = true;
+      var flag;
+      $("#posts div").length<10?flag=false:flag=true;
+
+      $('#loading').hide();
+
       $(window).scroll(function(){
-        if($(window).scrollTop() == $(document).height() - $(window).height() && flag){
+        if($(window).scrollTop()==$(document).height()-$(window).height() && flag){
           $('#loading').show();
 
           $.ajax({
             url: '/Controller',
-            type: "POST",
+            type: 'POST',
             data: {
               command: 'next-questions',
               lastDate: $('#posts div:last-child').attr('data-date'),
             },
             dataType: 'json',
             success: function(responseText) {
-              var str = "";
-              var i = 0;
+              var str = '';
+              var i=0;
               $.each(responseText, function(index, item) {
                 i++;
                 str +="<div class='well well-sm' data-date='"+item['date']+"'>";
@@ -111,15 +114,13 @@
                     </c:if>
                   </c:otherwise>
                 </c:choose>
-                str += "<form action='/QuestionPage' method='post'><input type='hidden' name='id' value='"+item['id']+"'><input type='submit' value='"+item['text']+"' class='btn-link'></form><p><a href='#' class='text-muted'>"+ item['author'] + "</a><span class='text-muted'> ${in} </span><a class='text-muted'>"+item['topic']+"</a>";
+                str += "<form action='/QuestionPage' method='post'><input type='hidden' name='id' value='"+item['id']+"'><input type='submit' value='"+item['text']+"' class='btn-link text-block'></form><p><a href='#' class='text-muted'>"+ item['author'] + "</a><span class='text-muted'> ${in} </span><a class='text-muted'>"+item['topic']+"</a>";
                 <c:if test="${sessionScope.user != null}">
                   str+='<span class="text-muted"> &bull; </span><a class="text-muted" href="/QuestionPage?id='+item['id']+'#answer-text"><span class="glyphicon glyphicon-comment" style="font-size: 12px"></span>${ask}</a>';
                 </c:if>
-                str += "</p></div> ";
+                str += '</p></div> ';
                 });
-              if(i < 10){
-                flag = false;
-              }
+              if(i < 10){flag = false;}
               $('#posts').append(str);
               $('#loading').hide();
             }

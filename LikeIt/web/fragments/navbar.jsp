@@ -6,6 +6,7 @@
 <head>
     <title>Main Page</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/star-rating.min.css">
     <link rel="stylesheet" href="/css/styles.css">
     <link href='https://fonts.googleapis.com/css?family=Poiret+One&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
     <script src="/js/bootstrap.min.js"></script>
