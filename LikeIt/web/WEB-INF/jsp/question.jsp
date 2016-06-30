@@ -53,7 +53,7 @@
                         </c:if>
                         <p class="text-block"><c:out value="${answer.text}"/></p>
                         <p><c:out value="${answer.author}"/></p>
-                        <c:if test="${sessionScope.user != null}">
+                        <c:if test="${sessionScope.user != null && sessionScope.user.login != answer.author}">
                             <input data-id="${answer.id}" type="number" class="rating" value="${answer.mark}" step="1" data-size="xs">
                         </c:if>
                     </div>

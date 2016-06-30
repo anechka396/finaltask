@@ -2,10 +2,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<c:if test="${sessionScope.user eq null}">
-    <c:redirect url="/Error"/>
-</c:if>
-
 <html>
 <head>
     <title>Change password</title>

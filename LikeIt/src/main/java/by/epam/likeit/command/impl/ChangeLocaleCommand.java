@@ -24,7 +24,6 @@ public class ChangeLocaleCommand implements Command {
         String referer = request.getHeader(REFERER);
         String page = getPageName(referer);
         response.addCookie(new Cookie(LOCALE, request.getParameter(LOCALE)));
-       // request.getSession(true).setAttribute(LOCALE, request.getParameter(LOCALE));
         request.setAttribute(METHOD, REDIRECT);
         return page.equals(CONTROLLER) ? PageName.INDEX_PAGE : page;
     }

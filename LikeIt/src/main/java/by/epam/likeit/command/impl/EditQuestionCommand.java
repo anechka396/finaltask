@@ -2,6 +2,7 @@ package by.epam.likeit.command.impl;
 
 import by.epam.likeit.command.Command;
 import by.epam.likeit.command.exception.CommandException;
+import by.epam.likeit.entity.User;
 import by.epam.likeit.service.QuestionService;
 import by.epam.likeit.service.ServiceFactory;
 import by.epam.likeit.service.exception.ServiceException;
@@ -19,17 +20,19 @@ public class EditQuestionCommand implements Command {
     private static final String AJAX = "ajax";
     private static final String ID = "pk";
     private static final String VALUE = "value";
+    private static final String USER = "user";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        request.setAttribute(METHOD, AJAX);
+        User user = (User) request.getSession().getAttribute(USER);
         int id = Integer.parseInt(request.getParameter(ID));
         String value = request.getParameter(VALUE);
         ServiceFactory factory = ServiceFactory.getInstance();
         QuestionService questionService = factory.getQuestionService();
 
         try {
-            questionService.editQuestion(id, value);
+            request.setAttribute(METHOD, AJAX);
+            questionService.editQuestion(user, id, value);
         } catch (ServiceException e) {
             throw  new CommandException(e);
         }

@@ -17,12 +17,14 @@ public class AnswerDAOImpl implements AnswerDAO {
     private static final String SQL_SELECT_ANSWERS_WITH_MARKS_BY_Q_ID = "SELECT id, text, author, mark from answers a LEFT JOIN (SELECT * FROM marks WHERE user=?) m ON a.id=m.answer_id WHERE question_id=? ORDER BY date";
     private static final String SQL_INSERT_ANSWER = "INSERT INTO answers(text, question_id, author) VALUES(?, ?, ?)";
     private static final String SQL_DELETE_ANSWER = "DELETE FROM answers WHERE id=?";
+    private static final String SQL_SELECT_AUTHOR_OF_ANSWER = "SELECT author FROM answers WHERE id=?";
     private static final String SQL_REPLACE_ANSWER = "REPLACE INTO marks(answer_id, user, mark) VALUES(?,?,?)";
 
     private static final String ID = "id";
     private static final String TEXT = "text";
     private static final String AUTHOR = "author";
     private static final String MARK = "mark";
+    private static final String EMPTY = "";
 
     @Override
     public void create(Answer entity) throws DaoException {
@@ -170,5 +172,32 @@ public class AnswerDAOImpl implements AnswerDAO {
                 pool.closeConnection(connection, ps);
             }
         }
+    }
+
+    @Override
+    public String getAuthorOfAnswer(int id) throws DaoException {
+        String author = EMPTY;
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ConnectionPool pool = null;
+
+        try {
+            pool = ConnectionPool.getInstance();
+            connection = pool.takeConnection();
+            ps = connection.prepareStatement(SQL_SELECT_AUTHOR_OF_ANSWER);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                author = rs.getString(AUTHOR);
+            }
+        } catch (ConnectionPoolException | SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            if(connection != null){
+                pool.closeConnection(connection, ps, rs);
+            }
+        }
+        return author;
     }
 }

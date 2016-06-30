@@ -3,9 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <c:if test="${requestScope.questions == null}">
-  <c:redirect url="Controller?command=last-questions"/>
+  <c:redirect url="Controller">
+    <c:param name="command" value="last-questions"/>
+  </c:redirect>
 </c:if>
-
 
 <!DOCTYPE html>
 <html>
@@ -67,7 +68,7 @@
           </c:forEach>
         </div>
         <div id="loading">
-          <img alt="Loading...">
+          <img src="/pictures/loading.gif" alt="Loading...">
         </div>
       </div>
      </div>
@@ -83,7 +84,8 @@
       $('#loading').hide();
 
       $(window).scroll(function(){
-        if($(window).scrollTop()==$(document).height()-$(window).height() && flag){
+        if($(window).scrollTop()>=$(document).height()-$(window).height() && flag){
+          flag=false;
           $('#loading').show();
 
           $.ajax({
@@ -120,7 +122,7 @@
                 </c:if>
                 str += '</p></div> ';
                 });
-              if(i < 10){flag = false;}
+              if(i < 10){flag = false;} else {flag=true}
               $('#posts').append(str);
               $('#loading').hide();
             }

@@ -5,6 +5,7 @@
 </head>
 <body>
     <h1>Error!</h1>
+    <span>${requestScope.error}</span>
     <a href="index.jsp">To main page</a>
 </body>
 </html>

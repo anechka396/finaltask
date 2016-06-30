@@ -35,7 +35,7 @@ public class ChangeImageCommand implements Command {
         ServiceFactory factory = ServiceFactory.getInstance();
         UserService userService = factory.getUserService();
         try {
-            String imageURL = userService.changeImage(user.getLogin(), file);
+            String imageURL = userService.changeImage(user, file);
             user.setImageURL(imageURL);
             request.getSession().setAttribute(USER, user);
         } catch (ServiceException e) {

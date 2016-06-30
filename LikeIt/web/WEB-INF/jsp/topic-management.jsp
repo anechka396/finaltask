@@ -2,10 +2,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<c:if test="${sessionScope.user.role ne 'ADMIN'}">
-    <c:redirect url="/Error"/>
-</c:if>
-
 <c:if test="${requestScope.topics == null}">
     <c:redirect url="Controller?command=get-topics"/>
 </c:if>

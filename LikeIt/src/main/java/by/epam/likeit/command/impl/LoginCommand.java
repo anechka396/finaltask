@@ -11,8 +11,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.jackson.ListOfMapEntryDeserializer;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.ResourceBundle;
 
 public class LoginCommand implements Command {
     private static final Logger LOGGER = LogManager.getRootLogger();
@@ -24,6 +29,9 @@ public class LoginCommand implements Command {
     private static final String EMPTY = "";
     private static final String METHOD = "method";
     private static final String REDIRECT = "redirect";
+    private static final String RU = "ru";
+    private static final String LOCALE = "locale";
+    private static final String PATH_TO_PROP_FILE = "localization/prop";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
@@ -42,7 +50,8 @@ public class LoginCommand implements Command {
         } catch (ServiceException e) {
             String message = e.getMessage();
             if(!message.equals(EMPTY)) {
-                request.setAttribute(ERROR, message);
+                ResourceBundle bundle =  ResourceBundle.getBundle(PATH_TO_PROP_FILE, getLocale(request));
+                request.setAttribute(ERROR, bundle.getString(message));
                 page = PageName.LOGIN_PAGE;
             }
             else {
@@ -50,5 +59,19 @@ public class LoginCommand implements Command {
             }
         }
         return page;
+    }
+
+    private Locale getLocale(HttpServletRequest request){
+        Locale locale = new Locale(RU);
+        Cookie[] cookies = request.getCookies();
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(LOCALE)) {
+                    locale = new Locale(cookie.getValue());
+                }
+            }
+        }
+        return locale;
     }
 }

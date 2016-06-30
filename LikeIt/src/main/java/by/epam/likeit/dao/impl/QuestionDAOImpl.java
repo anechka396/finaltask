@@ -26,12 +26,14 @@ public class QuestionDAOImpl implements QuestionDAO {
     private static final String SQL_SELECT_LAST_QUESTIONS_BY_TOPIC_AFTER_DATE = "SELECT id, topic, text, author, date from questions LEFT JOIN topics using(topic_id) where topic=? AND date<? order by date desc LIMIT 10";
     private static final String SQL_DELETE_QUESTION = "DELETE FROM questions WHERE id=?";
     private static final String SQL_UPDATE_QUESTION = "UPDATE questions SET text=? WHERE id=?";
+    private static final String SQL_SELECT_AUTHOR_OF_QUSTION = "SELECT author FROM questions WHERE id=?";
 
     private static final String ID = "id";
     private static final String TOPIC = "topic";
     private static final String TEXT = "text";
     private static final String AUTHOR = "author";
     private static final String DATE = "date";
+    private static final String EMPTY = "";
 
     @Override
     public void create(Question entity) throws DaoException {
@@ -164,6 +166,33 @@ public class QuestionDAOImpl implements QuestionDAO {
                 pool.closeConnection(connection, ps);
             }
         }
+    }
+
+    @Override
+    public String getAuthorOfQuestion(int id) throws DaoException {
+        String author = EMPTY;
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ConnectionPool pool = null;
+
+        try {
+            pool = ConnectionPool.getInstance();
+            connection = pool.takeConnection();
+            ps = connection.prepareStatement(SQL_SELECT_AUTHOR_OF_QUSTION);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                author = rs.getString(AUTHOR);
+            }
+        } catch (ConnectionPoolException | SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            if(connection != null){
+                pool.closeConnection(connection, ps, rs);
+            }
+        }
+        return author;
     }
 
     @Override

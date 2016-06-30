@@ -21,8 +21,8 @@
     <fmt:message bundle="${localization}" key="prop.err.required" var="errRequired"/>
     <fmt:message bundle="${localization}" key="prop.err.min5length" var="errLength"/>
     <fmt:message bundle="${localization}" key="prop.err.pattern" var="errPattern"/>
-    <fmt:message bundle="${localization}" key="prop.error.loginOrPassword" var="errorLoginOrPassword"/>
-    <fmt:message bundle="${localization}" key="prop.error.invalidParams" var="invalidParams"/>
+    <fmt:message bundle="${localization}" key="prop.errorLoginOrPassword" var="errorLoginOrPassword"/>
+    <fmt:message bundle="${localization}" key="prop.errorInvalidParams" var="invalidParams"/>
 </head>
 <body>
 
@@ -35,16 +35,7 @@
                 <c:if test="${requestScope.error != null}">
                     <div class="alert alert-danger alert-dismissible" role="alert" data-message="${requestScope.error}">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <c:set var="errLoginOrPas" value="errorLoginOrPassword"/>
-                        <c:set var="errParams" value="errorParams"/>
-                        <c:choose>
-                            <c:when test="${requestScope.error == errLoginOrPas}">
-                                ${errorLoginOrPassword}
-                            </c:when>
-                            <c:when test="${requestScope.error == errParams}">
-                                ${invalidParams}
-                            </c:when>
-                        </c:choose>
+                        <c:out value="${requestScope.error}"/>
                     </div>
                 </c:if>
                 <div class="form-group">
@@ -70,7 +61,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">
-                        <button type="submit" class="btn btn-default">${send}</button>
+                        <button type="submit" class="btn btn-primary">${send}</button>
                     </div>
                 </div>
             </form>

@@ -27,8 +27,8 @@
     <fmt:message bundle="${localization}" key="prop.err.pattern" var="errPattern"/>
     <fmt:message bundle="${localization}" key="prop.err.match" var="errMatch"/>
     <fmt:message bundle="${localization}" key="prop.err.email" var="errEmail"/>
-    <fmt:message bundle="${localization}" key="prop.error.loginOrPassword" var="errorLoginOrPassword"/>
-    <fmt:message bundle="${localization}" key="prop.error.invalidParams" var="invalidParams"/>
+    <fmt:message bundle="${localization}" key="prop.errorLoginOrPassword" var="errorLoginOrPassword"/>
+    <fmt:message bundle="${localization}" key="prop.errorInvalidParams" var="invalidParams"/>
 </head>
 <body>
 <div class="container-fluid">

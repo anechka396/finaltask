@@ -73,15 +73,6 @@
         <servlet-name>TopicManagement</servlet-name>
         <url-pattern>/TopicManagement</url-pattern>
     </servlet-mapping>
-    
-    <servlet>
-        <servlet-name>UserManagement</servlet-name>
-        <jsp-file>/WEB-INF/jsp/user-management.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>UserManagement</servlet-name>
-        <url-pattern>/UserManagement</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>ChangePassword</servlet-name>
@@ -116,6 +107,42 @@
     <filter-mapping>
         <filter-name>CharsetFilter</filter-name>
         <url-pattern>/QuestionPage</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <display-name>UserSecurityFilter</display-name>
+        <filter-name>UserSecurityFilter</filter-name>
+        <filter-class>by.epam.likeit.filter.UserSecurityFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>UserSecurityFilter</filter-name>
+        <url-pattern>/AddQuestionPage</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>UserSecurityFilter</filter-name>
+        <url-pattern>/ChangePassword</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>UserSecurityFilter</filter-name>
+        <url-pattern>/EditUserPage</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>UserSecurityFilter</filter-name>
+        <url-pattern>/TopicManagement</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>UserSecurityFilter</filter-name>
+        <url-pattern>/UserPage</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <display-name>AdminSecurityFilter</display-name>
+        <filter-name>AdminSecurityFilter</filter-name>
+        <filter-class>by.epam.likeit.filter.AdminSecurityFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminSecurityFilter</filter-name>
+        <url-pattern>/TopicManagement</url-pattern>
     </filter-mapping>
 
     <jsp-config>

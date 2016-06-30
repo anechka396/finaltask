@@ -31,7 +31,7 @@ public class EditUserProfileCommand implements Command{
         request.removeAttribute(ERROR);
         String page = PageName.ERROR_PAGE;
 
-        String login = request.getParameter(LOGIN);
+        User user = (User) request.getSession().getAttribute(USER);
         String name = request.getParameter(NAME);
         String surname = request.getParameter(SURNAME);
         String email = request.getParameter(EMAIL);
@@ -39,10 +39,10 @@ public class EditUserProfileCommand implements Command{
         ServiceFactory factory = ServiceFactory.getInstance();
         UserService userService = factory.getUserService();
 
-        User user = null;
+        User newUser = null;
         try {
-            user = userService.editUser(login, name, surname, email);
-            request.getSession(true).setAttribute(USER, user);
+            newUser = userService.editUser(user, name, surname, email);
+            request.getSession(true).setAttribute(USER, newUser);
             page = PageName.USER_PAGE;
             request.setAttribute(METHOD, REDIRECT);
         } catch (ServiceException e) {

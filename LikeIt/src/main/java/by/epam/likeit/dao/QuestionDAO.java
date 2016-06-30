@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public interface QuestionDAO extends BaseDAO<Question, Integer> {
+    String getAuthorOfQuestion(int id) throws DaoException;
     List<Question> retrieveAll(String topic) throws DaoException;
     List<Question> retrieveLast() throws DaoException;
     List<Question> retrieveLast(String topic) throws DaoException;

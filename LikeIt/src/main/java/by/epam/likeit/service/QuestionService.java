@@ -5,5 +5,6 @@ import by.epam.likeit.service.exception.ServiceException;
 
 public interface QuestionService {
     void addQuestion(User user, String topic, String text) throws ServiceException;
-    void editQuestion(int id, String value) throws ServiceException;
+    void editQuestion(User user, int id, String value) throws ServiceException;
+    void deleteQuestion(User user, int id) throws ServiceException;
 }

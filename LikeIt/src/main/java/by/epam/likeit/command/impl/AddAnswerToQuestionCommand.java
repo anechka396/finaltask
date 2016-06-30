@@ -22,6 +22,7 @@ public class AddAnswerToQuestionCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+        String page = PageName.ERROR_PAGE;
         int id = Integer.parseInt(request.getParameter(ID));
         String text = request.getParameter(TEXT);
         User user = (User) request.getSession().getAttribute(USER);
@@ -29,10 +30,11 @@ public class AddAnswerToQuestionCommand implements Command {
         ServiceFactory factory = ServiceFactory.getInstance();
         AnswerService answerService = factory.getAnswerService();
         try {
-           answerService.addAnswer(id, text, user.getLogin());
+            answerService.addAnswer(id, text, user);
+            page = PageName.QUESTION_PAGE;
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
-        return PageName.QUESTION_PAGE;
+        return page;
     }
 }

@@ -10,11 +10,16 @@ import by.epam.likeit.service.TopicService;
 import by.epam.likeit.service.exception.ServiceException;
 
 public class TopicServiceImpl implements TopicService {
+
+    private void validateUserOrAdmin(User user) throws ServiceException {
+        if(user == null || !user.getRole().equals(Role.ADMIN)){
+            throw new ServiceException();
+        }
+    }
+
     @Override
     public void addTopic(User user, String value) throws ServiceException {
-        if(!user.getRole().equals(Role.ADMIN)){
-            throw new ServiceException("");
-        }
+        validateUserOrAdmin(user);
 
         Topic topic = new Topic();
         topic.setValue(value);
@@ -28,7 +33,9 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public void editTopic(int id, String value) throws ServiceException {
+    public void editTopic(User user, int id, String value) throws ServiceException {
+        validateUserOrAdmin(user);
+
         try {
             Topic topic = new Topic();
             topic.setId(id);
@@ -42,7 +49,13 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public void deleteTopic(int id) throws ServiceException {
-
+    public void deleteTopic(User user, int id) throws ServiceException {
+        validateUserOrAdmin(user);
+        TopicDAO topicDAO = TopicDAOFactory.getInstance();
+        try {
+            topicDAO.delete(id);
+        } catch (DaoException e) {
+            throw new ServiceException();
+        }
     }
 }
