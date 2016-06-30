@@ -83,6 +83,15 @@
         <url-pattern>/UserManagement</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ChangePassword</servlet-name>
+        <jsp-file>/WEB-INF/jsp/change-password.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ChangePassword</servlet-name>
+        <url-pattern>/ChangePassword</url-pattern>
+    </servlet-mapping>
+
     <listener>
         <listener-class>by.epam.likeit.listener.InitializeListener</listener-class>
     </listener>

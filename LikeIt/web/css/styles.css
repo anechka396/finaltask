@@ -39,4 +39,5 @@ footer{
     background: rgba(255,255,255, 0.5);
     margin: 0px 2px;
     min-height: 100%;
+    padding-top: 20px;
 }

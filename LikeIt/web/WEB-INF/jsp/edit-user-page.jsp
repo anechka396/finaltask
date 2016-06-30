@@ -10,7 +10,7 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>Edit user</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/validator.min.js"></script>
@@ -39,7 +39,7 @@
     <c:import url="/fragments/navbar.jsp"/>
     <div class="row main-row">
         <div class="col-sm-2"></div>
-        <div class="col-sm-8 text-center" style="background: rgba(255,255,255, 0.5); padding: 10px">
+        <div class="col-sm-8 text-center">
             <form id="editForm" action="Controller" method="post" class="form-horizontal text-left" data-toggle="validator">
                 <input type="hidden" name="command" value="edit-profile">
                 <c:if test="${requestScope.error != null}">

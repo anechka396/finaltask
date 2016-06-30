@@ -8,7 +8,7 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>User page</title>
     <link rel="stylesheet" href="/css/star-rating.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="/js/star-rating.min.js"></script>
@@ -24,9 +24,6 @@
     <fmt:message bundle="${localization}" key="prop.rating" var="rating"/>
     <fmt:message bundle="${localization}" key="prop.change.image" var="changeImage"/>
     <fmt:message bundle="${localization}" key="prop.change.password" var="changePassword"/>
-    <fmt:message bundle="${localization}" key="prop.old.password" var="oldPassword"/>
-    <fmt:message bundle="${localization}" key="prop.new.password" var="newPassword"/>
-    <fmt:message bundle="${localization}" key="prop.repeat.new.password" var="repeatNewPassword"/>
     <fmt:message bundle="${localization}" key="prop.close" var="close"/>
     <fmt:message bundle="${localization}" key="prop.save" var="save"/>
     <fmt:message bundle="${localization}" key="prop.err.required" var="errRequired"/>
@@ -55,9 +52,9 @@
                     <a href="/EditUserPage" class="btn btn-primary" id="btn-edit-profile">
                         ${editProfile}
                     </a>
-                    <button class="btn btn-primary" id="btn-change-password">
+                    <a href="/ChangePassword" class="btn btn-primary" id="btn-change-password">
                         ${changePassword}
-                    </button>
+                    </a>
                 </div>
             </div>
             <div class="col-md-7 col-sm-8">
@@ -86,61 +83,6 @@
             </div>
         </div>
         <c:import url="/fragments/footer.jsp"/>
-    </div>
-
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">${changePassword}</h4>
-                </div>
-                <div class="modal-body">
-                    <form id="change-password-form" data-toggle="validator">
-                        <div class="row form-group">
-                            <label for="old-password" class="col-sm-4 control-label">${oldPassword}:</label>
-                            <div class="col-sm-8">
-                                <input type="password" name="old-password" id="old-password" class="form-control"
-                                       data-minlength="5" data-minlength-error="${errLength}"
-                                       required data-error="${errRequired}"
-                                >
-                                <div class="help-block with-errors"></div>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <label for="new-password" class="col-sm-4 control-label">${newPassword}:</label>
-                            <div class="col-sm-8">
-                                <input type="password" name="new-password" id="new-password" class="form-control"
-                                       data-minlength="5" data-minlength-error="${errLength}"
-                                       required data-error="${errRequired}"
-                                >
-                                <div class="help-block with-errors"></div>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <label for="new-password-2" class="col-sm-4 control-label">${repeatNewPassword}:</label>
-                            <div class="col-sm-8">
-                                <input type="password" name="new-password-2" id="new-password-2" class="form-control"
-                                       data-minlength="5" data-minlength-error="${errLength}"
-                                       data-match="#new-password" data-match-error="${errMatch}"
-                                       required data-error="${errRequired}"
-                                >
-                                <div class="help-block with-errors"></div>
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col-sm-8">
-                                <input type="submit" class="btn btn-primary">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <!--button type="submit" id="change-password" form="change-password-form" class="btn btn-primary">${save}</button-->
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">${close}</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel">
@@ -192,18 +134,6 @@
         $('#myModal').on('hidden.bs.modal', function(e){
             $('#change-password-form')[0].reset();
         });
-
-        $('#change-password-form').validator({
-            disable: 'true'
-        })
-
-      //  $('#change-password-form').on('invalid.bs.validator', function(e){
-      //      $('#change-password').attr('disabled','disabled');
-      //  });
-
-        /*$('#imageModal').on('show.bs.modal', function(e){
-            $('#change-image-form')[0].reset();
-        });*/
 
         $('#change-password-form').submit(function(e){
             $.ajax({

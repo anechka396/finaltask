@@ -8,7 +8,7 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>Add question</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -23,7 +23,7 @@
 <div class="container-fluid">
     <c:import url="/fragments/navbar.jsp"/>
     <div class="row main-row">
-        <div class="col-xs-offset-1 col-xs-10" style="background-color: rgba(255, 255, 255, 0.5); padding: 10px">
+        <div class="col-xs-offset-1 col-xs-10">
             <form action="Controller" method="post" class="form">
                 <input type="hidden" name="command" value="add-question">
                 <div class="form-group">
