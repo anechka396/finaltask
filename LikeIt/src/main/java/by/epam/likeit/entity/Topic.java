@@ -1,6 +1,8 @@
 package by.epam.likeit.entity;
 
-public class Topic {
+import java.io.Serializable;
+
+public class Topic implements Serializable{
     int id;
     String value;
 

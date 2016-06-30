@@ -1,25 +1,25 @@
 package by.epam.likeit.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class Question {
+public class Question implements Serializable {
 
     private int id;
     private String text;
     private String author;
     private String topic;
     private int topicId;
-    private Timestamp date;
+    private String date;
 
     public Question() {
         String empty = "";
-        Date dt = new Date();
         this.text = empty;
         this.author = empty;
         this.topic = empty;
         this.topicId = 0;
-        this.date = new Timestamp(dt.getTime());
+        this.date = empty;
     }
 
     public Question(int id, String text, String author, String topic, int topicId, Timestamp date) {
@@ -28,14 +28,14 @@ public class Question {
         this.author = author;
         this.topic = topic;
         this.topicId = topicId;
-        this.date = date;
+        this.date = date.toString();
     }
 
-    public Timestamp getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

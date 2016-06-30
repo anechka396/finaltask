@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <c:if test="${requestScope.questions == null}">
-  <c:redirect url="Controller?command=last"/>
+  <c:redirect url="Controller?command=last-questions"/>
 </c:if>
 
 
@@ -78,20 +78,52 @@
 
   <script>
     $(document).ready(function() {
+      var flag = true;
       $(window).scroll(function(){
-        if($(window).scrollTop() == $(document).height() - $(window).height()){
+        if($(window).scrollTop() == $(document).height() - $(window).height() && flag){
           $('#loading').show();
-          var date = $('#posts div:last-child').attr('data-date');
-          console.log(date);
 
-        /*  $.ajax({
-            url: 'get-post.php',
-            dataType: 'html',
-            success: function(html) {
-              $('#posts').append(html);
+          $.ajax({
+            url: '/Controller',
+            type: "POST",
+            data: {
+              command: 'next-questions',
+              lastDate: $('#posts div:last-child').attr('data-date'),
+            },
+            dataType: 'json',
+            success: function(responseText) {
+              var str = "";
+              var i = 0;
+              $.each(responseText, function(index, item) {
+                i++;
+                str +="<div class='well well-sm' data-date='"+item['date']+"'>";
+                <c:choose>
+                  <c:when test="${sessionScope.user.role == 'ADMIN'}">
+                    str += '<button class="close close-question" data-id="'+item['id']+'"><span aria-hidden="true">&times;</span></button>';
+                  </c:when>
+                  <c:otherwise>
+                    <c:if test="${sessionScope.user != null}">
+                      var auth = '<c:out value="${sessionScope.user.login}" />';
+                      console.log(auth);
+                      if(auth === item['author']){
+                        str += '<button class="close close-question" data-id="'+item['id']+'"><span aria-hidden="true">&times;</span></button>';
+                      }
+                    </c:if>
+                  </c:otherwise>
+                </c:choose>
+                str += "<form action='/QuestionPage' method='post'><input type='hidden' name='id' value='"+item['id']+"'><input type='submit' value='"+item['text']+"' class='btn-link'></form><p><a href='#' class='text-muted'>"+ item['author'] + "</a><span class='text-muted'> ${in} </span><a class='text-muted'>"+item['topic']+"</a>";
+                <c:if test="${sessionScope.user != null}">
+                  str+='<span class="text-muted"> &bull; </span><a class="text-muted" href="/QuestionPage?id='+item['id']+'#answer-text"><span class="glyphicon glyphicon-comment" style="font-size: 12px"></span>${ask}</a>';
+                </c:if>
+                str += "</p></div> ";
+                });
+              if(i < 10){
+                flag = false;
+              }
+              $('#posts').append(str);
               $('#loading').hide();
             }
-          });*/
+          });
         }
       })
     });

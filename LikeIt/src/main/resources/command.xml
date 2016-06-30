@@ -21,7 +21,11 @@
     </class>
     <class>
         <name>GetLastQuestionsCommand</name>
-        <command>last</command>
+        <command>last-questions</command>
+    </class>
+    <class>
+        <name>GetNextQuestionsCommand</name>
+        <command>next-questions</command>
     </class>
     <class>
         <name>AddQuestionCommand</name>

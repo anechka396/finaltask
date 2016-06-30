@@ -10,4 +10,6 @@ public interface QuestionDAO extends BaseDAO<Question, Integer> {
     List<Question> retrieveAll(String topic) throws DaoException;
     List<Question> retrieveLast() throws DaoException;
     List<Question> retrieveLast(String topic) throws DaoException;
+    List<Question> retrieveNext(Timestamp lastDate) throws DaoException;
+    List<Question> retrieveNext(String topic, Timestamp lastDate) throws DaoException;
 }

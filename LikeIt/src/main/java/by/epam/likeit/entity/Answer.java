@@ -1,9 +1,8 @@
 package by.epam.likeit.entity;
 
-/**
- * Created by Пользователь on 04.05.2016.
- */
-public class Answer {
+import java.io.Serializable;
+
+public class Answer implements Serializable {
     private int id;
     private int qId;
     private int mark;
