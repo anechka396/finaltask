@@ -5,16 +5,21 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 
+/** This class manage with database connections.
+ * For initialization connection pool used property file.
+ * @author Anna Yakubenko
+ * @author anechka396@mail.ru
+ * @version 1.0
+ */
 public class ConnectionPool {
-    private final Logger LOGGER = LogManager.getRootLogger();
-    private static ConnectionPool instance = new ConnectionPool();
+    private static final Logger LOGGER = LogManager.getRootLogger();
+    private static final ConnectionPool INSTANCE = new ConnectionPool();
     private BlockingQueue<Connection> connectionQueue;
     private BlockingQueue<Connection> givenAwayConnections;
 
@@ -25,7 +30,6 @@ public class ConnectionPool {
     private int poolSize;
 
     private ConnectionPool(){
-
         DBResourceManager resourceManager = DBResourceManager.getInstance();
         this.driverName = resourceManager.getValue(DBParameter.DB_DRIVER);
         this.url = resourceManager.getValue(DBParameter.DB_URL);
@@ -38,10 +42,19 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * This method returns the instance of ConnectionPool.
+     * All use only one connection pool.
+     * @return
+     */
     public static ConnectionPool getInstance(){
-        return instance;
+        return INSTANCE;
     }
 
+    /**
+     * Method connects to database and create connections.
+     * @throws ConnectionPoolException
+     */
     public void initPoolDate() throws ConnectionPoolException {
         try {
             Class.forName(driverName);
@@ -52,24 +65,34 @@ public class ConnectionPool {
                 connectionQueue.add(new PooledConnection(connection));
             }
         } catch (ClassNotFoundException e) {
-            LOGGER.error("Problems with loading driver", e);
+            LOGGER.error("Problems with loading driver.", e);
         } catch (SQLException e) {
-            throw new ConnectionPoolException(e);
+            throw new ConnectionPoolException("Problems with connection to db.", e);
         }
     }
 
-
+    /**
+     * Method returns connection from connection pool.
+     * @return Connection to database
+     * @throws ConnectionPoolException
+     */
     public Connection takeConnection() throws ConnectionPoolException {
         Connection connection = null;
         try {
             connection = connectionQueue.take();
             givenAwayConnections.add(connection);
         } catch (InterruptedException e) {
-            throw new ConnectionPoolException("", e);
+            throw new ConnectionPoolException("Problems with connectionQueue.", e);
         }
         return connection;
     }
 
+    /**
+     * Method put connection to connection pool and close statement and result set.
+     * @param con
+     * @param st
+     * @param rs
+     */
     public void closeConnection(Connection con, Statement st, ResultSet rs){
         try {
             con.close();
@@ -91,6 +114,11 @@ public class ConnectionPool {
     }
 
 
+    /**
+     * Method put connection to connection pool and close statement.
+     * @param con
+     * @param st
+     */
     public void closeConnection(Connection con, Statement st){
         try {
             con.close();
@@ -105,8 +133,10 @@ public class ConnectionPool {
         }
     }
 
-
-
+    /**
+     * This method ends work with connection pool.
+     * @throws ConnectionPoolException
+     */
     public void dispose() throws ConnectionPoolException {
         try {
             ClearConnectionQueue();
@@ -197,7 +227,7 @@ public class ConnectionPool {
             }
 
             if(!connectionQueue.offer(this)){
-                throw new SQLException("Error deleting connection from connection queue.");
+                throw new SQLException("Error adding connection to connection queue.");
             }
         }
 

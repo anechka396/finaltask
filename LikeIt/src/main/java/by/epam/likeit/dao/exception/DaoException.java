@@ -1,7 +1,9 @@
 package by.epam.likeit.dao.exception;
 
-/**
- * Created by Пользователь on 17.04.2016.
+/** Exeption used on the dao layer.
+ * @author Anna Yakubenko
+ * @author anechka396@mail.ru
+ * @version 1.0
  */
 public class DaoException extends Exception {
     public DaoException() {

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" errorPage="/error.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -59,17 +59,6 @@
                     <div class="col-sm-9">
                         <input type="text" name="surname" id="surname" value="${user.lastName}" class="form-control"
                                data-minlength="2" data-minlength-error="${errLength2}"
-                               required data-error="${errRequired}"
-                        >
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="login" class="col-sm-3 control-label">${login}*</label>
-                    <div class="col-sm-9">
-                        <input type="text" name="login" id="login" value="${user.login}" class="form-control"
-                               data-minlength="5" data-minlength-error="${errLength5}"
-                               data-pattern="^\w+$" data-pattern-error="${errPattern}"
                                required data-error="${errRequired}"
                         >
                         <div class="help-block with-errors"></div>

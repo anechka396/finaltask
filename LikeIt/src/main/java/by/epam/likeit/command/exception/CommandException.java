@@ -1,7 +1,9 @@
 package by.epam.likeit.command.exception;
 
-/**
- * Created by Пользователь on 17.04.2016.
+/** Exception on the command layer.
+ * @author Anna Yakubenko
+ * @author anechka396@mail.ru
+ * @version 1.0
  */
 public class CommandException extends Exception {
     public CommandException() {

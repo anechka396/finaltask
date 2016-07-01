@@ -8,6 +8,7 @@ import by.epam.likeit.service.ServiceFactory;
 import by.epam.likeit.service.UserService;
 import by.epam.likeit.service.exception.ServiceException;
 
+import by.epam.likeit.util.Util;
 import org.apache.commons.fileupload.*;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -28,7 +29,7 @@ public class ChangeImageCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-
+        String page = PageName.ERROR_PAGE;
         File file = getFileFromRequest(request);
         User user = (User) request.getSession().getAttribute(USER);
 
@@ -38,12 +39,13 @@ public class ChangeImageCommand implements Command {
             String imageURL = userService.changeImage(user, file);
             user.setImageURL(imageURL);
             request.getSession().setAttribute(USER, user);
+            request.setAttribute(METHOD, REDIRECT);
+            page = PageName.USER_PAGE;
         } catch (ServiceException e) {
-            throw new CommandException(e);
+            page = Util.processErrorMessage(e, request, PageName.USER_PAGE);
         }
 
-        request.setAttribute(METHOD, REDIRECT);
-        return PageName.USER_PAGE;
+        return page;
     }
 
     private File getFileFromRequest(HttpServletRequest request){

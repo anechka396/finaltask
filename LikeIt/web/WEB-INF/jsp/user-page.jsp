@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" errorPage="/error.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -95,7 +95,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" form="change-image-form" class="btn btn-primary">${save}</button>
+                    <button type="submit" id="submitImageForm" form="change-image-form" class="btn btn-primary">${save}</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">${close}</button>
                 </div>
             </div>
@@ -118,32 +118,9 @@
                 login: $('#login').val()
             },
             success : function(responseText) {
-                $('#rating').rating('update', responseText)
+                $('#rating').rating('update', responseText);
             }
         });
-
-        $('#myModal').on('hidden.bs.modal', function(e){
-            $('#change-password-form')[0].reset();
-        });
-
-        $('#change-password-form').submit(function(e){
-            $.ajax({
-                url: '/Controller',
-                type: 'post',
-                data: {
-                    command: 'change-password',
-                    oldPassword: $('#old-password').val(),
-                    newPassword: $('#new-password').val(),
-                    repeatNewPassword: $('#new-password-2').val()
-                },
-                success: function(data){
-                    $('#myModal').modal('hide');
-                }
-            });
-
-            e.preventDefault();
-        });
-
     });
 </script>
 </body>

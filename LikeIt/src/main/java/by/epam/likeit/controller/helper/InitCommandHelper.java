@@ -10,15 +10,24 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/** InitCommandHelper class used for initialization of commandHelper from file.
+ * @author Anna Yakubenko
+ * @author anechka396@mail.ru
+ * @version 1.0
+ */
 public class InitCommandHelper {
 
-    private static final Logger logger = LogManager.getRootLogger();
+    private static final Logger LOGGER = LogManager.getRootLogger();
 
+    /**
+     * This method initialize CommandHelper helper from file with name xmlFileName.
+     * @param helper CommandHelper
+     * @param xmlFileName Name of file with commands
+     */
     public void init(CommandHelper helper, String xmlFileName){
 
         Map<CommandName, Command> commands = new HashMap<>();
@@ -32,7 +41,7 @@ public class InitCommandHelper {
             commands = handler.getCommands();
             helper.initCommands(commands);
         } catch (SAXException | IOException e) {
-            logger.trace(e);
+            LOGGER.error(e);
         }
     }
 
@@ -73,7 +82,7 @@ public class InitCommandHelper {
                         command = (Command) clazz.newInstance();
                         commands.put(CommandName.valueOf(commandName.toUpperCase().replace("-", "_")), command);
                     } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-                        logger.error(e);
+                        LOGGER.error(e);
                     }
                     command = null;
                     break;

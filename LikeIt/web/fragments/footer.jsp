@@ -19,14 +19,14 @@
             <span>${author}</span>
         </div>
         <div class="row">
-            <div class="col-sm-2 col-sm-offset-4 text-right">
+            <div class="col-xs-12 col-sm-2 col-sm-offset-4 text-centert">
                 <form action="Controller" method="post" class="lang_button">
                     <input type="hidden" name="command" value="locale">
                     <input type="hidden" name="locale" value="en">
                     <input type="submit" class="btn-link" value="${en}"/>
                 </form>
             </div>
-            <div class="col-sm-2 text-left">
+            <div class="col-xs-12 col-sm-2 text-center">
                 <form action="Controller" method="post" class="lang_button">
                     <input type="hidden" name="command" value="locale">
                     <input type="hidden" name="locale" value="ru">

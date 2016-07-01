@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" errorPage="error.jsp" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" errorPage="error.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -114,8 +114,8 @@
                 </div>
             </form>
         </div>
-        <c:import url="/fragments/footer.jsp"/>
     </div>
+    <c:import url="/fragments/footer.jsp"/>
 </div>
 
 <script>

@@ -8,6 +8,12 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+/**
+ * Initialize connection pool when servlet start().
+ * @author Anna Yakubenko
+ * @author anechka396@mail.ru
+ * @version 1.0
+ */
 public class InitializeListener implements ServletContextListener {
 
     private static final Logger LOGGER = LogManager.getRootLogger();

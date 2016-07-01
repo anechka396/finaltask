@@ -29,6 +29,8 @@ public class UserServiceImpl implements UserService {
     private static final String emailPattern = "^[-a-z0-9_]+@[a-z]+\\.[a-z]{2,4}$";
     private static final String URL = "url";
     private static final String EMPTY = "";
+    private static final String SPACE = " ";
+    private static final String ALERT = "alert";
     private static final String ERROR_LOGIN = "prop.invalidLogin";
     private static final String ERROR_LOGIN_LENGTH = "prop.invalidLoginLength";
     private static final String ERROR_PASSWORD_LENGTH = "prop.invalidPasswordLength";
@@ -38,40 +40,41 @@ public class UserServiceImpl implements UserService {
     private static final String ERROR_EMAIL = "prop.invalidEmail";
     private static final String ERROR_NO_SUCH_USER = "prop.noSuchUser";
     private static final String ERROR_PASSWORD = "prop.invalidPassword";
+    private static final String ERROR_ACCESS_DENIED = "prop.access.denied";
 
     private void validateLogin(String login) throws ServiceException {
         Pattern pattern = Pattern.compile(loginPattern);
         Matcher matcher = pattern.matcher(login);
         if(!matcher.find()){
-            throw new ServiceException(ERROR_LOGIN);
+            throw new ServiceException(makeAlertMessage(ERROR_LOGIN));
         } else if(login.length() < 5){
-            throw new ServiceException(ERROR_LOGIN_LENGTH);
+            throw new ServiceException(makeAlertMessage(ERROR_LOGIN_LENGTH));
         }
     }
 
     private void validatePassword(String password) throws ServiceException {
         if(password.length() < 5){
-            throw  new ServiceException(ERROR_PASSWORD_LENGTH);
+            throw  new ServiceException(makeAlertMessage(ERROR_PASSWORD_LENGTH));
         }
     }
 
     private void validatePassword(String password, String repeatPassword) throws ServiceException {
         if(password.length() < 5){
-            throw new ServiceException(ERROR_PASSWORD_LENGTH);
+            throw new ServiceException(makeAlertMessage(ERROR_PASSWORD_LENGTH));
         } else if(!password.equals(repeatPassword)){
-            throw new ServiceException(ERROR_PASSWORD_DIFFERENT);
+            throw new ServiceException(makeAlertMessage(ERROR_PASSWORD_DIFFERENT));
         }
     }
 
     private void validateName(String name) throws ServiceException {
         if(name.length() < 2){
-            throw new ServiceException(ERROR_NAME_LENGTH);
+            throw new ServiceException(makeAlertMessage(ERROR_NAME_LENGTH));
         }
     }
 
     private void  validateSurname(String surname) throws ServiceException {
         if(surname.length() < 2){
-            throw new ServiceException(ERROR_SURNAME_LENGTH);
+            throw new ServiceException(makeAlertMessage(ERROR_SURNAME_LENGTH));
         }
     }
 
@@ -79,7 +82,7 @@ public class UserServiceImpl implements UserService {
         Pattern pattern = Pattern.compile(emailPattern);
         Matcher matcher = pattern.matcher(email);
         if(!matcher.find()){
-            throw new ServiceException(ERROR_EMAIL);
+            throw new ServiceException(makeAlertMessage(ERROR_EMAIL));
         }
     }
 
@@ -97,9 +100,9 @@ public class UserServiceImpl implements UserService {
         }
 
         if(user == null){
-            throw new ServiceException(ERROR_NO_SUCH_USER);
+            throw new ServiceException(makeAlertMessage(ERROR_NO_SUCH_USER));
         } else if (!password.equals(user.getPassword())){
-            throw new ServiceException(ERROR_PASSWORD);
+            throw new ServiceException(makeAlertMessage(ERROR_PASSWORD));
         }
 
         return  user;
@@ -123,7 +126,7 @@ public class UserServiceImpl implements UserService {
         } catch (DaoException e) {
             String message = e.getMessage();
             if(!message.equals(EMPTY)) {
-                throw new ServiceException(message);
+                throw new ServiceException(makeAlertMessage(message));
             } else{
                 throw new ServiceException(e);
             }
@@ -136,7 +139,7 @@ public class UserServiceImpl implements UserService {
     public void changePassword(User user, String oldPassword, String newPassword, String repeatNewPassword) throws ServiceException {
 
         if(user == null){
-            throw new ServiceException();
+            throw new ServiceException(ERROR_ACCESS_DENIED);
         }
 
         validatePassword(newPassword, repeatNewPassword);
@@ -146,7 +149,7 @@ public class UserServiceImpl implements UserService {
         try {
             String password = userDAO.retrieveUserPassword(login);
             if(!password.equals(oldPassword)){
-                throw new ServiceException(ERROR_PASSWORD);
+                throw new ServiceException(makeAlertMessage(ERROR_PASSWORD));
             }
 
             if(password.equals(newPassword)){
@@ -163,7 +166,7 @@ public class UserServiceImpl implements UserService {
     public String changeImage(User user, File file) throws ServiceException {
 
         if(user == null){
-            throw new ServiceException();
+            throw new ServiceException(ERROR_ACCESS_DENIED);
         }
 
         String imageURL = EMPTY;
@@ -221,5 +224,13 @@ public class UserServiceImpl implements UserService {
         }
 
         return  newUser;
+    }
+
+    private String makeAlertMessage(String message){
+        StringBuffer alertMessage = new StringBuffer();
+        alertMessage.append(ALERT);
+        alertMessage.append(SPACE);
+        alertMessage.append(message);
+        return alertMessage.toString();
     }
 }

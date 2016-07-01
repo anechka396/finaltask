@@ -1,7 +1,9 @@
 package by.epam.likeit.dao.pool.exception;
 
-/**
- * Created by Пользователь on 19.04.2016.
+/** Exception for ConnectionPool.
+ * @author Anna Yakubenko
+ * @author anechka396@mail.ru
+ * @version 1.0
  */
 public class ConnectionPoolException extends Exception {
     public ConnectionPoolException() {

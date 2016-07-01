@@ -1,6 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" errorPage="/error.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<c:if test="${param.id eq null}">
+    <c:redirect url="/Error"/>
+</c:if>
 
 <c:if test="${requestScope.question == null}">
     <c:redirect url="/Controller">
@@ -42,7 +46,10 @@
                     </c:otherwise>
                 </c:choose>
             </div>
-            <a class="btn btn-default" href="#answer-text">${reply}</a>
+            <c:if test="${sessionScope.user ne null}">
+                <a class="btn btn-default" href="#answer-text">${reply}</a>
+            </c:if>
+
 
             <h2>${answers}:</h2>
             <div id="answers">

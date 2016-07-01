@@ -16,6 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/** This class is controller for application LikeIt.
+ * @author Anna Yakubenko
+ * @author anechka396@mail.ru
+ * @version 1.0
+ */
 public class Controller extends HttpServlet {
 
     private static final CommandHelper helper = new CommandHelper();
@@ -76,7 +81,6 @@ public class Controller extends HttpServlet {
             page = command.execute(req, resp);
         } catch (CommandException e) {
             LOGGER.error(e);
-            req.setAttribute(METHOD, REDIRECT);
         }
         return page;
     }

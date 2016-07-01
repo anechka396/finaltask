@@ -7,6 +7,7 @@ import by.epam.likeit.entity.User;
 import by.epam.likeit.service.ServiceFactory;
 import by.epam.likeit.service.UserService;
 import by.epam.likeit.service.exception.ServiceException;
+import by.epam.likeit.util.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,11 +29,7 @@ public class RegistrationCommand implements Command {
     private static final String EMAIL = "email";
     private static final String METHOD = "method";
     private static final String REDIRECT = "redirect";
-    private static final String EMPTY = "empty";
     private static final String ERROR = "error";
-    private static final String RU = "ru";
-    private static final String LOCALE = "locale";
-    private static final String PATH_TO_PROP_FILE = "localization/prop";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
@@ -56,30 +53,9 @@ public class RegistrationCommand implements Command {
             page = PageName.USER_PAGE;
             request.setAttribute(METHOD, REDIRECT);
         } catch (ServiceException e) {
-            String message = e.getMessage();
-            if(!message.equals(EMPTY)){
-                ResourceBundle bundle =  ResourceBundle.getBundle(PATH_TO_PROP_FILE, getLocale(request));
-                request.setAttribute(ERROR, bundle.getString(message));
-                page = PageName.LOGIN_PAGE;
-            } else {
-                throw new CommandException(e);
-            }
+            page = Util.processErrorMessage(e, request, PageName.REGISTRATION_PAGE);
         }
 
         return page;
-    }
-
-    private Locale getLocale(HttpServletRequest request){
-        Locale locale = new Locale(RU);
-        Cookie[] cookies = request.getCookies();
-
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals(LOCALE)) {
-                    locale = new Locale(cookie.getValue());
-                }
-            }
-        }
-        return locale;
     }
 }

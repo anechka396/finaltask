@@ -33,7 +33,7 @@
             <form id="loginForm" action="Controller" method="post" class="form-horizontal" data-toggle="validator">
                 <input type="hidden" name="command" value="login">
                 <c:if test="${requestScope.error != null}">
-                    <div class="alert alert-danger alert-dismissible" role="alert" data-message="${requestScope.error}">
+                    <div class="alert alert-danger alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <c:out value="${requestScope.error}"/>
                     </div>

@@ -26,6 +26,12 @@
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
                 <form class="form-horizontal text-left" method="post" action="/Controller"  data-toggle="validator">
                     <input type="hidden" name="command" value="change-password">
+                    <c:if test="${requestScope.error != null}">
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <c:out value="${requestScope.error}"/>
+                        </div>
+                    </c:if>
                     <div class="row form-group">
                         <label for="old-password" class="col-sm-4 control-label">${oldPassword}:</label>
                         <div class="col-sm-8">

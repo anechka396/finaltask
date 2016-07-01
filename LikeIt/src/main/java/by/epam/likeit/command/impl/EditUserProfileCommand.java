@@ -7,6 +7,7 @@ import by.epam.likeit.entity.User;
 import by.epam.likeit.service.ServiceFactory;
 import by.epam.likeit.service.UserService;
 import by.epam.likeit.service.exception.ServiceException;
+import by.epam.likeit.util.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -46,13 +47,7 @@ public class EditUserProfileCommand implements Command{
             page = PageName.USER_PAGE;
             request.setAttribute(METHOD, REDIRECT);
         } catch (ServiceException e) {
-            String message = e.getMessage();
-            if(!message.equals(EMPTY)){
-                page = PageName.EDIT_USER_PAGE;
-                request.setAttribute(ERROR, message);
-            } else {
-                throw new CommandException(e);
-            }
+            page = Util.processErrorMessage(e, request, PageName.EDIT_USER_PAGE);
         }
 
         return page;

@@ -28,36 +28,27 @@ public class GetNextQuestionsCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         List<Question> questions = null;
-        String topic = null;
+        String topic = request.getParameter(TOPIC);
         Timestamp lastDate = Timestamp.valueOf(request.getParameter(LAST_DATE));
-      //  LOGGER.trace(lastDate);
 
         try {
             QuestionDAO questionDAO = QuestionDAOFactory.getInstance();
-            topic = request.getParameter(TOPIC);
+
             if(topic != null){
                 questions = questionDAO.retrieveNext(topic, lastDate);
             } else {
                 questions = questionDAO.retrieveNext(lastDate);
             }
 
-            for(Question q: questions){
-                LOGGER.trace(q.getText());
-            }
-
             Gson gson = new Gson();
             String json = gson.toJson(questions);
-
-            LOGGER.trace(json);
 
             request.setAttribute(METHOD, AJAX);
             response.setContentType(CONTENT_TYPE);
             response.getWriter().write(json);
 
-        } catch (DaoException e) {
+        } catch (DaoException | IOException e) {
             throw new CommandException(e);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return null;
     }

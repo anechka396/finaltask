@@ -39,7 +39,7 @@ public class UserDAOImpl implements UserDAO {
     private static final String URL = "url";
     private static final String USER = "user";
     private static final String EMPTY = "";
-    private static final String DUPLICATE = "duplicate";
+    private static final String ERROR_DUPLICATE = "prop.duplicate";
 
     public static final int MYSQL_DUPLICATE_PK = 1062;
 
@@ -62,7 +62,7 @@ public class UserDAOImpl implements UserDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             if(e.getErrorCode() == MYSQL_DUPLICATE_PK){
-                throw new DaoException(DUPLICATE);
+                throw new DaoException(ERROR_DUPLICATE);
             } else{
                 throw new DaoException(e);
             }
@@ -165,7 +165,7 @@ public class UserDAOImpl implements UserDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             if(e.getErrorCode() == MYSQL_DUPLICATE_PK){
-                throw new DaoException(DUPLICATE);
+                throw new DaoException(ERROR_DUPLICATE);
             } else{
                 throw new DaoException(e);
             }

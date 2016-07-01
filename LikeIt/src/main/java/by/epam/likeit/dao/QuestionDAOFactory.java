@@ -3,7 +3,10 @@ package by.epam.likeit.dao;
 import by.epam.likeit.dao.impl.QuestionDAOImpl;
 
 /**
- * Created by Пользователь on 30.04.2016.
+ * Returns the realization of class QuestionDAO.
+ * @author Anna Yakubenko
+ * @author anechka396@mail.ru
+ * @version 1.0
  */
 public class QuestionDAOFactory {
     private static QuestionDAO questionDAO = new QuestionDAOImpl();

@@ -6,6 +6,12 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.*;
 import java.io.IOException;
 
+/**
+ * Set the encoding to servletRequest and servletResponse. The encoding sets in web.xml.
+ * @author Anna Yakubenko
+ * @author anechka396@mail.ru
+ * @version 1.0
+ */
 public class CharsetFilter implements Filter {
 
     private String encoding;
