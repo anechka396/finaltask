@@ -2,7 +2,6 @@ package by.epam.likeit.service;
 
 import by.epam.likeit.entity.User;
 import by.epam.likeit.service.exception.ServiceException;
-import sun.plugin2.os.windows.SECURITY_ATTRIBUTES;
 
 import java.io.File;
 
